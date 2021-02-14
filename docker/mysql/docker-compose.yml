@@ -1,0 +1,31 @@
+version: '2'
+services:
+    web:
+        image: iq-php7-laravel
+        container_name: iqCommerce
+        #tty: true
+        #stdin_open: true
+        ports:
+            - "8001:8080"
+        restart: unless-stopped
+        volumes:
+            - ../:/var/www/html:rw
+
+    mysql:
+        image: iq-mysql
+        conainer_name: iqCommerce-mysql
+        tty: true
+        stdin_open: true
+        port: 3601:3306
+        restart: unless-stopped
+        environment:
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - PATH=/opt/app-root/src/bin:/opt/app-root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/mysql
+            - SUMMARY=Mysql
+            - DESCRIPTION
+            - APP_DATA=/opt/app-root/src
+            - CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/mysql
+        volumes:
+            - type: bind
+              source: ${MYSQL_DATA_FOLDER}
+              target: /var/lib/mysql
