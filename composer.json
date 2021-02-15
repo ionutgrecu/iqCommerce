@@ -60,12 +60,14 @@
             "@php artisan key:generate --ansi"
         ],
         "http": [
-            "sudo docker build -t iq-php7-laravel docker/http",
-            "sudo docker-compose -f docker/docker-compose.yml up -d"
+            "sudo bash -c 'docker build -t iq-php7-laravel docker/http && docker-compose -f docker/http/docker-compose.yml up -d'"
         ],
         "mysql": [
-            "@putenv MYSQL_ROOT_PASSWORD=6zkrHcGh9PTU2PplgbST",
-            "@putenv MYSQL_DATA_FOLDER=$HOME/.mysql/iqCommerce"
+            "truncate -s 0 docker/mysql/.env",
+            "echo \"MYSQL_ROOT_PASSWORD=6zkrHcGh9PTU2PplgbST\" >> docker/mysql/.env",
+            "echo \"MYSQL_DATA_FOLDER=$HOME/.mysql/iqCommerce\" >> docker/mysql/.env",
+            "mkdir -p $HOME/.mysql/iqCommerce",
+            "sudo bash -c 'docker build -t iq-mysql docker/mysql && docker-compose -f docker/mysql/docker-compose.yml up -d'"
         ]
     }
 }
