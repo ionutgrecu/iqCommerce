@@ -6,7 +6,7 @@ services:
         tty: true
         stdin_open: true
         ports:
-            - "13000:3306"
+            - "3601:3306"
         restart: unless-stopped
         environment:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}

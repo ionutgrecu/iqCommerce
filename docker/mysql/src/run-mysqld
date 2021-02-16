@@ -2,7 +2,7 @@
 
 export_vars=$(cgroup-limits); export $export_vars
 
-sed -i -e "s/^server-id =.*$/server-id = ${MYSQL_SERVER_ID}/g" -e "s/^auto_increment_increment =.*$/auto_increment_increment = ${MYSQL_AUTO_INCREMENT_INCREMENT}/g" -e "s/^auto_increment_offset =.*$/auto_increment_offset = ${MYSQL_AUTO_INCREMENT_OFFSET}/g" /etc/my.cnf
+#sed -i -e "s/^server-id =.*$/server-id = ${MYSQL_SERVER_ID}/g" -e "s/^auto_increment_increment =.*$/auto_increment_increment = ${MYSQL_AUTO_INCREMENT_INCREMENT}/g" -e "s/^auto_increment_offset =.*$/auto_increment_offset = ${MYSQL_AUTO_INCREMENT_OFFSET}/g" /etc/my.cnf
 
 source ${CONTAINER_SCRIPTS_PATH}/common.sh
 set -eu

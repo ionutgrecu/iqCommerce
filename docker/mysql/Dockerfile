@@ -13,7 +13,7 @@ RUN chmod 0755 /etc/my.cnf
 
 WORKDIR /
 
-EXPOSE 13000:3306
+EXPOSE 3601:3306
 
 USER mysql
 

@@ -63,11 +63,9 @@
             "sudo bash -c 'docker build -t iq-php7-laravel docker/http && docker-compose -f docker/http/docker-compose.yml up -d'"
         ],
         "mysql": [
-            "truncate -s 0 docker/mysql/.env",
-            "echo \"MYSQL_ROOT_PASSWORD=6zkrHcGh9PTU2PplgbST\" >> docker/mysql/.env",
-            "echo \"MYSQL_DATA_FOLDER=$HOME/.mysql/iqCommerce\" >> docker/mysql/.env",
-            "mkdir -p $HOME/.mysql/iqCommerce",
-            "sudo bash -c 'docker build -t iq-mysql docker/mysql && docker-compose -f docker/mysql/docker-compose.yml up -d'"
+            "if [ ! -f docker/mysql/.env ]; then echo \"MYSQL_ROOT_PASSWORD=6zkrHcGh9PTU2PplgbST\" >> docker/mysql/.env && echo \"MYSQL_DATA_FOLDER=$HOME/.mysql/iqCommerce\" >> docker/mysql/.env ; fi",
+            "mkdir -p $HOME/.mysql/iqCommerce ; chmod 0777 $HOME/.mysql/iqCommerce",
+            "sudo bash -c 'cd ./docker/mysql/ && docker build -t iq-mysql . && docker-compose -f ./docker-compose.yml up -d'"
         ]
     }
 }
