@@ -1,5 +1,5 @@
 {
-    "name": "ionutg/iqCommerce",
+    "name": "ionutg/iqcommerce",
     "type": "project",
     "description": "A smart way to do eCommerce.",
     "keywords": [
@@ -65,7 +65,8 @@
         "mysql": [
             "if [ ! -f docker/mysql/.env ]; then echo \"MYSQL_ROOT_PASSWORD=6zkrHcGh9PTU2PplgbST\" >> docker/mysql/.env && echo \"MYSQL_DATA_FOLDER=$HOME/.mysql/iqCommerce\" >> docker/mysql/.env ; fi",
             "mkdir -p $HOME/.mysql/iqCommerce ; chmod 0777 $HOME/.mysql/iqCommerce",
-            "sudo bash -c 'cd ./docker/mysql/ && docker build -t iq-mysql . && docker-compose -f ./docker-compose.yml up -d'"
+            "sudo bash -c 'cd ./docker/mysql/ && docker build -t iq-mysql . && docker-compose -f ./docker-compose.yml up -d'",
+            "mysql -uroot -p6zkrHcGh9PTU2PplgbST -P 3301 -h 127.0.0.1 -e \"CREATE DATABASE IF NOT EXISTS iqCommerce\""
         ]
     }
 }
