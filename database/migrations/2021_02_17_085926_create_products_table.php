@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePasswordResetsTable extends Migration {
+class CreateProductsTable extends Migration {
 
     /**
      * Run the migrations.
@@ -12,7 +13,7 @@ class CreatePasswordResetsTable extends Migration {
      * @return void
      */
     public function up() {
-        $tableName = 'password_resets';
+        $tableName = (new Product)->getTable();
 
         if (Schema::hasTable($tableName)) {
             echo "$tableName already exists. Migrate " . __FILE__ . " manually";
@@ -20,9 +21,8 @@ class CreatePasswordResetsTable extends Migration {
         }
 
         Schema::create($tableName, function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -32,7 +32,14 @@ class CreatePasswordResetsTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('password_resets');
+        $tableName = (new Product)->getTable();
+
+        if (Product::count()) {
+            echo "Can't rollback " . __FILE__ . " . The table $tableName has rows.";
+            return;
+        }
+
+        Schema::dropIfExists($tableName);
     }
 
 }
