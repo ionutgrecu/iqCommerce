@@ -61,7 +61,7 @@
             "@php artisan key:generate --ansi"
         ],
         "http": [
-            "sudo bash -c 'docker build -t iq-php7-laravel docker/http && docker-compose -f docker/http/docker-compose.yml up -d && chmod -R 0777 storage'"
+            "sudo bash -c 'docker build -t iq-php7-laravel docker/http && docker-compose -f docker/http/docker-compose.yml up -d && chmod -R 0777 storage && chmod -R 0777 bootstrap'"
         ],
         "mysql": [
             "if [ ! -f docker/mysql/.env ]; then echo \"MYSQL_ROOT_PASSWORD=6zkrHcGh9PTU2PplgbST\" >> docker/mysql/.env && echo \"MYSQL_DATA_FOLDER=$HOME/.mysql/iqCommerce\" >> docker/mysql/.env ; fi",
