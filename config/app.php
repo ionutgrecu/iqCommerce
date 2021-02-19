@@ -2,7 +2,6 @@
 
 return [
     'name' => env('APP_NAME', 'iqCommerce'),
-
     //production, local
     'env' => env('APP_ENV', 'local'),
     'debug' => (bool) env('APP_DEBUG', true),
@@ -12,11 +11,9 @@ return [
     'locale' => 'ro',
     'fallback_locale' => 'en',
     'faker_locale' => 'ro_RO',
-    'key' => env('APP_KEY','base64:OqA4oVBLwFbAY7DvRT4mwmh1tBegpyBp1z9M7yzsYMU='),
+    'key' => env('APP_KEY', 'base64:OqA4oVBLwFbAY7DvRT4mwmh1tBegpyBp1z9M7yzsYMU='),
     'cipher' => 'AES-256-CBC',
-
     'providers' => [
-
         /*
          * Laravel Framework Service Providers...
          */
@@ -42,7 +39,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
         /*
          * Package Service Providers...
          */
@@ -55,9 +51,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        App\Providers\FortifyServiceProvider::class
     ],
-
     'aliases' => [
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
@@ -95,7 +90,5 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
     ],
-
 ];
