@@ -61,8 +61,21 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
+        "post-install-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "npm i",
+            "chmod -R 0777 storage"
+        ],
+        "post-update-cmd":[
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "npm i",
+            "chmod -R 0777 storage bootstrap"
+        ],
+        "test":[
+            "@php artisan test"
+        ],
         "http": [
-            "sudo bash -c 'docker build -t iq-php7-laravel docker/http && docker-compose -f docker/http/docker-compose.yml up -d && chmod -R 0777 storage'"
+            "sudo bash -c 'docker build -t iq-php7-laravel docker/http && docker-compose -f docker/http/docker-compose.yml up -d && chmod -R 0777 storage bootstrap'"
         ],
         "mysql": [
             "if [ ! -f docker/mysql/.env ]; then echo \"MYSQL_ROOT_PASSWORD=6zkrHcGh9PTU2PplgbST\" >> docker/mysql/.env && echo \"MYSQL_DATA_FOLDER=$HOME/.mysql/iqCommerce\" >> docker/mysql/.env ; fi",
