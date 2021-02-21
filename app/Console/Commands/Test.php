@@ -37,7 +37,7 @@ class Test extends Command
      */
     public function handle()
     {
-        dd(\DB::getConfig());
+        dd(\App\Models\User::find(1));
         return 0;
     }
 }

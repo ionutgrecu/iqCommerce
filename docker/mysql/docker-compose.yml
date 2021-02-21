@@ -12,6 +12,7 @@ services:
             - ../../:/var/www/html:rw
         links:
             - mysql-local
+        hostname: php.local
         
     mysql-local:
         image: iq-mysql
