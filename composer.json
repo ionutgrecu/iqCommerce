@@ -81,7 +81,7 @@
         "mysql": [
             "if [ ! -f docker/mysql/.env ]; then echo \"MYSQL_ROOT_PASSWORD=6zkrHcGh9PTU2PplgbST\" >> docker/mysql/.env && echo \"MYSQL_DATA_FOLDER=$HOME/.mysql/iqCommerce\" >> docker/mysql/.env ; fi",
             "mkdir -p $HOME/.mysql/iqCommerce ; chmod 0777 $HOME/.mysql/iqCommerce",
-            "sudo bash -c 'docker kill iqCommerce iqCommerce-mysql ; docker rm iqCommerce iqCommerce-mysql ; cd ./docker/mysql/ && docker build -t iq-mysql . && docker-compose -f ./docker-compose.yml up --force-recreate -d && if grep -q mysql.local \"/etc/hosts\"; then echo \"mysql.local    127.0.0.1\"; fi;'",
+            "sudo bash -c 'docker kill iqCommerce iqCommerce-mysql ; docker rm iqCommerce iqCommerce-mysql ; cd ./docker/mysql/ && docker build -t iq-mysql . && docker-compose -f ./docker-compose.yml up --force-recreate -d && if grep -L \"mysql.local\" \"/etc/hosts\"; then echo \"mysql.local    127.0.0.1\" >> /etc/hosts ; fi;'",
             "echo \"Waiting for mysql to warm up\" ; sleep 15 ; mysql -uroot -p6zkrHcGh9PTU2PplgbST -P 3301 -h 127.0.0.1 -e \"CREATE DATABASE IF NOT EXISTS iqCommerce\""
         ]
     }
