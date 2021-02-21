@@ -1,6 +1,19 @@
 version: '3.3'
 services:
-    mysql:
+    web:
+        image: iq-php7-laravel
+        container_name: iqCommerce
+        #tty: true
+        #stdin_open: true
+        ports:
+            - "8001:8080"
+        restart: unless-stopped
+        volumes:
+            - ../../:/var/www/html:rw
+        links:
+            - mysql-local
+        
+    mysql-local:
         image: iq-mysql
         container_name: iqCommerce-mysql
         tty: true
@@ -19,3 +32,4 @@ services:
             - type: bind
               source: ${MYSQL_DATA_FOLDER}
               target: /var/lib/mysql
+        hostname: mysql
