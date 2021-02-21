@@ -8,7 +8,7 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', 'mysql.local'),
             'port' => env('DB_PORT', '3301'),
             'database' => env('DB_DATABASE', 'iqCommerce'),
             'username' => env('DB_USERNAME', 'root'),
