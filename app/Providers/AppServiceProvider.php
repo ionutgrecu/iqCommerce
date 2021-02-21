@@ -23,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if (env('production')) {
+            error_reporting(0);
+        } else {
+            error_reporting(E_ALL ^ E_NOTICE);
+            \Debugbar::enable();
+        }        
     }
 }
