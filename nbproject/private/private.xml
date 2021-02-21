@@ -3,10 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/ionut/Documents/www-linux/ase/iqCommerce/composer.json</file>
-            <file>file:/home/ionut/Documents/www-linux/ase/iqCommerce/app/Http/Controllers/ProductsController.php</file>
-            <file>file:/home/ionut/Documents/www-linux/ase/iqCommerce/database/migrations/2021_02_17_085926_create_products_table.php</file>
-            <file>file:/home/ionut/Documents/www-linux/ase/iqCommerce/app/Models/Product.php</file>
+            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/config/database.php</file>
+            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/resources/js/login.js</file>
+            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/webpack.mix.js</file>
+            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/resources/views/auth/login.blade.php</file>
+            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/resources/sass/app.scss</file>
+            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/config/app.php</file>
+            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/resources/js/bootstrap.js</file>
+            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/resources/views/auth/layout.blade.php</file>
+            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/resources/sass/login.scss</file>
+            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/app/Providers/AppServiceProvider.php</file>
+            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/routes/web.php</file>
+            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/composer.json</file>
+            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/app/Models/Product.php</file>
+            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/config/assets.php</file>
         </group>
     </open-files>
 </project-private>
