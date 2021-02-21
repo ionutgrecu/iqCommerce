@@ -7,9 +7,9 @@ Route::patterns([
     'lang' => '^[a-z]{2}|[a-z]{2}\-[a-z]{2}$',
 ]);
 
-//Route::group(['prefix' => 'admin','middleware'=>'admin'], function() {
-//    
-//});
+Route::group(['prefix' => 'admin','middleware'=>'admin'], function() {
+    Route::get('/','App\Http\Controllers\Admin\AdminController@index');
+});
 //
 //Route::group(['middleware' => 'auth'], function() {
 //    

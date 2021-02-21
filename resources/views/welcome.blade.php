@@ -25,8 +25,8 @@
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        @can('isAdmin')
-                        <a href="{{ url('/') }}" class="text-sm text-gray-700 underline">Admin Area</a>
+                        @can('isAuthor')
+                        <a href="{{ url('/admin') }}" class="text-sm text-gray-700 underline">Admin Area</a>
                         @endcan
                         <a href="{{ url('/') }}" class="text-sm text-gray-700 underline">Home</a>
                         <a href="{{ url('/logout') }}" class="text-sm text-gray-700 underline" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
