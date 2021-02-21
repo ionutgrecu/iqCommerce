@@ -32,4 +32,4 @@ services:
             - type: bind
               source: ${MYSQL_DATA_FOLDER}
               target: /var/lib/mysql
-        hostname: mysql
+        hostname: mysql.local
