@@ -11,11 +11,15 @@ class CreateUserAdmin extends Migration {
      * @return void
      */
     public function up() {
-        $user = User::firstOrNew(['id' => 1]);
+        $user = User::find(1);
+        if (!$user)
+            $user = new User;
+        $user->id = 1;
         $user->fill([
-            'name'=>'Admin',
-            'email'=>'ionut@grecu.eu',
-            'password'=> \Hash::make('fCMWLbH7Z4XavbeSaTVr')
+            'name' => 'Admin',
+            'email' => 'ionut@grecu.eu',
+            'password' => \Hash::make('fCMWLbH7Z4XavbeSaTVr'),
+            'role' => 'superadmin'
         ]);
         $user->save();
     }
