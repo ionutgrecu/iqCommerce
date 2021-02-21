@@ -17,8 +17,8 @@ use Str;
  */
 class UserUpdate extends Command {
 
-    protected $signature = 'cli:user-update {email} {--name=} {--password=} {--api-token=}';
-    protected $description = 'Create or update user. --name --password --api-token';
+    protected $signature = 'cli:user-update {email} {--name=} {--password=}';
+    protected $description = 'Create or update user. --name --password';
 
     public function __construct() {
         parent::__construct();
