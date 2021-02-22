@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,CAAC,CACA,SAAS,CAAE,IAAI",
-"sources": ["../../resources/sass/app.scss"],
-"names": [],
-"file": "app.css"
-}
