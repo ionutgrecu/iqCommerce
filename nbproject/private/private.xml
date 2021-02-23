@@ -3,20 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/config/database.php</file>
-            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/resources/js/login.js</file>
-            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/webpack.mix.js</file>
-            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/resources/views/auth/login.blade.php</file>
-            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/resources/sass/app.scss</file>
-            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/config/app.php</file>
-            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/resources/js/bootstrap.js</file>
-            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/resources/views/auth/layout.blade.php</file>
-            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/resources/sass/login.scss</file>
-            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/app/Providers/AppServiceProvider.php</file>
-            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/routes/web.php</file>
-            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/composer.json</file>
-            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/app/Models/Product.php</file>
-            <file>file:/home/ionut/Documents/Proiecte/iqCommerce/config/assets.php</file>
+            <file>file:/home/ionut/Documents/www-linux/ase/iqCommerce/resources/views/admin/shared/aside.blade.php</file>
+            <file>file:/home/ionut/Documents/www-linux/ase/iqCommerce/composer.json</file>
+            <file>file:/home/ionut/Documents/www-linux/ase/iqCommerce/.gitignore</file>
+            <file>file:/home/ionut/Documents/www-linux/ase/iqCommerce/resources/views/admin/layout.blade.php</file>
+            <file>file:/home/ionut/Documents/www-linux/ase/iqCommerce/resources/views/admin/shared/breadcrumb.blade.php</file>
+            <file>file:/home/ionut/Documents/www-linux/ase/iqCommerce/resources/views/admin/index.blade.php</file>
+            <file>file:/home/ionut/Documents/www-linux/ase/iqCommerce/webpack.mix.js</file>
         </group>
     </open-files>
 </project-private>

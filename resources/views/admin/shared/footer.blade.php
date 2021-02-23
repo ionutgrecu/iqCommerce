@@ -1,4 +1,4 @@
 <footer class="c-footer">
-  <div><a href="https://coreui.io">CoreUI</a> &copy; 2020 creativeLabs.</div>
-  <div class="ml-auto">Powered by&nbsp;<a href="https://coreui.io/">CoreUI</a></div>
+  <div><a href="https://github.com/ionutgrecu/iqCommerce" target="_blank">iqCommerce</a></div>
+  <div class="ml-auto">by&nbsp;<a href="mailto:ionut@grecu.eu">Ionut Grecu</a></div>
 </footer>

@@ -42,6 +42,7 @@ class Kernel extends HttpKernel
         'admin' => [
             'web',
             \App\Http\Middleware\AdminMiddleware::class,
+            \App\Http\Middleware\AdminMenuMiddleware::class,
         ],
 
         'api' => [
