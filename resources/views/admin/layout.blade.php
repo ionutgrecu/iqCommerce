@@ -39,7 +39,7 @@
 
             <!-- Icons-->
             <link href="<?= asset('css/admin/free.min.css') ?>" rel="stylesheet"> <!-- icons -->
-            <link href="<?= asset('css/admin/flag-icon.min.css') ?>" rel="stylesheet"> <!-- icons -->
+            <link href="<?= asset('css/admin/flag.min.css') ?>" rel="stylesheet"> <!-- icons -->
             <!-- Main styles for this application-->
             <link href="<?= asset('css/admin/style.css') ?>" rel="stylesheet">
             @yield('css')
@@ -50,22 +50,22 @@
 
         <body class="c-app">
             <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
-                @include('admin.shared.nav-builder')
+                @include('admin._partials.nav')
 
-                @include('admin.shared.header')
+                @include('admin._partials.header')
 
                 <div class="c-body">
                     <main class="c-main">
                         @yield('content')
                     </main>
 
-                    @include('admin.shared.footer')
+                    @include('admin._partials.footer')
                 </div>
             </div>
 
             <!-- CoreUI and necessary plugins-->
-            <script src="<?= asset('js/admin//coreui.bundle.min.js') ?>"></script>
-            <script src="<?= asset('js/admin//coreui-utils.js') ?>"></script>
+            <script src="<?= asset('js/admin/coreui.bundle.min.js') ?>"></script>
+            <script src="<?= asset('js/admin/coreui-utils.js') ?>"></script>
             @yield('js')
         </body>
     </html>
