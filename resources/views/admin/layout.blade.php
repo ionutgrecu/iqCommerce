@@ -5,9 +5,9 @@
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <meta name="description" content="ShopSell Admin Area">
-            <meta name="author" content="Ionut Grecu @Titirez Team">
-            <meta name="keyword" content="ShopSell, Bootstrap, Angular, jQuery">
+            <meta name="description" content="iqCommerce Admin Area">
+            <meta name="author" content="Ionut Grecu <ionut@grecu.eu>">
+            <meta name="keyword" content="iqCommerce, Bootstrap, React">
             <link rel="shortcut icon" href="/<?= $theme_path ?>favicon.ico">
             <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -38,8 +38,7 @@
             <meta name="theme-color" content="#ffffff">
 
             <!-- Icons-->
-            <link href="<?= asset('css/admin/free.min.css') ?>" rel="stylesheet"> <!-- icons -->
-            <link href="<?= asset('css/admin/flag.min.css') ?>" rel="stylesheet"> <!-- icons -->
+            <link href="<?= asset('assets/admin/icons/css/all.min.css') ?>" rel="stylesheet"> <!-- icons -->
             <!-- Main styles for this application-->
             <link href="<?= asset('css/admin/style.css') ?>" rel="stylesheet">
             @yield('css')

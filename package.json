@@ -1,6 +1,11 @@
 {
     "private": true,
     "scripts": {
+        "cleanup": "rimraf public/css public/js public/assets",
+        "predevelopment": "npm run cleanup",
+        "prewatch": "npm run cleanup",
+        "prehot": "npm run cleanup",
+        "preproduction": "npm run cleanup",
         "dev": "npm run development",
         "development": "mix",
         "watch": "mix watch",
@@ -23,7 +28,6 @@
         "browser-sync": "^2.26.7",
         "chalk": "^4.0.0",
         "clean-css-cli": "^4.3.0",
-        "clean-webpack-plugin": "^3.0.0",
         "copyfiles": "^2.2.0",
         "cross-env": "^7.0.2",
         "eslint": "^7.0.0",
@@ -61,7 +65,7 @@
     "dependencies": {
         "@coreui/chartjs": "^2.0.0",
         "@coreui/coreui": "^3.2.0",
-        "@coreui/icons": "^1.0.1",
+        "@coreui/icons": "^2.0.0-rc.0",
         "@coreui/utils": "^1.2.4",
         "@popperjs/core": "^2.4.0",
         "axios": "^0.19.0",
