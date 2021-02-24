@@ -1,5 +1,12 @@
 const mix = require('laravel-mix');
 
+if (!mix.inProduction()) {
+    mix.webpackConfig({
+        devtool: 'source-map'
+    })
+    .sourceMaps();
+}
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -53,6 +60,8 @@ mix.copy('node_modules/@coreui/icons/css', 'public/assets/admin/icons/css/');
 mix.copy('node_modules/@coreui/icons/fonts', 'public/assets/admin/icons/fonts/');
 mix.copy('node_modules/@coreui/icons/sprites', 'public/assets/admin/icons/sprites/');
 mix.copy('node_modules/@coreui/icons/svg', 'public/assets/admin/icons/svg/');
+mix.copy('node_modules/@fortawesome/fontawesome-free/css/all.min.css','public/assets/admin/fontawesome/css/');
+mix.copy('node_modules/@fortawesome/fontawesome-free/webfonts/','public/assets/admin/fontawesome/webfonts/');
 
 //images
 mix.copy('resources/assets/admin', 'public/assets/admin');

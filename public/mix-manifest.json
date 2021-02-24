@@ -50,5 +50,21 @@
     "/assets/admin/icons/fonts/CoreUI-Icons-Free.woff2": "/assets/admin/icons/fonts/CoreUI-Icons-Free.woff2",
     "/assets/admin/icons/sprites/brand.svg": "/assets/admin/icons/sprites/brand.svg",
     "/assets/admin/icons/sprites/flag.svg": "/assets/admin/icons/sprites/flag.svg",
-    "/assets/admin/icons/sprites/free.svg": "/assets/admin/icons/sprites/free.svg"
+    "/assets/admin/icons/sprites/free.svg": "/assets/admin/icons/sprites/free.svg",
+    "/assets/admin/fontawesome/css/all.min.css": "/assets/admin/fontawesome/css/all.min.css",
+    "/assets/admin/fontawesome/webfonts/fa-brands-400.eot": "/assets/admin/fontawesome/webfonts/fa-brands-400.eot",
+    "/assets/admin/fontawesome/webfonts/fa-brands-400.svg": "/assets/admin/fontawesome/webfonts/fa-brands-400.svg",
+    "/assets/admin/fontawesome/webfonts/fa-brands-400.ttf": "/assets/admin/fontawesome/webfonts/fa-brands-400.ttf",
+    "/assets/admin/fontawesome/webfonts/fa-brands-400.woff": "/assets/admin/fontawesome/webfonts/fa-brands-400.woff",
+    "/assets/admin/fontawesome/webfonts/fa-brands-400.woff2": "/assets/admin/fontawesome/webfonts/fa-brands-400.woff2",
+    "/assets/admin/fontawesome/webfonts/fa-regular-400.eot": "/assets/admin/fontawesome/webfonts/fa-regular-400.eot",
+    "/assets/admin/fontawesome/webfonts/fa-regular-400.svg": "/assets/admin/fontawesome/webfonts/fa-regular-400.svg",
+    "/assets/admin/fontawesome/webfonts/fa-regular-400.ttf": "/assets/admin/fontawesome/webfonts/fa-regular-400.ttf",
+    "/assets/admin/fontawesome/webfonts/fa-regular-400.woff": "/assets/admin/fontawesome/webfonts/fa-regular-400.woff",
+    "/assets/admin/fontawesome/webfonts/fa-regular-400.woff2": "/assets/admin/fontawesome/webfonts/fa-regular-400.woff2",
+    "/assets/admin/fontawesome/webfonts/fa-solid-900.eot": "/assets/admin/fontawesome/webfonts/fa-solid-900.eot",
+    "/assets/admin/fontawesome/webfonts/fa-solid-900.svg": "/assets/admin/fontawesome/webfonts/fa-solid-900.svg",
+    "/assets/admin/fontawesome/webfonts/fa-solid-900.ttf": "/assets/admin/fontawesome/webfonts/fa-solid-900.ttf",
+    "/assets/admin/fontawesome/webfonts/fa-solid-900.woff": "/assets/admin/fontawesome/webfonts/fa-solid-900.woff",
+    "/assets/admin/fontawesome/webfonts/fa-solid-900.woff2": "/assets/admin/fontawesome/webfonts/fa-solid-900.woff2"
 }

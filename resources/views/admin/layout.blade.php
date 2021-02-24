@@ -38,7 +38,8 @@
             <meta name="theme-color" content="#ffffff">
 
             <!-- Icons-->
-            <link href="<?= asset('assets/admin/icons/css/all.min.css') ?>" rel="stylesheet"> <!-- icons -->
+            <link href="<?= asset('assets/admin/icons/css/all.min.css') ?>" rel="stylesheet">
+            <link href="<?= asset('assets/admin/fontawesome/css/all.min.css') ?>" rel="stylesheet">
             <!-- Main styles for this application-->
             <link href="<?= asset('css/admin/style.css') ?>" rel="stylesheet">
             @yield('css')
