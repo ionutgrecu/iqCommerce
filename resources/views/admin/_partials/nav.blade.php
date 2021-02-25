@@ -12,11 +12,11 @@
             <use xlink:href="<?= url('/assets/admin/icons/sprites/brand.svg#cib-product-hunt') ?>"></use>
             </svg> <?= __('Products') ?></a>
         <ul class="c-sidebar-nav-dropdown-items">
-            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="base/breadcrumb.html"><i class="fas fa-user-secret"></i> <?=__('Vendors')?></a></li>
-            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="base/breadcrumb.html"><i class="fas fa-sitemap"></i> <?=__('Categories')?></a></li>
-            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="base/breadcrumb.html"><i class="fas fa-asterisk"></i> <?=__('Characteristics')?></a></li>
-            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="base/breadcrumb.html"><i class="fas fa-cubes"></i> <?=__('Products')?></a></li>
-            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="base/breadcrumb.html"><i class="fas fa-dollar-sign"></i> <?=__('Orders')?></a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="<?=route('admin.products')?>"><i class="fas fa-user-secret"></i> <?=__('Vendors')?></a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="<?=route('admin.products')?>"><i class="fas fa-sitemap"></i> <?=__('Categories')?></a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="<?=route('admin.products')?>"><i class="fas fa-asterisk"></i> <?=__('Characteristics')?></a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="<?=route('admin.products')?>"><i class="fas fa-cubes"></i> <?=__('Products')?></a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="<?=route('admin.products')?>"><i class="fas fa-dollar-sign"></i> <?=__('Orders')?></a></li>
         </ul>
     </li>
     <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 576px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 453px;"></div></div></ul>

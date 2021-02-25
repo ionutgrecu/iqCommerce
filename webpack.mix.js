@@ -65,3 +65,6 @@ mix.copy('node_modules/@fortawesome/fontawesome-free/webfonts/','public/assets/a
 
 //images
 mix.copy('resources/assets/admin', 'public/assets/admin');
+
+//React
+mix.js('resources/react/products/src/index.js','public/js/products.js').react();

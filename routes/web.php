@@ -9,6 +9,7 @@ Route::patterns([
 
 Route::group(['prefix' => 'admin','middleware'=>'admin'], function() {
     Route::get('/','App\Http\Controllers\Admin\AdminController@index');
+    Route::any('/products','App\Http\Controllers\Admin\ProductsController@index')->name('admin.products');
 });
 //
 //Route::group(['middleware' => 'auth'], function() {
