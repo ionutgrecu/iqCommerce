@@ -10,7 +10,6 @@ import Vendors from './Vendors'
 class App extends React.Component {
     render() {
         return <Router>
-            {APIURL}
                 <Switch>
                     <Route path='/vendors' component={Vendors} />
                     <Route path='/categories' component={Categories} />

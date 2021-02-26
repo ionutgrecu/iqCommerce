@@ -10,7 +10,7 @@ class CategoriesStore{
     async getItems(){
         try{
             const response=await axios.get(`${APIURL}/categories`,{withCredentials: true})
-            this.items=response.data
+            this.items=response.data.data
             this.emitter.emit('GET_CATEGORIES_SUCCESS')
         }catch(err){
             this.emitter.emit('GET_CATEGORIES_ERROR')
