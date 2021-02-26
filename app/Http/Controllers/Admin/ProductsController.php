@@ -10,4 +10,8 @@ class ProductsController extends Controller
     function index(){
         return view('admin.products.index');
     }
+    
+    function getCategories(){
+        return 'x';
+    }
 }
