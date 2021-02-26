@@ -2,12 +2,17 @@
 
 @section('js-head')
 <script>
-    const APIURL = "<?=route('admin.products')?>/api/";
-</script>
+    const APIURL = "<?= route('admin.products') ?>/api/";</script>
 @endsection
 
 @section('content')
-<noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
+<div class="container-fluid">
+    <div class="fade-in">
+        <div class="row">
+        <noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('js')

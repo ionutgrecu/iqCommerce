@@ -56,7 +56,7 @@
                 </div>
             </li>
         </ul>
-        <div class="c-subheader px-3">
+<!--        <div class="c-subheader px-3">
             <ol class="breadcrumb border-0 m-0">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <?php $segments = ''; ?>
@@ -69,5 +69,5 @@
                 @endif
                 @endfor
             </ol>
-        </div>
+        </div>-->
     </header>
