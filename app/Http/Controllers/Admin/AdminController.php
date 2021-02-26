@@ -9,4 +9,8 @@ class AdminController extends \App\Http\Controllers\Controller
     function index(){
         return view('admin.index');
     }
+    
+    function apiCategories(){
+        
+    }
 }

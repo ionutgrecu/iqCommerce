@@ -4,12 +4,14 @@ class Main extends React.Component {
     constructor() {
         super()
 
-        this.state={
+        this.state = {
 
         }
     }
 
     render() {
-        return <div>Main</div>
+        return (<>
+
+        </>)
     }
 } export default Main;
