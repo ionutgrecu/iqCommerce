@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import CategoryItem from './CategoryItem'
 import CategoriesStore from '../stores/CategoriesStore'
-import {Table} from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
+import AddButton from './AddButton'
 
 class Categories extends React.Component {
     constructor() {
@@ -24,14 +25,15 @@ class Categories extends React.Component {
         });
     }
 
+
     render() {
         return <>
             <Table striped bordered hover size="sm">
                 <thead>
                     <tr>
-                    <td>#</td>
-                    <td>Name</td>
-                    <td></td>
+                        <td>#</td>
+                        <td>Name</td>
+                        <td></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +42,7 @@ class Categories extends React.Component {
                     }
                 </tbody>
             </Table>
+            <AddButton />
         </>
     }
 } export default Categories
