@@ -1,8 +1,12 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import { Editor } from '@tinymce/tinymce-react'
+import CategoriesStore from '../stores/CategoriesStore'
 import SingleImageUpload from './SingleImageUpload'
 import BtnSave from './BtnSave'
+import { toast } from 'react-toastify'
+
+toast.configure()
 
 class CategoryForm extends React.Component {
     constructor(props) {
@@ -14,9 +18,15 @@ class CategoryForm extends React.Component {
             description: ''
         }
 
+        this.store = new CategoriesStore()
+
         this.handleChange = (e) => {
             console.log(e.target.value)
             this.setState({ [e.target.name]: e.target.value })
+        }
+
+        this.save = () => {
+            this.store.saveItem(this.state)
         }
     }
 
@@ -25,8 +35,11 @@ class CategoryForm extends React.Component {
         this.setState({ description: content })
     }
 
-    save() {
-        console.log('saved')
+    componentDidMount() {
+        this.store.emitter.addListener('SAVE_CATEGORY_ERROR', (message) => {
+            toast.error('Cannot save item: '+message, { position: toast.POSITION.BOTTOM_RIGHT })
+            console.log('Error on category save: '+message)
+        })
     }
 
     render() {

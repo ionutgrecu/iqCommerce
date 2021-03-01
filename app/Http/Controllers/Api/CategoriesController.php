@@ -41,7 +41,7 @@ class CategoriesController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        return response()->json(['status'=>'ok','request'=> \Request::file('image')]);
     }
 
     /**
