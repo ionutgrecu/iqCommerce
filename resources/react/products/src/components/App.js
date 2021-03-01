@@ -1,4 +1,4 @@
-import './App.scss';
+import './App.scss'
 import React, { Component } from 'react'
 import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Main from './Main'

@@ -4,18 +4,28 @@ import { Editor } from '@tinymce/tinymce-react'
 import SingleImageUpload from './SingleImageUpload';
 
 class CategoryForm extends React.Component {
+    constructor(props) {
+        super(props)
+
+    }
+
     handleEditorChange = (content, editor) => {
         console.log('Content was updated:', content);
     }
 
     render() {
-        return <Form>
+        return <Form method="POST" encType="multipart/form-data">
             <Form.Group>
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text" placeholder="Category Name"></Form.Control>
-                <Form.Label>Image</Form.Label>
-                <SingleImageUpload></SingleImageUpload>
+            </Form.Group>
+            <Form.Group>
+                <SingleImageUpload name="image"></SingleImageUpload>
+            </Form.Group>
+            <Form.Group>
                 <Form.Label>Description</Form.Label>
+            </Form.Group>
+            <Form.Group>
                 <Editor
                     initialValue=""
                     init={{
@@ -34,6 +44,6 @@ class CategoryForm extends React.Component {
                     onEditorChange={this.handleEditorChange}
                 />
             </Form.Group>
-        </Form>
+        </Form >
     }
 } export default CategoryForm
