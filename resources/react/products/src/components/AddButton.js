@@ -1,12 +1,12 @@
 import React from 'react'
 import { Fab, Action } from 'react-tiny-fab'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAsterisk,  faCubes, faPlus, faSitemap, faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { faAsterisk, faCubes, faPlus, faSitemap, faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
 class AddButton extends React.Component {
-addCategory(){
-
-}
+    addCategory() {
+        location.href="#/add-category"
+    }
 
     render() {
         return <Fab
