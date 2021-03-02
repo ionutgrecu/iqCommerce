@@ -3,17 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\CategoryRequest;
 use App\Services\ProductCategoriesService;
 use Illuminate\Http\Request;
+use Log;
+use Storage;
 
 class CategoriesController extends Controller {
 
-    private $servicce;
+    private $service;
 
     function __construct() {
         parent::__construct();
 
-        $this->servicce = new ProductCategoriesService;
+        $this->service = new ProductCategoriesService;
     }
 
     /**
@@ -22,7 +25,7 @@ class CategoriesController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        return response()->json(['status' => 'ok', 'data' => $this->servicce->getAll()]);
+        return response()->json(['status' => 'ok', 'data' => $this->service->getAll()]);
     }
 
     /**
@@ -40,12 +43,25 @@ class CategoriesController extends Controller {
      * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(\App\Http\Requests\Api\CategoryRequest $request) {
-//        print_r(request()->file('image'));
-//        if (request()->file('image')->isValid() && in_array(request()->file('image')->extension(), config('app.extensions.images'))) {
-////            $request->file('image')->storeAs();
-//        }
-        return response()->json(['status' => 'ok', 'request' => \Request::all()]);
+    public function store(CategoryRequest $request) {
+//        Log::info($request->toArray());
+        $path = '';
+
+        $category = $this->service->findOrNew((integer)$request['id']);
+        $category->fill($request->toArray());
+        $category->save();
+
+        if (request()->hasFile('image') && request()->file('image')->isValid() && in_array(request()->file('image')->extension(), config('app.extensions.images'))) {
+            $imageFile = \Storage::disk('public')->url(Storage::disk('public')->putFile('categories/'.$category->id, $request->file('image'), 'public'));               
+            
+            if($category->image && stripos($category->image, '://')===false && \Illuminate\Support\Facades\Storage::disk('public')->exists($category->image)){
+                \Storage::disk('public')->delete($category->image);
+            }
+            
+            $category->image=$imageFile;
+            $category->save();
+        }
+        return response()->json(['status' => 'ok', 'item' => $category]);
     }
 
     /**

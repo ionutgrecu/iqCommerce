@@ -13,6 +13,7 @@ class CategoryForm extends React.Component {
         super(props)
 
         this.state = {
+            id:0,
             name: '',
             image: null,
             description: ''

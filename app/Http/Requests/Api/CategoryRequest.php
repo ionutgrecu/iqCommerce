@@ -22,16 +22,18 @@ class CategoryRequest extends FormRequest {
      */
     public function rules() {
         return [
+            'id' => 'integer|min:0|required',
             'name' => 'required|max:255',
-            'description'=>'max:65535',
+            'description' => 'max:65535',
         ];
     }
 
     function messages() {
         return [
+            'id.required' => __('The item ID is missing'),
             'name.required' => __('Specify a name'),
             'name.max' => __('Name too long'),
-            'description.max'=>__('Description too long'),
+            'description.max' => __('Description too long'),
         ];
     }
 

@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\ProductCategory;
+
 /** @version 1.0.0
  * @author Ionut Grecu
  * @copyright Copyright (C) 2021
@@ -16,7 +18,16 @@ namespace App\Services;
  * @author ionut
  */
 class ProductCategoriesService {
-    function getAll(){
-        return \App\Models\ProductCategory::all();
+
+    function getAll() {
+        return ProductCategory::all();
     }
+
+    function findOrNew(int $id = null) {
+        if (!$id)
+            return new ProductCategory;
+        else
+            return ProductCategory::findOrNew($id);
+    }
+
 }
