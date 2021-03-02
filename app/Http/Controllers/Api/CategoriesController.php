@@ -61,7 +61,7 @@ class CategoriesController extends Controller {
             $category->image=$imageFile;
             $category->save();
         }
-        return response()->json(['status' => 'ok', 'item' => $category]);
+        return response()->json(['status' => 'ok', 'data' => $category]);
     }
 
     /**

@@ -4,6 +4,7 @@ import axios from 'axios'
 class CategoriesStore {
     constructor() {
         this.items = []
+        this.item={}
         this.emitter = new EventEmitter
     }
 
@@ -29,7 +30,8 @@ class CategoriesStore {
 
         axios.post(`${APIURL}/categories`, formData, { withCredentials: true })
             .then((response) => {
-                console.log(response)
+                this.item=response.data.data
+                this.emitter.emit('SAVE_CATEGORY_SUCCESS')
             }, (error) => {
                 // console.log(error.response.data)
                 let errors = []

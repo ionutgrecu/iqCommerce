@@ -34,19 +34,26 @@ class CategoryForm extends React.Component {
         }
 
         this.save = () => {
+            toast.info('Saving...',{position:toast.POSITION.BOTTOM_RIGHT})
             this.store.saveItem(this.state)
         }
     }
 
     componentDidMount() {
         this.store.emitter.addListener('SAVE_CATEGORY_ERROR', (message, errors) => {
+            toast.dismiss()
             toast.error('Cannot save item: ' + message + ", " + errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
             console.log('Error on category save: ' + errors.join("\n"))
+        })
+
+        this.store.emitter.addListener('SAVE_CATEGORY_SUCCESS',()=>{
+            toast.dismiss()
+            this.setState(this.store.item)
         })
     }
 
     render() {
-        return <Form>
+        return <Form id={this.state.id}>
             <Form.Group>
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text" placeholder="Category Name" value={this.state.name} onChange={this.handleChange} name='name'></Form.Control>
