@@ -31,11 +31,17 @@ class CategoriesStore {
             .then((response) => {
                 console.log(response)
             }, (error) => {
-                console.log(error.response.data)
-for(i of error.response.data.errors){
-    console.log(i)
-}
-                this.emitter.emit('SAVE_CATEGORY_ERROR', error.response.data.message)
+                // console.log(error.response.data)
+                let errors = []
+
+                if ('object' == typeof (error.response) && error.response && 'object' == typeof (error.response.data)) {
+                    if ('object' == typeof (error.response.data.errors) && error.response.data.errors)
+                        for (let i in error.response.data.errors)
+                            if (error.response.data.errors.hasOwnProperty(i))
+                                errors.push(error.response.data.errors[i])
+
+                    this.emitter.emit('SAVE_CATEGORY_ERROR', error.response.data.message, errors)
+                } else this.emitter.emit('SAVE_CATEGORY_ERROR', error, errors)
             })
     }
 } export default CategoriesStore

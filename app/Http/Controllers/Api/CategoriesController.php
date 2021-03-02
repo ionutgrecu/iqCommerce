@@ -41,10 +41,11 @@ class CategoriesController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(\App\Http\Requests\Api\CategoryRequest $request) {
-        if ($request->file('image')->isValid() && in_array($request->file('image')->extension(), config('app.extensions.images'))) {
-            $request->file('image')->storeAs();
-        }
-        return response()->json(['status' => 'ok', 'request' => \Request::file('image')->extension()]);
+//        print_r(request()->file('image'));
+//        if (request()->file('image')->isValid() && in_array(request()->file('image')->extension(), config('app.extensions.images'))) {
+////            $request->file('image')->storeAs();
+//        }
+        return response()->json(['status' => 'ok', 'request' => \Request::all()]);
     }
 
     /**
