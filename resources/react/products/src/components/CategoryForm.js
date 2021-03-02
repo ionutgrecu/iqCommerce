@@ -21,8 +21,10 @@ class CategoryForm extends React.Component {
         this.store = new CategoriesStore()
 
         this.handleChange = (e) => {
-            console.log(e.target.value)
-            this.setState({ [e.target.name]: e.target.value })
+            if (typeof (typeof (e.target.files)) == 'object' && typeof (e.target.files[0]) == 'object')
+                this.setState({ [e.target.name]: e.target.files[0] })
+            else
+                this.setState({ [e.target.name]: e.target.value })
         }
 
         this.save = () => {
@@ -36,9 +38,9 @@ class CategoryForm extends React.Component {
     }
 
     componentDidMount() {
-        this.store.emitter.addListener('SAVE_CATEGORY_ERROR', (message) => {
-            toast.error('Cannot save item: '+message, { position: toast.POSITION.BOTTOM_RIGHT })
-            console.log('Error on category save: '+message)
+        this.store.emitter.addListener('SAVE_CATEGORY_ERROR', (data) => {
+            toast.error('Cannot save item: ' + data['message']+"\n"+data.errors, { position: toast.POSITION.BOTTOM_RIGHT })
+            console.log('Error on category save: ' + message)
         })
     }
 

@@ -11,6 +11,9 @@ return [
     'locale' => 'ro',
     'fallback_locale' => 'en',
     'faker_locale' => 'ro_RO',
+    'extensions'=>[
+        'images'=>['jpg','jpeg','png','gif'],
+    ],
     'key' => env('APP_KEY', 'base64:OqA4oVBLwFbAY7DvRT4mwmh1tBegpyBp1z9M7yzsYMU='),
     'cipher' => 'AES-256-CBC',
     'providers' => [

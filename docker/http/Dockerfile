@@ -5,7 +5,7 @@ LABEL Maintainer="Ionut Grecu <ionut@grecu.eu>" \
 # Install packages and remove default server definitionzip
 RUN apk --no-cache add openssl util-linux php7 php7-fpm php7-opcache php7-mysqli php7-json php7-memcached php7-openssl php7-common php7-curl php-pdo php-pdo_mysql \
     php7-zlib php7-xml php7-phar php7-intl php7-dom php7-xmlreader php7-ctype php7-session php7-zip php7-bcmath \
-    php7-mbstring php7-gd php7-calendar php7-exif php7-iconv php7-pcntl php7-tokenizer \
+    php7-mbstring php7-gd php7-calendar php7-exif php7-iconv php7-pcntl php7-tokenizer php7-fileinfo \
     nginx composer yarn git supervisor curl nano sudo && \
     rm /etc/nginx/conf.d/default.conf
 

@@ -24,7 +24,7 @@ class SingleImageUpload extends React.Component {
             }
 
             this.setState({
-                file: URL.createObjectURL(e.target.files[0])
+                file: URL.createObjectURL(e.target.files[0]),
             })
 
             if ('function' == typeof (this.props.onChange))
