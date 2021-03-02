@@ -27,20 +27,20 @@ class CategoryForm extends React.Component {
                 this.setState({ [e.target.name]: e.target.value })
         }
 
+        this.handleEditorChange = (content, editor) => {
+            // console.log('Content was updated:', content);
+            this.setState({ description: content })
+        }
+
         this.save = () => {
             this.store.saveItem(this.state)
         }
     }
 
-    handleEditorChange = (content, editor) => {
-        // console.log('Content was updated:', content);
-        this.setState({ description: content })
-    }
-
     componentDidMount() {
         this.store.emitter.addListener('SAVE_CATEGORY_ERROR', (data) => {
-            toast.error('Cannot save item: ' + data['message']+"\n"+data.errors, { position: toast.POSITION.BOTTOM_RIGHT })
-            console.log('Error on category save: ' + message)
+            // toast.error('Cannot save item: ' + data['message']+"\n"+data.errors, { position: toast.POSITION.BOTTOM_RIGHT })
+            // console.log('Error on category save: ' + data.errors)
         })
     }
 

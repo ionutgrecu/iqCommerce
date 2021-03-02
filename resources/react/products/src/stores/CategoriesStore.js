@@ -32,7 +32,10 @@ class CategoriesStore {
                 console.log(response)
             }, (error) => {
                 console.log(error.response.data)
-                this.emitter.emit('SAVE_CATEGORY_ERROR', error.response.data)
+for(i of error.response.data.errors){
+    console.log(i)
+}
+                this.emitter.emit('SAVE_CATEGORY_ERROR', error.response.data.message)
             })
     }
 } export default CategoriesStore
