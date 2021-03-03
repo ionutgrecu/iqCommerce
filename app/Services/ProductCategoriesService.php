@@ -34,6 +34,10 @@ class ProductCategoriesService {
         return $this->item;
     }
 
+    function deleteItem(int $id): bool {
+        return ProductCategory::whereId($id)->delete();
+    }
+
     function getAll(): Collection {
         return ProductCategory::all();
     }
@@ -61,9 +65,8 @@ class ProductCategoriesService {
         if ($request->hasFile('image') && $request->file('image')->isValid() && in_array($request->file('image')->extension(), config('app.extensions.images'))) {
             $imageFile = Storage2::disk('public')->url(Storage2::disk('public')->putFile('categories/' . $this->item->id, $request->file('image'), 'public'));
 
-            if ($this->item->image && stripos($this->item->image, '://') === false && Storage::disk('public')->exists($this->item->image)) {
+            if ($this->item->image && stripos($this->item->image, '://') === false && Storage::disk('public')->exists($this->item->image))
                 Storage2::disk('public')->delete($this->item->image);
-            }
 
             $this->item->image = $imageFile;
             $this->item->save();

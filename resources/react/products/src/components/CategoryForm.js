@@ -13,7 +13,7 @@ class CategoryForm extends React.Component {
         super(props)
 
         this.state = {
-            id:0,
+            id: 0,
             name: '',
             image: null,
             description: ''
@@ -34,8 +34,12 @@ class CategoryForm extends React.Component {
         }
 
         this.save = () => {
-            toast.info('Saving...',{position:toast.POSITION.BOTTOM_RIGHT})
+            toast.info('Saving...', { position: toast.POSITION.BOTTOM_RIGHT })
             this.store.saveItem(this.state)
+        }
+
+        this.cancel = () => {
+            location.href = "#/categories"
         }
     }
 
@@ -46,8 +50,9 @@ class CategoryForm extends React.Component {
             console.log('Error on category save: ' + errors.join("\n"))
         })
 
-        this.store.emitter.addListener('SAVE_CATEGORY_SUCCESS',()=>{
+        this.store.emitter.addListener('SAVE_CATEGORY_SUCCESS', () => {
             toast.dismiss()
+            toast.success('Item saved', { position: toast.POSITION.BOTTOM_RIGHT, pauseOnFocusLoss: false })
             this.setState(this.store.item)
         })
     }
@@ -83,7 +88,7 @@ class CategoryForm extends React.Component {
                     onEditorChange={this.handleEditorChange}
                 />
             </Form.Group>
-            <BtnSave onClick={this.save}></BtnSave>
+            <BtnSave onClick={this.save} onCancel={this.cancel}></BtnSave>
         </Form >
     }
 } export default CategoryForm

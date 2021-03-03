@@ -1,7 +1,7 @@
 import React from 'react'
 import { Fab, Action } from 'react-tiny-fab'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave, faCubes, faPlus, faSitemap, faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { faSave, faMinus } from '@fortawesome/free-solid-svg-icons'
 import { bottom } from '@popperjs/core'
 
 class BtnSave extends React.Component {
@@ -12,6 +12,11 @@ class BtnSave extends React.Component {
             if ('function' == typeof (this.props.onClick))
                 this.props.onClick()
         }
+
+        this.cancel = () => {
+            if ('function' == typeof (this.props.onCancel))
+                this.props.onCancel()
+        }
     }
 
     render() {
@@ -21,6 +26,7 @@ class BtnSave extends React.Component {
             alwaysShowTitle={true}
             onClick={this.clickHandler}
         >
+            <Action text="Cancel" onClick={this.cancel}><FontAwesomeIcon icon={faMinus}></FontAwesomeIcon></Action>
         </Fab>
     }
 } export default BtnSave

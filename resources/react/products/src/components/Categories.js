@@ -4,6 +4,9 @@ import CategoryItem from './CategoryItem'
 import CategoriesStore from '../stores/CategoriesStore'
 import { Table } from 'react-bootstrap'
 import AddButton from './AddButton'
+import { toast } from 'react-toastify'
+
+toast.configure()
 
 class Categories extends React.Component {
     constructor() {
@@ -15,6 +18,13 @@ class Categories extends React.Component {
 
         this.store = new CategoriesStore()
         this.store.getItems()
+
+        this.delete = (id) => {
+            if (!confirm('Delete this item?')) return
+
+            toast.info('Deleting...', { position: toast.POSITION.BOTTOM_RIGHT })
+            this.store.deleteItem(id)
+        }
     }
 
     componentDidMount() {
@@ -22,7 +32,20 @@ class Categories extends React.Component {
             this.setState({
                 items: this.store.items
             })
-        });
+        })
+
+        this.store.emitter.addListener('DELETE_CATEGORY_SUCCESS', (id) => {
+            let items = this.state.items
+
+            for (let i in items)
+                if (items[i].id == id)
+                    delete (items[i])
+
+            this.setState({ items: items })
+
+            toast.dismiss()
+            toast.success('Item deleted', { position: toast.POSITION.BOTTOM_RIGHT, pauseOnFocusLoss: false })
+        })
     }
 
 
@@ -38,7 +61,7 @@ class Categories extends React.Component {
                 </thead>
                 <tbody>
                     {
-                        this.state.items.map(e => <CategoryItem key={e.id} item={e}></CategoryItem>)
+                        this.state.items.map(e => <CategoryItem key={e.id} item={e} onDelete={this.delete}></CategoryItem>)
                     }
                 </tbody>
             </Table>

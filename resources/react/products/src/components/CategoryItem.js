@@ -6,18 +6,22 @@ class CategoryItem extends React.Component {
         super(props)
 
         this.state = {
-            content: this.props.item.content
+            item: props.item
+        }
+
+        this.delete = () => {
+            props.onDelete(this.state.item.id)
         }
     }
 
     render() {
-        const { item } = this.props
+        const { item } = this.state
 
         return <>
-            <tr>
+            <tr id={"cat-" + item.id}>
                 <td>{item.id}</td>
                 <td>{item.name}</td>
-                <td><Button variant="success"><i className="fas fa-pencil-alt"></i> Edit</Button> <Button variant="danger"><i className="fas fa-trash-alt"></i> Delete</Button> </td>
+                <td><Button variant="success"><i className="fas fa-pencil-alt"></i> Edit</Button> <Button variant="danger" onClick={this.delete}><i className="fas fa-trash-alt"></i> Delete</Button> </td>
             </tr>
         </>
     }

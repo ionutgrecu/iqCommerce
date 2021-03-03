@@ -7,7 +7,6 @@ use App\Http\Requests\Api\CategoryRequest;
 use App\Services\ProductCategoriesService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Log;
 use function response;
 
 class CategoriesController extends Controller {
@@ -45,7 +44,6 @@ class CategoriesController extends Controller {
      * @return Response
      */
     public function store(CategoryRequest $request) {
-        Log::info($request->hasFile('image'));
         $path = '';
 
         $category = $this->service->findOrNew((integer) $request['id']);
@@ -92,7 +90,10 @@ class CategoriesController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        //
+        if ($this->service->deleteItem($id))
+            return response()->json(['status' => 'ok', 'id' => $id]);
+        else
+            return response()->json(['status' => 'failed', 'id' => $id, 'message' => 'Item not found']);
     }
 
 }
