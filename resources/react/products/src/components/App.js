@@ -15,6 +15,7 @@ class App extends React.Component {
                     <Route path='/vendors' component={Vendors} />
                     <Route path='/categories' component={Categories} />
                     <Route path='/add-category' component={CategoryForm} />
+                    <Route path='/edit-category/:id' component={CategoryForm} />
                     <Route path='/characteristics' component={Characteristics} />
                     <Route exact path='/' component={Main} />
                     <Route path='/orders' component={Orders} />

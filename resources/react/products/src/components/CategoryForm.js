@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { Form } from 'react-bootstrap'
 import { Editor } from '@tinymce/tinymce-react'
 import CategoriesStore from '../stores/CategoriesStore'
@@ -11,6 +12,8 @@ toast.configure()
 class CategoryForm extends React.Component {
     constructor(props) {
         super(props)
+
+console.log(this.getParams())
 
         this.state = {
             id: 0,
@@ -41,6 +44,10 @@ class CategoryForm extends React.Component {
         this.cancel = () => {
             location.href = "#/categories"
         }
+    }
+
+    getParams(){
+        return useParams()
     }
 
     componentDidMount() {
@@ -89,6 +96,6 @@ class CategoryForm extends React.Component {
                 />
             </Form.Group>
             <BtnSave onClick={this.save} onCancel={this.cancel}></BtnSave>
-        </Form >
+        </Form>
     }
 } export default CategoryForm
