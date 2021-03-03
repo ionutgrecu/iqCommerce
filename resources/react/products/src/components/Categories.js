@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import CategoryItem from './CategoryItem'
+import CategoryForm from './CategoryForm'
 import CategoriesStore from '../stores/CategoriesStore'
 import { Table } from 'react-bootstrap'
 import AddButton from './AddButton'
@@ -13,7 +14,7 @@ class Categories extends React.Component {
         super()
 
         this.state = {
-            items: []
+            items: [],
         }
 
         this.store = new CategoriesStore()
@@ -25,13 +26,21 @@ class Categories extends React.Component {
             toast.info('Deleting...', { position: toast.POSITION.BOTTOM_RIGHT })
             this.store.deleteItem(id)
         }
+
+        this.edit = (item) => {
+            location.href = "/#/edit-category/" + item.id
+        }
     }
 
     componentDidMount() {
         this.store.emitter.addListener('GET_CATEGORIES_SUCCESS', () => {
             this.setState({
-                items: this.store.items
+                items: this.store.items,
             })
+        })
+
+        this.store.emitter.addListener('GET_CATEGORIES_ERROR', (err) => {
+            toast.error(err.response.data.message, { position: toast.POSITION.BOTTOM_RIGHT })
         })
 
         this.store.emitter.addListener('DELETE_CATEGORY_SUCCESS', (id) => {
@@ -48,7 +57,6 @@ class Categories extends React.Component {
         })
     }
 
-
     render() {
         return <>
             <Table striped bordered hover size="sm">
@@ -56,12 +64,13 @@ class Categories extends React.Component {
                     <tr>
                         <td>#</td>
                         <td>Name</td>
+                        <td>Image</td>
                         <td></td>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        this.state.items.map(e => <CategoryItem key={e.id} item={e} onDelete={this.delete}></CategoryItem>)
+                        this.state.items.map(e => <CategoryItem key={e.id} item={e} onDelete={this.delete} onEdit={this.edit}></CategoryItem>)
                     }
                 </tbody>
             </Table>

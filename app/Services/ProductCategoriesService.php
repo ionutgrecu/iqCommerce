@@ -35,11 +35,19 @@ class ProductCategoriesService {
     }
 
     function deleteItem(int $id): bool {
-        return ProductCategory::whereId($id)->delete();
+        $item = ProductCategory::find($id);
+
+        if ($item) {
+            Storage2::disk('public')->deleteDirectory("categories/{$item->id}");
+            $item->delete();
+            return true;
+        }
+
+        return false;
     }
 
     function getAll(): Collection {
-        return ProductCategory::all();
+        return ProductCategory::select('*')->orderBy('id', 'DESC')->get();
     }
 
     function findOrNew(int $id = null): ProductCategory {
