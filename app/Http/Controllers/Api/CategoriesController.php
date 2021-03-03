@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CategoryRequest;
 use App\Services\ProductCategoriesService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Log;
-use Storage;
+use function response;
 
 class CategoriesController extends Controller {
 
@@ -22,7 +23,7 @@ class CategoriesController extends Controller {
     /**
      * Return categories
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index() {
         return response()->json(['status' => 'ok', 'data' => $this->service->getAll()]);
@@ -31,7 +32,7 @@ class CategoriesController extends Controller {
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create() {
         //
@@ -41,26 +42,15 @@ class CategoriesController extends Controller {
      * Store a newly created resource in storage.
      *
      * @param  Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(CategoryRequest $request) {
-//        Log::info($request->toArray());
+        Log::info($request->hasFile('image'));
         $path = '';
 
-        $category = $this->service->findOrNew((integer)$request['id']);
-        $category->fill($request->toArray());
-        $category->save();
+        $category = $this->service->findOrNew((integer) $request['id']);
+        $this->service->fillItemWithRequest($request);
 
-        if (request()->hasFile('image') && request()->file('image')->isValid() && in_array(request()->file('image')->extension(), config('app.extensions.images'))) {
-            $imageFile = \Storage::disk('public')->url(Storage::disk('public')->putFile('categories/'.$category->id, $request->file('image'), 'public'));               
-            
-            if($category->image && stripos($category->image, '://')===false && \Illuminate\Support\Facades\Storage::disk('public')->exists($category->image)){
-                \Storage::disk('public')->delete($category->image);
-            }
-            
-            $category->image=$imageFile;
-            $category->save();
-        }
         return response()->json(['status' => 'ok', 'data' => $category]);
     }
 
@@ -68,7 +58,7 @@ class CategoriesController extends Controller {
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id) {
         //
@@ -78,7 +68,7 @@ class CategoriesController extends Controller {
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id) {
         //
@@ -89,7 +79,7 @@ class CategoriesController extends Controller {
      *
      * @param  Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id) {
         //
@@ -99,7 +89,7 @@ class CategoriesController extends Controller {
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id) {
         //

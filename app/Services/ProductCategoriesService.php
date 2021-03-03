@@ -2,7 +2,13 @@
 
 namespace App\Services;
 
+use App\Http\Requests\Api\CategoryRequest;
 use App\Models\ProductCategory;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Storage;
+use Storage as Storage2;
+use function config;
 
 /** @version 1.0.0
  * @author Ionut Grecu
@@ -19,15 +25,51 @@ use App\Models\ProductCategory;
  */
 class ProductCategoriesService {
 
-    function getAll() {
+    private $item;
+
+    function getItem(): ProductCategory {
+        if (!$this->item)
+            throw new Exception('Item not loaded');
+
+        return $this->item;
+    }
+
+    function getAll(): Collection {
         return ProductCategory::all();
     }
 
-    function findOrNew(int $id = null) {
+    function findOrNew(int $id = null): ProductCategory {
         if (!$id)
-            return new ProductCategory;
+            $this->item = new ProductCategory;
         else
-            return ProductCategory::findOrNew($id);
+            $this->item = ProductCategory::findOrNew($id);
+
+        return $this->item;
+    }
+
+    /**
+     * @param CategoryRequest $request
+     * @return ProductCategory
+     */
+    function fillItemWithRequest(CategoryRequest $request): ProductCategory {
+        if (!$this->item)
+            throw new Exception('Item not loaded');
+
+        $this->item->fill($request->toArray());
+        $this->item->save();
+
+        if ($request->hasFile('image') && $request->file('image')->isValid() && in_array($request->file('image')->extension(), config('app.extensions.images'))) {
+            $imageFile = Storage2::disk('public')->url(Storage2::disk('public')->putFile('categories/' . $this->item->id, $request->file('image'), 'public'));
+
+            if ($this->item->image && stripos($this->item->image, '://') === false && Storage::disk('public')->exists($this->item->image)) {
+                Storage2::disk('public')->delete($this->item->image);
+            }
+
+            $this->item->image = $imageFile;
+            $this->item->save();
+        }
+
+        return $this->item;
     }
 
 }
