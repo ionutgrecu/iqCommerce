@@ -5,3 +5,11 @@ export const inArray = (needle, haystack) => {
 
     return false;
 }
+
+/** Convert an internal url to an absolute one by prepend ASSETS_URL . If external url, it returned as it is
+ */
+export const urlAbsolute = (url) => {
+    if (url && 'string'==typeof(url) && url.indexOf('://') == -1)
+        return ASSETS_URL + url
+    else return url
+}

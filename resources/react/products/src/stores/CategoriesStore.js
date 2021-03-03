@@ -8,6 +8,20 @@ class CategoriesStore {
         this.emitter = new EventEmitter
     }
 
+    async getItem(id){
+        try {
+            axios.get(`${APIURL}/categories/${id}`,{withCredentials:true})
+            .then((response)=>{
+                this.item=response.data.data
+                this.emitter.emit('GET_CATEGORY_SUCCESS')
+            },(error)=>{
+
+            })
+        } catch (error) {
+
+        }
+    }
+
     async getItems() {
         try {
             const response = await axios.get(`${APIURL}/categories`, {withCredentials: true})

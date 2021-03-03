@@ -59,7 +59,7 @@ class CategoriesController extends Controller {
      * @return Response
      */
     public function show($id) {
-        //
+        return response()->json(['status' => 'ok', 'data' => $this->service->find($id)]);
     }
 
     /**
@@ -69,7 +69,7 @@ class CategoriesController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        //
+//        return response()->json(['status' => 'edit']);
     }
 
     /**

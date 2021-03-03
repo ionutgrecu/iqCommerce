@@ -1,11 +1,12 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { Form } from 'react-bootstrap'
 import { Editor } from '@tinymce/tinymce-react'
 import CategoriesStore from '../stores/CategoriesStore'
 import SingleImageUpload from './SingleImageUpload'
 import BtnSave from './BtnSave'
 import { toast } from 'react-toastify'
+import { urlAbsolute } from '../helpers'
 
 toast.configure()
 
@@ -13,41 +14,43 @@ class CategoryForm extends React.Component {
     constructor(props) {
         super(props)
 
-console.log(this.getParams())
-
         this.state = {
-            id: 0,
-            name: '',
-            image: null,
-            description: ''
+            id: this.props.match.params.id ? this.props.match.params.id : 0,
+            item: { name: '', description: '', image: '' },
         }
 
         this.store = new CategoriesStore()
 
+        if (this.props.match.params.id) {
+            toast.info('Item is loading, wait...', { position: toast.POSITION.BOTTOM_RIGHT, autoClose: false })
+            this.store.getItem(this.props.match.params.id)
+        }
+
         this.handleChange = (e) => {
+            let item = this.state.item
+
             if ('object' == typeof (e.target.files) && e.target.files && 'object' == typeof (e.target.files[0]))
-                this.setState({ [e.target.name]: e.target.files[0] })
+                item[e.target.name] = e.target.files[0]
             else
-                this.setState({ [e.target.name]: e.target.value })
+                item[e.target.name] = e.target.value
+
+            this.setState({ item: item })
         }
 
         this.handleEditorChange = (content, editor) => {
-            // console.log('Content was updated:', content);
-            this.setState({ description: content })
+            let item = this.state.item
+            item.description = content
+            this.setState({ item: item })
         }
 
         this.save = () => {
             toast.info('Saving...', { position: toast.POSITION.BOTTOM_RIGHT })
-            this.store.saveItem(this.state)
+            this.store.saveItem(this.state.item)
         }
 
         this.cancel = () => {
             location.href = "#/categories"
         }
-    }
-
-    getParams(){
-        return useParams()
     }
 
     componentDidMount() {
@@ -60,25 +63,34 @@ console.log(this.getParams())
         this.store.emitter.addListener('SAVE_CATEGORY_SUCCESS', () => {
             toast.dismiss()
             toast.success('Item saved', { position: toast.POSITION.BOTTOM_RIGHT, pauseOnFocusLoss: false })
-            this.setState(this.store.item)
+            this.setState({ item: this.store.item })
+        })
+
+        this.store.emitter.addListener('GET_CATEGORY_SUCCESS', () => {
+            toast.dismiss()
+
+            this.setState({ item: this.store.item })
+            // this.forceUpdate()
         })
     }
 
     render() {
-        return <Form id={this.state.id}>
+        let { id, item } = this.state
+
+        return (<Form id={"cat-" + id}>
             <Form.Group>
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="Category Name" value={this.state.name} onChange={this.handleChange} name='name'></Form.Control>
+                <Form.Control type="text" placeholder="Category Name" value={item.name} onChange={this.handleChange} name='name'></Form.Control>
             </Form.Group>
             <Form.Group>
-                <SingleImageUpload name="image" file={this.state.image} onChange={this.handleChange}></SingleImageUpload>
+                <SingleImageUpload name="image" file={item.image} onChange={this.handleChange}></SingleImageUpload>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Description</Form.Label>
             </Form.Group>
             <Form.Group>
                 <Editor
-                    initialValue={this.state.description}
+                    value={item.description}
                     init={{
                         height: 500,
                         menubar: false,
@@ -96,6 +108,6 @@ console.log(this.getParams())
                 />
             </Form.Group>
             <BtnSave onClick={this.save} onCancel={this.cancel}></BtnSave>
-        </Form>
+        </Form>)
     }
-} export default CategoryForm
+} export default withRouter(CategoryForm)
