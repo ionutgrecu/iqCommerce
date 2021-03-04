@@ -7,6 +7,7 @@ import SingleImageUpload from './SingleImageUpload'
 import BtnSave from './BtnSave'
 import { toast } from 'react-toastify'
 import { urlAbsolute } from '../helpers'
+import Select from 'react-select'
 
 toast.configure()
 
@@ -81,6 +82,9 @@ class CategoryForm extends React.Component {
             <Form.Group>
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text" placeholder="Category Name" value={item.name} onChange={this.handleChange} name='name'></Form.Control>
+            </Form.Group>
+            <Form.Group>
+                <Select></Select>
             </Form.Group>
             <Form.Group>
                 <SingleImageUpload name="image" file={item.image} onChange={this.handleChange}></SingleImageUpload>
