@@ -7,8 +7,6 @@ import SingleImageUpload from './SingleImageUpload'
 import BtnSave from './BtnSave'
 import { toast } from 'react-toastify'
 import { urlAbsolute } from '../helpers'
-import DropdownTreeSelect from 'react-dropdown-tree-select'
-import 'react-dropdown-tree-select/dist/styles.css'
 
 toast.configure()
 const data = {
@@ -111,6 +109,7 @@ class CategoryForm extends React.Component {
                 <Form.Control type="text" placeholder="Category Name" value={item.name} onChange={this.handleChange} name='name'></Form.Control>
             </Form.Group>
             <Form.Group>
+                <Form.Label>Category</Form.Label>
                 <DropdownTreeSelect data={data} />
             </Form.Group>
             <Form.Group>
