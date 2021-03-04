@@ -6,7 +6,6 @@ use App\Http\Requests\Api\CategoryRequest;
 use App\Models\ProductCategory;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Storage;
 use Storage as Storage2;
 use function config;
 
@@ -39,9 +38,16 @@ class ProductCategoriesService {
         return false;
     }
 
-    function getAll(): Collection {
-        return ProductCategory::select('*')->orderBy('id', 'DESC')->get();
+    function getAll(int $exceptId = null): Collection {
+        $productCategoryObj = ProductCategory::select('*');
+
+        if ($exceptId)
+            $productCategoryObj->where('id', '!=', $exceptId);
+
+        return $productCategoryObj->orderBy('id', 'DESC')->get();
     }
+    
+    function getTree()
 
     function find(int $id) {
         $this->item = ProductCategory::find($id);

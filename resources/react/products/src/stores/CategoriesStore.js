@@ -1,30 +1,30 @@
 import { EventEmitter } from 'fbemitter'
 import axios from 'axios'
+import { errorsRoll } from '../helpers'
 
 class CategoriesStore {
     constructor() {
         this.items = []
         this.item = {}
+        this.categories=[]
         this.emitter = new EventEmitter
     }
 
-    async getItem(id){
-        try {
-            axios.get(`${APIURL}/categories/${id}`,{withCredentials:true})
-            .then((response)=>{
-                this.item=response.data.data
+    async getItem(id) {
+        axios.get(`${APIURL}/categories/${id}`, { withCredentials: true })
+            .then((response) => {
+                this.item = response.data.data
+                this.categories=response.data.categories
                 this.emitter.emit('GET_CATEGORY_SUCCESS')
-            },(error)=>{
-
+            }, (error) => {
+                let errors = errorsRoll(error)
+                this.emitter.emit('GET_CATEGORY_ERROR', errors)
             })
-        } catch (error) {
-
-        }
     }
 
     async getItems() {
         try {
-            const response = await axios.get(`${APIURL}/categories`, {withCredentials: true})
+            const response = await axios.get(`${APIURL}/categories`, { withCredentials: true })
             this.items = response.data.data
             this.emitter.emit('GET_CATEGORIES_SUCCESS')
         } catch (err) {

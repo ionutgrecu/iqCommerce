@@ -7,9 +7,26 @@ import SingleImageUpload from './SingleImageUpload'
 import BtnSave from './BtnSave'
 import { toast } from 'react-toastify'
 import { urlAbsolute } from '../helpers'
-import Select from 'react-select'
+import DropdownTreeSelect from 'react-dropdown-tree-select'
+import 'react-dropdown-tree-select/dist/styles.css'
 
 toast.configure()
+const data = {
+    label: 'search me',
+    value: 'searchme',
+    children: [
+        {
+            label: 'search me too',
+            value: 'searchmetoo',
+            children: [
+                {
+                    label: 'No one can get me',
+                    value: 'anonymous',
+                },
+            ],
+        },
+    ],
+}
 
 class CategoryForm extends React.Component {
     constructor(props) {
@@ -18,6 +35,7 @@ class CategoryForm extends React.Component {
         this.state = {
             id: this.props.match.params.id ? this.props.match.params.id : 0,
             item: { name: '', description: '', image: '' },
+            categories: [],
         }
 
         this.store = new CategoriesStore()
@@ -70,8 +88,17 @@ class CategoryForm extends React.Component {
         this.store.emitter.addListener('GET_CATEGORY_SUCCESS', () => {
             toast.dismiss()
 
-            this.setState({ item: this.store.item })
+            let categories = []
+            for (let i in this.store.categories)
+                categories.push({ value: this.store.categories[i].id, label: this.store.categories[i].name })
+
+            this.setState({ item: this.store.item, categories: categories })
             // this.forceUpdate()
+        })
+
+        this.store.emitter.addListener('GET_CATEGORY_ERROR', (errors) => {
+            toast.dismiss()
+            toast.error('Cannot load item: ' + errors.message + ', ' + errors.errors.join(', '), { position: toast.POSITION.BOTTOM_RIGHT })
         })
     }
 
@@ -84,7 +111,7 @@ class CategoryForm extends React.Component {
                 <Form.Control type="text" placeholder="Category Name" value={item.name} onChange={this.handleChange} name='name'></Form.Control>
             </Form.Group>
             <Form.Group>
-                <Select></Select>
+                <DropdownTreeSelect data={data} />
             </Form.Group>
             <Form.Group>
                 <SingleImageUpload name="image" file={item.image} onChange={this.handleChange}></SingleImageUpload>
