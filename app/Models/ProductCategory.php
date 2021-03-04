@@ -19,4 +19,16 @@ class ProductCategory extends Model {
         });
     }
 
+    public function childs() {
+        return $this->hasMany(ProductCategory::class, 'category_id', 'id')->orderBy('name');
+    }
+
+    function loadMissingRecursive(...$relations) {
+        $this->loadMissing($relations);
+
+        foreach ($relations as $relation)
+            foreach ($this->$relation as $child)
+                $child->loadMissingRecursive($relation);
+    }
+
 }

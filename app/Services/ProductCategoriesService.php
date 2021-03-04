@@ -47,7 +47,25 @@ class ProductCategoriesService {
         return $productCategoryObj->orderBy('id', 'DESC')->get();
     }
     
-    function getTree()
+    function getTree(int $exceptId=null,int $parentId=null):array{
+        $return=[];
+        
+        $productCategoryObj=ProductCategory::whereCategoryId($parentId);
+        if($exceptId)$productCategoryObj->where('id','!=',$exceptId);
+        
+        foreach($productCategoryObj->orderBy('name','DESC')->cursor() as $item){
+            $item->loadMissingRecursive('childs');
+            
+            $return[]=$item;
+            
+//            $subCategories=$this->getTree($exceptId,$item->id);
+//            
+//              if($subCategories)      
+//            $return= array_merge($return, $subCategories);
+        }
+        
+        return $return;
+    }
 
     function find(int $id) {
         $this->item = ProductCategory::find($id);
