@@ -18,17 +18,27 @@ class ProductCategory extends Model {
                 $model->category_id = null;
         });
     }
+    
+    public function category(){
+        return $this->belongsTo(ProductCategory::class, 'category_id', 'id');
+    }
 
     public function childs() {
         return $this->hasMany(ProductCategory::class, 'category_id', 'id')->orderBy('name');
     }
 
-    function loadMissingRecursive(...$relations) {
-        $this->loadMissing($relations);
+    function loadMissingRecursive(int $exceptId = null, ...$relations) {
+        if ($exceptId)
+            foreach ($relations as $relation)
+                $this->loadMissing([$relation => function($q)use($exceptId) {
+                        $q->where('id', '!=', $exceptId);
+                    }]);
+        else
+            $this->loadMissing($relations);
 
         foreach ($relations as $relation)
             foreach ($this->$relation as $child)
-                $child->loadMissingRecursive($relation);
+                $child->loadMissingRecursive($exceptId, $relation);
     }
 
 }

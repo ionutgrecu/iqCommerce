@@ -54,7 +54,7 @@ class ProductCategoriesService {
         if($exceptId)$productCategoryObj->where('id','!=',$exceptId);
         
         foreach($productCategoryObj->orderBy('name','DESC')->cursor() as $item){
-            $item->loadMissingRecursive('childs');
+            $item->loadMissingRecursive($exceptId,'childs');
             
             $return[]=$item;
             
@@ -68,7 +68,7 @@ class ProductCategoriesService {
     }
 
     function find(int $id) {
-        $this->item = ProductCategory::find($id);
+        $this->item = ProductCategory::with('category')->find($id);
 
         return $this->item;
     }
