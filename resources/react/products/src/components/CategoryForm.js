@@ -2,29 +2,14 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { Form } from 'react-bootstrap'
 import { Editor } from '@tinymce/tinymce-react'
+import Select from 'react-select'
 import CategoriesStore from '../stores/CategoriesStore'
 import SingleImageUpload from './SingleImageUpload'
 import BtnSave from './BtnSave'
 import { toast } from 'react-toastify'
-import { urlAbsolute } from '../helpers'
+import { urlAbsolute, objectTreeToArrList } from '../helpers'
 
 toast.configure()
-const data = {
-    label: 'search me',
-    value: 'searchme',
-    children: [
-        {
-            label: 'search me too',
-            value: 'searchmetoo',
-            children: [
-                {
-                    label: 'No one can get me',
-                    value: 'anonymous',
-                },
-            ],
-        },
-    ],
-}
 
 class CategoryForm extends React.Component {
     constructor(props) {
@@ -84,14 +69,20 @@ class CategoryForm extends React.Component {
         })
 
         this.store.emitter.addListener('GET_CATEGORY_SUCCESS', () => {
-            toast.dismiss()
-
             let categories = []
             for (let i in this.store.categories)
                 categories.push({ value: this.store.categories[i].id, label: this.store.categories[i].name })
 
+            try {
+                categories = objectTreeToArrList(this.store.categories, 'childs', 'name', ['id', 'name'], ['value', 'label'])
+            } catch (error) {
+                console.log(error)
+                categories = []
+            }
+            console.log(categories)
             this.setState({ item: this.store.item, categories: categories })
             // this.forceUpdate()
+            toast.dismiss()
         })
 
         this.store.emitter.addListener('GET_CATEGORY_ERROR', (errors) => {
@@ -110,7 +101,7 @@ class CategoryForm extends React.Component {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Category</Form.Label>
-                <DropdownTreeSelect data={data} />
+                <Select options={this.state.categories} />
             </Form.Group>
             <Form.Group>
                 <SingleImageUpload name="image" file={item.image} onChange={this.handleChange}></SingleImageUpload>
