@@ -2,7 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { Form } from 'react-bootstrap'
 import { Editor } from '@tinymce/tinymce-react'
-import Select from 'react-select'
+import Select2 from 'react-select2-wrapper'
 import CategoriesStore from '../stores/CategoriesStore'
 import SingleImageUpload from './SingleImageUpload'
 import BtnSave from './BtnSave'
@@ -10,12 +10,6 @@ import { toast } from 'react-toastify'
 import { urlAbsolute, objectTreeToArrList } from '../helpers'
 
 toast.configure()
-const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-]
-
 
 class CategoryForm extends React.Component {
     constructor(props) {
@@ -24,7 +18,7 @@ class CategoryForm extends React.Component {
         this.state = {
             id: this.props.match.params.id ? this.props.match.params.id : 0,
             item: { name: '', description: '', image: '', category: { id: null, name: '' } },
-            categories: [],
+            categories: [{ id: null, text: '' }],
         }
 
         this.store = new CategoriesStore()
@@ -48,6 +42,12 @@ class CategoryForm extends React.Component {
         this.handleEditorChange = (content, editor) => {
             let item = this.state.item
             item.description = content
+            this.setState({ item: item })
+        }
+
+        this.handleSelectChange = (currentNode, selectedNodes) => {
+            let item = this.state.item
+            item.category_id = currentNode.target.value
             this.setState({ item: item })
         }
 
@@ -81,14 +81,14 @@ class CategoryForm extends React.Component {
                 categories.push({ value: this.store.categories[i].id, label: this.store.categories[i].name })
 
             try {
-                categories = objectTreeToArrList(this.store.categories, 'childs', 'name', ['id', 'name'], ['value', 'label'])
+                categories = objectTreeToArrList(this.store.categories, 'childs', 'name', ['id', 'name'], ['id', 'text'])
             } catch (error) {
                 console.log(error)
                 categories = []
             }
 
             this.setState({ item: this.store.item, categories: categories })
-            // this.forceUpdate()
+            this.forceUpdate()
             toast.dismiss()
         })
 
@@ -104,11 +104,11 @@ class CategoryForm extends React.Component {
         return (<Form id={"cat-" + id}>
             <Form.Group>
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="Category Name" value={item.name} onChange={this.handleChange} name='name'></Form.Control>
+                <Form.Control type="text" placeholder="Category Name" value={item.name} onChange={this.handleSelectChange} name='name'></Form.Control>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Category</Form.Label>
-                <Select options={categories} value={{ value: item ? item.category.id : null, label: item ? item.category.name : '' }} />
+                <Select2 style={{ width: '100%' }} data={categories} options={{ placeholder: 'Select parent category' }} value={item.category_id} onChange={this.handleSelectChange} />
             </Form.Group>
             <Form.Group>
                 <SingleImageUpload name="image" file={item.image} onChange={this.handleChange}></SingleImageUpload>

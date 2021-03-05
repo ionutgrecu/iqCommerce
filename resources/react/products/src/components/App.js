@@ -7,10 +7,13 @@ import Characteristics from './Characteristics'
 import Orders from './Orders'
 import Vendors from './Vendors'
 import CategoryForm from './CategoryForm'
+import AddButton from './AddButton'
 
 class App extends React.Component {
     render() {
-        return <Router>
+        return <>
+            <AddButton></AddButton>
+            <Router>
                 <Switch>
                     <Route path='/vendors' component={Vendors} />
                     <Route path='/categories' component={Categories} />
@@ -20,7 +23,8 @@ class App extends React.Component {
                     <Route exact path='/' component={Main} />
                     <Route path='/orders' component={Orders} />
                 </Switch>
-        </Router>
+            </Router>
+        </>
     }
 }
 

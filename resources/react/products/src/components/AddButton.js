@@ -1,11 +1,13 @@
 import React from 'react'
+import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { Fab, Action } from 'react-tiny-fab'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAsterisk, faCubes, faPlus, faSitemap, faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import CategoryForm from './CategoryForm'
 
 class AddButton extends React.Component {
     addCategory() {
-        location.href="#/add-category"
+        location.href = "#/add-category"
     }
 
     render() {
