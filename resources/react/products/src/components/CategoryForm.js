@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import { Form } from 'react-bootstrap'
+import { Container, Row, Col, Form, Card } from 'react-bootstrap'
 import { Editor } from '@tinymce/tinymce-react'
 import Select2 from 'react-select2-wrapper'
 import CategoriesStore from '../stores/CategoriesStore'
@@ -101,41 +101,52 @@ class CategoryForm extends React.Component {
     render() {
         let { id, item, categories } = this.state
 
-        return (<Form id={"cat-" + id}>
-            <Form.Group>
-                <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="Category Name" value={item.name} onChange={this.handleSelectChange} name='name'></Form.Control>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Category</Form.Label>
-                <Select2 style={{ width: '100%' }} data={categories} options={{ placeholder: 'Select parent category' }} value={item.category_id} onChange={this.handleSelectChange} />
-            </Form.Group>
-            <Form.Group>
-                <SingleImageUpload name="image" file={item.image} onChange={this.handleChange}></SingleImageUpload>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Description</Form.Label>
-            </Form.Group>
-            <Form.Group>
-                <Editor
-                    value={item.description}
-                    init={{
-                        height: 500,
-                        menubar: false,
-                        plugins: [
-                            'advlist autolink lists link image charmap print preview anchor',
-                            'searchreplace visualblocks code fullscreen',
-                            'insertdatetime media table paste code help wordcount'
-                        ],
-                        toolbar:
-                            'undo redo | formatselect | bold italic backcolor | \
+        return <Container>
+            <Row className="justify-content-md-center">
+                <Col xs lg="6" md="10">
+                    <Card>
+                        <Card.Header>Add/Edit category</Card.Header>
+                        <Card.Body>
+                            <Form id={"cat-" + id}>
+                                <Form.Group>
+                                    <Form.Label>Name</Form.Label>
+                                    <Form.Control type="text" placeholder="Category Name" value={item.name} onChange={this.handleSelectChange} name='name'></Form.Control>
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Category</Form.Label>
+                                    <Select2 style={{ width: '100%' }} data={categories} options={{ placeholder: 'Select parent category' }} value={item.category_id} onChange={this.handleSelectChange} />
+                                </Form.Group>
+                                <Form.Group>
+                                    <SingleImageUpload name="image" file={item.image} onChange={this.handleChange}></SingleImageUpload>
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Description</Form.Label>
+                                </Form.Group>
+                                <Form.Group>
+                                    <Editor
+                                        value={item.description}
+                                        init={{
+                                            height: 500,
+                                            menubar: false,
+                                            plugins: [
+                                                'advlist autolink lists link image charmap print preview anchor',
+                                                'searchreplace visualblocks code fullscreen',
+                                                'insertdatetime media table paste code help wordcount'
+                                            ],
+                                            toolbar:
+                                                'undo redo | formatselect | bold italic backcolor | \
              alignleft aligncenter alignright alignjustify | \
              bullist numlist outdent indent | removeformat | help'
-                    }}
-                    onEditorChange={this.handleEditorChange}
-                />
-            </Form.Group>
-            <BtnSave onClick={this.save} onCancel={this.cancel}></BtnSave>
-        </Form>)
+                                        }}
+                                        onEditorChange={this.handleEditorChange}
+                                    />
+                                </Form.Group>
+                                <BtnSave onClick={this.save} onCancel={this.cancel}></BtnSave>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
     }
 } export default withRouter(CategoryForm)

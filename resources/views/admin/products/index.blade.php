@@ -11,7 +11,7 @@
 <div class="container-fluid">
     <div class="fade-in">
         <div class="row">
-            <noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
+            <noscript>You need to enable JavaScript to run this app.</noscript><div id="root" class="container-fluid"></div>
         </div>
     </div>
 </div>
