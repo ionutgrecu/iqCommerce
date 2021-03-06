@@ -9,6 +9,9 @@ class ProductCategory extends Model {
     use HasFactory;
 
     protected $guarded = ['id', 'image', 'created_at', 'updated_at'];
+    protected $appends = [
+        'parents'
+    ];
 
     protected static function boot(): void {
         parent::boot();
@@ -18,9 +21,24 @@ class ProductCategory extends Model {
                 $model->category_id = null;
         });
     }
-    
-    public function category(){
+
+    public function category() {
         return $this->belongsTo(ProductCategory::class, 'category_id', 'id');
+    }
+
+    public function getParentsAttribute() {
+        $return = [];
+        $categoryId = $this->category_id;
+
+        while ($categoryId) {
+            if ($parent = ProductCategory::find($categoryId)) {
+                $return[] = $parent;
+                $categoryId = $parent->category_id;
+            } else
+                $categoryId = null;
+        }
+
+        return $return;
     }
 
     public function childs() {
