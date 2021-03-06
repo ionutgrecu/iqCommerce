@@ -1,13 +1,13 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import { Container, Row, Col, Form, Card } from 'react-bootstrap'
+import { Container, Row, Col, Form, Card, Button } from 'react-bootstrap'
 import { Editor } from '@tinymce/tinymce-react'
 import Select2 from 'react-select2-wrapper'
 import CategoriesStore from '../stores/CategoriesStore'
 import SingleImageUpload from './SingleImageUpload'
 import BtnSave from './BtnSave'
 import { toast } from 'react-toastify'
-import { urlAbsolute, objectTreeToArrList } from '../helpers'
+import { objectTreeToArrList } from '../helpers'
 
 toast.configure()
 
@@ -60,6 +60,13 @@ class CategoryForm extends React.Component {
         this.cancel = () => {
             location.href = "#/categories"
         }
+
+        this.test = () => {
+            console.log(this.editor.current.props.value)
+            let item = this.state.item
+            this.setState({ item: item })
+            // this.editor.current.refresh()
+        }
     }
 
     componentDidMount() {
@@ -88,7 +95,7 @@ class CategoryForm extends React.Component {
             }
 
             this.setState({ item: this.store.item, categories: categories })
-            this.forceUpdate()
+
             toast.dismiss()
         })
 
@@ -124,9 +131,10 @@ class CategoryForm extends React.Component {
                                 </Form.Group>
                                 <Form.Group>
                                     <Editor
+                                        initialValue={item.description}
                                         value={item.description}
                                         init={{
-                                            height: 500,
+                                            height: 300,
                                             menubar: false,
                                             plugins: [
                                                 'advlist autolink lists link image charmap print preview anchor',
