@@ -13,7 +13,7 @@ class App extends React.Component {
     render() {
         return <>
             <AddButton></AddButton>
-            <Router>
+            <Router >
                 <Switch>
                     <Route path='/vendors' component={Vendors} />
                     <Route path='/categories' component={Categories} />

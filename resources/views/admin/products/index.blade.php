@@ -2,7 +2,7 @@
 
 @section('js-head')
 <script>
-    const APIURL = "<?= route('admin.products') ?>/api/";
+    const APIURL = "<?= url('/') ?>/api/v1/products";
     const ASSETS_URL = '<?= url('/') ?>';
 </script>
 @endsection

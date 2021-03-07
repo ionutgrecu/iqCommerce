@@ -1,9 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import CategoryItem from './CategoryItem'
-import CategoryForm from './CategoryForm'
 import CategoriesStore from '../stores/CategoriesStore'
-import { Table } from 'react-bootstrap'
+import { Table, Container, Row, Col, Card } from 'react-bootstrap'
 import AddButton from './AddButton'
 import { toast } from 'react-toastify'
 
@@ -25,10 +23,6 @@ class Categories extends React.Component {
 
             toast.info('Deleting...', { position: toast.POSITION.BOTTOM_RIGHT })
             this.store.deleteItem(id)
-        }
-
-        this.edit = (item) => {
-            location.href = "/#/edit-category/" + item.id
         }
     }
 
@@ -58,23 +52,32 @@ class Categories extends React.Component {
     }
 
     render() {
-        return <>
-            <Table striped bordered hover size="sm">
-                <thead>
-                    <tr>
-                        <td>#</td>
-                        <td>Name</td>
-                        <td>Image</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        this.state.items.map(e => <CategoryItem key={e.id} item={e} onDelete={this.delete} onEdit={this.edit}></CategoryItem>)
-                    }
-                </tbody>
-            </Table>
-            <AddButton />
-        </>
+        return <div className="container-fluid">
+            <Row>
+                <Col xs lg md>
+                    <Card>
+                        <Card.Header>Categories</Card.Header>
+                        <Card.Body>
+                            <Table responsive striped bordered hover size="sm">
+                                <thead>
+                                    <tr>
+                                        <td>#</td>
+                                        <td>Name</td>
+                                        <td>Image</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        this.state.items.map(e => <CategoryItem key={e.id} item={e} onDelete={this.delete}></CategoryItem>)
+                                    }
+                                </tbody>
+                            </Table>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <AddButton />
+            </Row>
+        </div>
     }
 } export default Categories

@@ -38,7 +38,7 @@ class ProductCategory extends Model {
                 $categoryId = null;
         }
 
-        return $return;
+        return array_reverse($return);
     }
 
     public function childs() {

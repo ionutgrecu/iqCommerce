@@ -25,7 +25,10 @@ class CategoryForm extends React.Component {
 
         if (this.props.match.params.id) {
             toast.info('Item is loading, wait...', { position: toast.POSITION.BOTTOM_RIGHT, autoClose: false })
-            this.store.getItem(this.props.match.params.id)
+
+            setTimeout(() => {
+                this.store.getItem(this.props.match.params.id)
+            }, 500)
         }
 
         this.handleChange = (e) => {
@@ -54,18 +57,10 @@ class CategoryForm extends React.Component {
         this.save = () => {
             toast.info('Saving...', { position: toast.POSITION.BOTTOM_RIGHT })
             this.store.saveItem(this.state.item)
-            console.log(this.state.item)
         }
 
         this.cancel = () => {
             location.href = "#/categories"
-        }
-
-        this.test = () => {
-            console.log(this.editor.current.props.value)
-            let item = this.state.item
-            this.setState({ item: item })
-            // this.editor.current.refresh()
         }
     }
 
