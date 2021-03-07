@@ -21,5 +21,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix'=>'v1','middleware'=>['auth','api']], function(){
     Route::group(['prefix'=>'products'], function(){
         Route::resource('/categories','App\Http\Controllers\Api\CategoriesController');
+        Route::resource('/vendors','App\Http\Controllers\Api\VendorsController');
     });
 });

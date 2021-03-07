@@ -5,7 +5,8 @@ import Main from './Main'
 import Categories from './Categories/Categories'
 import Characteristics from './Characteristics'
 import Orders from './Orders'
-import Vendors from './Vendors'
+import Vendors from './Vendors/Vendors'
+import VendorForm from './Vendors/VendorForm'
 import CategoryForm from './Categories/CategoryForm'
 import AddButton from './AddButton'
 
@@ -16,6 +17,8 @@ class App extends React.Component {
             <Router >
                 <Switch>
                     <Route path='/vendors' component={Vendors} />
+                    <Route path='/add-vendor' component={VendorForm} />
+                    <Route path='/edit-vendor/:id' component={VendorForm} />
                     <Route path='/categories' component={Categories} />
                     <Route path='/add-category' component={CategoryForm} />
                     <Route path='/edit-category/:id' component={CategoryForm} />

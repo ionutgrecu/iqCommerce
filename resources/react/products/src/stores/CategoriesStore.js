@@ -6,7 +6,7 @@ class CategoriesStore {
     constructor() {
         this.items = []
         this.item = {}
-        this.categories=[]
+        this.categories = []
         this.emitter = new EventEmitter
     }
 
@@ -14,7 +14,7 @@ class CategoriesStore {
         axios.get(`${APIURL}/categories/${id}`, { withCredentials: true })
             .then((response) => {
                 this.item = response.data.data
-                this.categories=response.data.categories
+                this.categories = response.data.categories
                 this.emitter.emit('GET_CATEGORY_SUCCESS')
             }, (error) => {
                 let errors = errorsRoll(error)

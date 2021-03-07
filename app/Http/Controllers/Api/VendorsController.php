@@ -3,24 +3,24 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\CategoryRequest;
-use App\Services\ProductCategoriesService;
+use App\Http\Requests\Api\VendorRequest;
+use App\Services\ProductVendorsService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use function response;
 
-class CategoriesController extends Controller {
+class VendorsController extends Controller {
 
     private $service;
 
     function __construct() {
         parent::__construct();
 
-        $this->service = new ProductCategoriesService;
+        $this->service = new ProductVendorsService;
     }
 
     /**
-     * Return categories
+     * Display a listing of the resource.
      *
      * @return Response
      */
@@ -43,11 +43,11 @@ class CategoriesController extends Controller {
      * @param  Request  $request
      * @return Response
      */
-    public function store(CategoryRequest $request) {
-        $category = $this->service->findOrNew((integer) $request['id']);
+    public function store(VendorRequest $request) {
+        $vendor = $this->service->findOrNew((integer) $request['id']);
         $this->service->fillItemWithRequest($request);
 
-        return response()->json(['status' => 'ok', 'data' => $category]);
+        return response()->json(['status' => 'ok', 'data' => $vendor]);
     }
 
     /**
@@ -58,9 +58,8 @@ class CategoriesController extends Controller {
      */
     public function show($id) {
         $item = $this->service->find($id);
-        $categories = $this->service->getTree($item->id);
 
-        return response()->json(['status' => 'ok', 'data' => $item, 'categories' => $categories]);
+        return response()->json(['status' => 'ok', 'data' => $item]);
     }
 
     /**
@@ -70,7 +69,7 @@ class CategoriesController extends Controller {
      * @return Response
      */
     public function edit($id) {
-//        return response()->json(['status' => 'edit']);
+        //
     }
 
     /**

@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration {
 
         Schema::create($tableName, function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('product_vendors_id')->nullable()->index();
             $table->timestamps();
         });
     }

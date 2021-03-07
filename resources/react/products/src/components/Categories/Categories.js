@@ -107,8 +107,8 @@ class Categories extends React.Component {
                         </Card.Body>
                     </Card>
                 </Col>
-                <AddButton />
             </Row>
+            <AddButton />
         </div>
     }
 } export default Categories

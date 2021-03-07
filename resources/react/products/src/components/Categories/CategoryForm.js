@@ -101,18 +101,18 @@ class CategoryForm extends React.Component {
     }
 
     render() {
-        let { id, item, categories } = this.state
+        const { id, item, categories } = this.state
 
         return <Container>
             <Row className="justify-content-md-center">
                 <Col xs lg="6" md="10">
                     <Card>
-                        <Card.Header>Add/Edit category</Card.Header>
+                        <Card.Header>{id == 0 ? "Add" : `Edit category ${item.name}`}</Card.Header>
                         <Card.Body>
                             <Form id={"cat-" + id}>
                                 <Form.Group>
                                     <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text" placeholder="Category Name" value={item.name} onChange={this.handleSelectChange} name='name'></Form.Control>
+                                    <Form.Control type="text" placeholder="Category Name" value={item.name} onChange={this.handleChange} name='name'></Form.Control>
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label>Category</Form.Label>
@@ -144,12 +144,12 @@ class CategoryForm extends React.Component {
                                         onEditorChange={this.handleEditorChange}
                                     />
                                 </Form.Group>
-                                <BtnSave onClick={this.save} onCancel={this.cancel}></BtnSave>
                             </Form>
                         </Card.Body>
                     </Card>
                 </Col>
             </Row>
+            <BtnSave onClick={this.save} onCancel={this.cancel}></BtnSave>
         </Container>
     }
 } export default withRouter(CategoryForm)

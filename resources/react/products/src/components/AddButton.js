@@ -9,13 +9,17 @@ class AddButton extends React.Component {
         location.href = "#/add-category"
     }
 
+    addVendor() {
+        location.href = "#/add-vendor"
+    }
+
     render() {
         return <Fab
             icon={<FontAwesomeIcon icon={faPlus} />}
             alwaysShowTitle={true}
         >
             <Action text="Category"><FontAwesomeIcon icon={faSitemap} onClick={this.addCategory} /></Action>
-            <Action text="Vendor"><FontAwesomeIcon icon={faUserSecret} /></Action>
+            <Action text="Vendor"><FontAwesomeIcon icon={faUserSecret} onClick={this.addVendor} /></Action>
             <Action text="Characteristic"><FontAwesomeIcon icon={faAsterisk} /></Action>
             <Action text="Product"><FontAwesomeIcon icon={faCubes} /></Action>
         </Fab>
