@@ -1,8 +1,8 @@
 import React from 'react'
 import CategoryItem from './CategoryItem'
-import CategoriesStore from '../stores/CategoriesStore'
+import CategoriesStore from '../../stores/CategoriesStore'
 import { Table, Container, Row, Col, Card } from 'react-bootstrap'
-import AddButton from './AddButton'
+import AddButton from '../AddButton'
 import { toast } from 'react-toastify'
 
 toast.configure()
@@ -20,6 +20,8 @@ class Categories extends React.Component {
 
         this.delete = (id) => {
             if (!confirm('Delete this item?')) return
+
+
 
             toast.info('Deleting...', { position: toast.POSITION.BOTTOM_RIGHT })
             this.store.deleteItem(id)

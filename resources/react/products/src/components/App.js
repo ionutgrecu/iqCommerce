@@ -2,11 +2,11 @@ import './App.scss'
 import React, { Component } from 'react'
 import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Main from './Main'
-import Categories from './Categories'
+import Categories from './Categories/Categories'
 import Characteristics from './Characteristics'
 import Orders from './Orders'
 import Vendors from './Vendors'
-import CategoryForm from './CategoryForm'
+import CategoryForm from './Categories/CategoryForm'
 import AddButton from './AddButton'
 
 class App extends React.Component {

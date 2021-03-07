@@ -3,11 +3,11 @@ import { withRouter } from 'react-router-dom'
 import { Container, Row, Col, Form, Card, Button } from 'react-bootstrap'
 import { Editor } from '@tinymce/tinymce-react'
 import Select2 from 'react-select2-wrapper'
-import CategoriesStore from '../stores/CategoriesStore'
-import SingleImageUpload from './SingleImageUpload'
-import BtnSave from './BtnSave'
+import CategoriesStore from '../../stores/CategoriesStore'
+import SingleImageUpload from '../SingleImageUpload'
+import BtnSave from '../BtnSave'
 import { toast } from 'react-toastify'
-import { objectTreeToArrList } from '../helpers'
+import { objectTreeToArrList } from '../../helpers'
 
 toast.configure()
 
