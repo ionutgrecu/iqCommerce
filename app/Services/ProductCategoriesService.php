@@ -39,7 +39,7 @@ class ProductCategoriesService {
     }
 
     function getAll(int $exceptId = null): Collection {
-        $productCategoryObj = ProductCategory::select('*');
+        $productCategoryObj = ProductCategory::select('*')->with('childs');
 
         if ($exceptId)
             $productCategoryObj->where('id', '!=', $exceptId);

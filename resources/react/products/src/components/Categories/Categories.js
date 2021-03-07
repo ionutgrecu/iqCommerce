@@ -3,6 +3,7 @@ import CategoryItem from './CategoryItem'
 import CategoriesStore from '../../stores/CategoriesStore'
 import { Table, Container, Row, Col, Card } from 'react-bootstrap'
 import AddButton from '../AddButton'
+import { confirmComplex } from './ComplexConfirmation'
 import { toast } from 'react-toastify'
 
 toast.configure()
@@ -18,13 +19,41 @@ class Categories extends React.Component {
         this.store = new CategoriesStore()
         this.store.getItems()
 
-        this.delete = (id) => {
+        this.delete = (item) => {
             if (!confirm('Delete this item?')) return
 
+            if (item.childs.length > 0)
+                confirmComplex({
+                    title: 'Subcategories?',
+                    message: 'What should do with existing subcategories ' + item.childs.map((o) => { return `"${o.name}"` }) + ' ?',
+                    buttons: [
+                        { value: 'root', text: 'Make them root categories' },
+                        { value: 'delete', text: 'Delete them and leave products without categories' },
+                        //TODO: Delete products too
+                    ]
+                }).then(
+                    ({ button }) => {
+                        switch (button) {
+                            case 'root':
+                                for (let o of item.childs) {
+                                    o.category_id = null
+                                    this.store.saveItem(o)
+                                }
+                                break;
 
+                            case 'delete':
+                                for (let o of item.childs)
+                                    this.store.deleteItem(o.id)
+                                break;
+                        }
+                    },
+                    () => {
+                        return
+                    }
+                )
 
             toast.info('Deleting...', { position: toast.POSITION.BOTTOM_RIGHT })
-            this.store.deleteItem(id)
+            this.store.deleteItem(item.id)
         }
     }
 

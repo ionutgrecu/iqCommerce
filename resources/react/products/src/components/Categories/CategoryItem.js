@@ -10,7 +10,7 @@ class CategoryItem extends React.Component {
         }
 
         this.delete = () => {
-            props.onDelete(this.state.item.id)
+            props.onDelete(this.state.item)
         }
     }
 
