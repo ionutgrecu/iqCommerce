@@ -51,7 +51,9 @@ class CharacteristicsController extends Controller {
      * @return Response
      */
     public function show($id) {
-        //
+        $item = $this->service->find($id);
+
+        return response()->json(['status' => 'ok', 'data' => $item]);
     }
 
     /**

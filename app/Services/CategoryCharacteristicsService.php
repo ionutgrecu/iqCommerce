@@ -25,7 +25,13 @@ class CategoryCharacteristicsService {
     function getAll(): Collection {
         $characteristicsObj = CategoryCharacteristic::select('*')->with('category');
 
-        return $characteristicsObj->orderBy('category_id', 'ASC')->orderBy('group','ASC')->orderBy('order','ASC')->get();
+        return $characteristicsObj->orderBy('category_id', 'ASC')->orderBy('group', 'ASC')->orderBy('order', 'ASC')->get();
+    }
+
+    function find(int $id) {
+        $this->item = CategoryCharacteristic::with('category')->find($id);
+
+        return $this->item;
     }
 
 }

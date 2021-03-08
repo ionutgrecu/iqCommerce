@@ -19,4 +19,15 @@ class CharacteristicsStore {
                 this.emitter.emit('GET_CHARACTERISTICS_ERROR', errors.message, errors.errors)
             })
     }
+
+    async getItem(id) {
+        Axios.get(`${APIURL}/characteristics/${id}`, { withCredentials: true })
+            .then((response) => {
+                this.item = response.data.data
+                this.emitter.emit('GET_CHARACTERISTIC_SUCCESS')
+            }, (error) => {
+                let errors = errorsRoll(error)
+                this.emitter.emit('GET_CHARACTERISTIC_ERROR', errors)
+            })
+    }
 } export default CharacteristicsStore
