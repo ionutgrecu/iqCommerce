@@ -13,6 +13,10 @@ class AddButton extends React.Component {
         location.href = "#/add-vendor"
     }
 
+    addCharacteristic(){
+        location.href="#/add-characteristic"
+    }
+
     render() {
         return <Fab
             icon={<FontAwesomeIcon icon={faPlus} />}
@@ -20,7 +24,7 @@ class AddButton extends React.Component {
         >
             <Action text="Category"><FontAwesomeIcon icon={faSitemap} onClick={this.addCategory} /></Action>
             <Action text="Vendor"><FontAwesomeIcon icon={faUserSecret} onClick={this.addVendor} /></Action>
-            <Action text="Characteristic"><FontAwesomeIcon icon={faAsterisk} /></Action>
+            <Action text="Characteristic"><FontAwesomeIcon icon={faAsterisk} onClick={this.addCharacteristic} /></Action>
             <Action text="Product"><FontAwesomeIcon icon={faCubes} /></Action>
         </Fab>
     }
