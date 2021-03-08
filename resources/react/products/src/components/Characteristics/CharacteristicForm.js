@@ -1,5 +1,5 @@
-import React from "react";
-import { withRouter } from "react-router";
+import React from "react"
+import { withRouter } from 'react-router-dom'
 
 class CharacteristicForm extends React.Component {
     constructor(props) {
@@ -10,4 +10,4 @@ class CharacteristicForm extends React.Component {
     render() {
         return <>form</>
     }
-} export default CharacteristicForm
+} export default withRouter(CharacteristicForm)
