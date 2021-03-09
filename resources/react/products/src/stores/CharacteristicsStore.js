@@ -49,4 +49,14 @@ class CharacteristicsStore {
                 this.emitter.emit('SAVE_CHARACTERISTIC_ERROR', errors)
             })
     }
+
+    async deleteItem(id) {
+        Axios.delete(`${APIURL}/characteristics/${id}`, { withCredentials: true })
+            .then((response) => {
+                this.emitter.emit('DELETE_CHARACTERISTIC_SUCCESS', id)
+            }, (error) => {
+                let errors = errorsRoll(error)
+                this.emitter.emit('DELETE_CHARACTERISTIC_ERROR', errors)
+            })
+    }
 } export default CharacteristicsStore

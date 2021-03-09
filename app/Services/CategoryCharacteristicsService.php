@@ -25,6 +25,17 @@ class CategoryCharacteristicsService {
 
     private $item;
 
+    function deleteItem(int $id): bool {
+        $item = CategoryCharacteristic::find($id);
+
+        if ($item) {
+            $item->delete();
+            return true;
+        }
+
+        return false;
+    }
+
     function getAll(): Collection {
         $characteristicsObj = CategoryCharacteristic::select('*')->with('category');
 
@@ -52,9 +63,10 @@ class CategoryCharacteristicsService {
 
         $this->item->fill($request->toArray());
 
-        if(!$this->item->order===null)$this->item->order=0;
-        $this->item->is_filter=(!$request['is_filter'] || $request['is_filter']=='false')?0:1;
-                
+        if (!$this->item->order === null)
+            $this->item->order = 0;
+        $this->item->is_filter = (!$request['is_filter'] || $request['is_filter'] == 'false') ? 0 : 1;
+
         $this->item->save();
 
         return $this->item;

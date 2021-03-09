@@ -46,7 +46,7 @@ class CharacteristicsController extends Controller {
     public function store(CharacteristicRequest $request) {
         $item = $this->service->findOrNew((integer) $request['id']);
         $this->service->fillItemWithRequest($request);
-        
+
         return response()->json(['status' => 'ok', 'data' => $item]);
     }
 
@@ -96,7 +96,10 @@ class CharacteristicsController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        //
+        if ($this->service->deleteItem($id))
+            return response()->json(['status' => 'ok', 'id' => $id]);
+        else
+            return response()->json(['status' => 'failed', 'id' => $id, 'message' => 'Item not found']);
     }
 
 }

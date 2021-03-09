@@ -88,13 +88,13 @@ class CharacteristicForm extends React.Component {
             toast.error('Cannot load item: ' + errors.message + ' ' + errors.errors.join(', '), { position: toast.POSITION.BOTTOM_RIGHT })
         })
 
-        this.store.emitter.addListener('SAVE_CHARACTERISTIC_SUCCESSS',()=>{
+        this.store.emitter.addListener('SAVE_CHARACTERISTIC_SUCCESSS', () => {
             toast.dismiss()
             toast.success('Item saved', { position: toast.POSITION.BOTTOM_RIGHT, pauseOnFocusLoss: false })
             this.setState({ item: this.store.data.data })
         })
 
-        this.store.emitter.addListener('SAVE_CHARACTERISTIC_ERROR',(errors)=>{
+        this.store.emitter.addListener('SAVE_CHARACTERISTIC_ERROR', (errors) => {
             toast.dismiss()
             toast.error('Cannot save item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
         })
