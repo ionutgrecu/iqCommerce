@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\CharacteristicRequest;
 use App\Services\CategoryCharacteristicsService;
+use App\Services\ProductCategoriesService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use function response;
 
 class CharacteristicsController extends Controller {
 
@@ -40,8 +43,11 @@ class CharacteristicsController extends Controller {
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request) {
-        //
+    public function store(CharacteristicRequest $request) {
+        $item = $this->service->findOrNew((integer) $request['id']);
+        $this->service->fillItemWithRequest($request);
+        
+        return response()->json(['status' => 'ok', 'data' => $item]);
     }
 
     /**
@@ -52,8 +58,14 @@ class CharacteristicsController extends Controller {
      */
     public function show($id) {
         $item = $this->service->find($id);
+        $categories = (new ProductCategoriesService)->getTree();
+        $nameValues = $this->service->getUniqueValues('name');
+        $groupValues = $this->service->getUniqueValues('group', $item->category_id);
+        $typeValues = $this->service->getTypeValues();
+        $prependValues = $this->service->getUniqueValues('prepend', $item->category_id);
+        $appendValues = $this->service->getUniqueValues('append', $item->category_id);
 
-        return response()->json(['status' => 'ok', 'data' => $item]);
+        return response()->json(['status' => 'ok', 'data' => $item, 'categories' => $categories, 'nameValues' => $nameValues, 'groupValues' => $groupValues, 'typeValues' => $typeValues, 'prependValues' => $prependValues, 'appendValues' => $appendValues]);
     }
 
     /**

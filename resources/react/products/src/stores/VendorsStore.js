@@ -43,12 +43,11 @@ class VendorsStore {
     async saveItem(item) {
         const formData = new FormData()
 
-        for (const key in item) {
+        for (const key in item)
             if (Object.hasOwnProperty.call(item, key)) {
                 let value = item[key];
                 formData.append(key, value)
             }
-        }
 
         Axios.post(`${APIURL}/vendors`, formData, { withCredentials: true })
             .then((response) => {

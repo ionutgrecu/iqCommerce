@@ -44,7 +44,7 @@ class ProductVendorsService {
         return $vendorObj->orderBy('id', 'DESC')->get();
     }
 
-    function find(int $id) {
+    function find(int $id): ProductVendor {
         $this->item = ProductVendor::find($id);
 
         return $this->item;

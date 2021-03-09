@@ -48,7 +48,7 @@ class ProductCategorySeeder extends Seeder {
             'category_id' => $categoryId,
             'name' => 'Frecventa procesor',
             'type' => 'numeric',
-            'append_field'=>'Ghz',
+            'append'=>'Ghz',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => $characteristicId++], [
@@ -61,7 +61,7 @@ class ProductCategorySeeder extends Seeder {
             'category_id' => $categoryId,
             'name' => 'Capacitate memorie',
             'type' => 'numeric',
-            'append_field'=>'Gb',
+            'append'=>'Gb',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => $characteristicId++], [
@@ -74,7 +74,7 @@ class ProductCategorySeeder extends Seeder {
             'category_id' => $categoryId,
             'name' => 'Capacitate HDD',
             'type' => 'numeric',
-            'append_field'=>'Gb',
+            'append'=>'Gb',
             'is_filter' => 1,
         ]);
         $categoryId++;
@@ -89,21 +89,21 @@ class ProductCategorySeeder extends Seeder {
             'category_id' => $categoryId,
             'name' => 'Memorie RAM',
             'type' => 'numeric',
-            'append_field'=>'Gb',
+            'append'=>'Gb',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => $characteristicId++], [
             'category_id' => $categoryId,
             'name' => 'Memorie interna',
             'type' => 'numeric',
-            'append_field'=>'Gb',
+            'append'=>'Gb',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => $characteristicId++], [
             'category_id' => $categoryId,
             'name' => 'Dimensiuni ecran',
             'type' => 'numeric',
-            'append_field'=>'inch',
+            'append'=>'inch',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => $characteristicId++], [

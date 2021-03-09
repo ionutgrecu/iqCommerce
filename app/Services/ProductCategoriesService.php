@@ -68,7 +68,7 @@ class ProductCategoriesService {
         return $return;
     }
 
-    function find(int $id) {
+    function find(int $id): ProductCategory {
         $this->item = ProductCategory::with('category')->find($id);
 
         return $this->item;

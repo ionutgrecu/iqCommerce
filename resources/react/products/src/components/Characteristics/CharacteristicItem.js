@@ -18,7 +18,7 @@ props.onDelete(this.state.item)
 
         return <tr>
             <td>{item.id}</td>
-            <td>{item.name} {item.group?(<><br /><small>Group {item.group}</small></>):''}</td>
+            <td>{item.prepend?(<small>{item.prepend}</small>):''} {item.name} {item.append?(<small>{item.append}</small>):''} {item.group?(<><br /><small>Group {item.group}</small></>):''}</td>
             <td>{item.category?item.category.name:'*'}</td>
             <td>{item.type}</td>
             <td>{item.is_filter?(<i className="fas fa-check"></i>):''}</td>
