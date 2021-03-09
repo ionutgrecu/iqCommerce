@@ -13,8 +13,12 @@ class AddButton extends React.Component {
         location.href = "#/add-vendor"
     }
 
-    addCharacteristic(){
-        location.href="#/add-characteristic"
+    addCharacteristic() {
+        location.href = "#/add-characteristic"
+    }
+
+    addProduct() {
+        location.href = '#/add-product'
     }
 
     render() {
@@ -22,10 +26,10 @@ class AddButton extends React.Component {
             icon={<FontAwesomeIcon icon={faPlus} />}
             alwaysShowTitle={true}
         >
-            <Action text="Category"><FontAwesomeIcon icon={faSitemap} onClick={this.addCategory} /></Action>
-            <Action text="Vendor"><FontAwesomeIcon icon={faUserSecret} onClick={this.addVendor} /></Action>
-            <Action text="Characteristic"><FontAwesomeIcon icon={faAsterisk} onClick={this.addCharacteristic} /></Action>
-            <Action text="Product"><FontAwesomeIcon icon={faCubes} /></Action>
+            <Action text="Category" onClick={this.addCategory}><FontAwesomeIcon icon={faSitemap} /></Action>
+            <Action text="Vendor" onClick={this.addVendor}><FontAwesomeIcon icon={faUserSecret} /></Action>
+            <Action text="Characteristic" onClick={this.addCharacteristic}><FontAwesomeIcon icon={faAsterisk} /></Action>
+            <Action text="Product" onClick={this.addProduct}><FontAwesomeIcon icon={faCubes} /></Action>
         </Fab>
     }
 } export default AddButton

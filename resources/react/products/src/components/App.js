@@ -10,6 +10,8 @@ import VendorForm from './Vendors/VendorForm'
 import CategoryForm from './Categories/CategoryForm'
 import AddButton from './AddButton'
 import CharacteristicForm from './Characteristics/CharacteristicForm'
+import Products from './Products/Products'
+import ProductForm from './Products/ProductForm'
 
 class App extends React.Component {
     render() {
@@ -26,6 +28,8 @@ class App extends React.Component {
                     <Route path='/characteristics' component={Characteristics} />
                     <Route path='/add-characteristic' component={CharacteristicForm} />
                     <Route path='/edit-characteristic/:id' component={CharacteristicForm} />
+                    <Route path='/products' component={Products} />
+                    <Route path='/add-product' component={ProductForm} />
                     <Route exact path='/' component={Main} />
                     <Route path='/orders' component={Orders} />
                 </Switch>

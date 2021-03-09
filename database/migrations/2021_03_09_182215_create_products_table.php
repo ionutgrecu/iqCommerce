@@ -13,18 +13,19 @@ class CreateProductsTable extends Migration {
      * @return void
      */
     public function up() {
-        $tableName = (new Product)->getTable();
-
-        if (Schema::hasTable($tableName)) {
-            echo "$tableName already exists. Migrate " . __FILE__ . " manually";
-            return;
-        }
-
-        Schema::create($tableName, function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_vendors_id')->nullable()->index();
+            $table->bigInteger('product_vendors_id')->unsigned()->nullable()->index();
+            $table->bigInteger('product_category_id')->unsigned()->nullable()->index();
+            $table->string('name',255);
+            $table->longText('description')->nullable();
+            $table->decimal('price',6,2,true)->comment('The default price');
+            $table->decimal('price_min',6,2,true)->nullable()->default(null)->comment('The minimum price below which the virtual agent should not go');
             $table->timestamps();
+            $table->softDeletes();
         });
+        
+        \DB::statement("ALTER TABLE products ADD FULLTEXT search(name,description)");
     }
 
     /**
