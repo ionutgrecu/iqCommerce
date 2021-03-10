@@ -36,12 +36,27 @@ class CategoryCharacteristicsService {
         return false;
     }
 
-    function getAll(int $categoryId=null): Collection {
+    function getAll(int $categoryId = null) {
         $characteristicsObj = CategoryCharacteristic::select('*')->with('category');
-        
-        if($categoryId)$characteristicsObj->whereCategoryId($categoryId);
+
+        if ($categoryId)
+            $characteristicsObj->whereCategoryId($categoryId);
 
         return $characteristicsObj->orderBy('category_id', 'ASC')->orderBy('group', 'ASC')->orderBy('order', 'ASC')->get();
+    }
+
+    function getTree(int $categoryId = null) {
+        $return = [];
+
+        $characteristicsObj = CategoryCharacteristic::select('*');
+
+        if ($categoryId)
+            $characteristicsObj->whereCategoryId($categoryId);
+        
+        foreach($characteristicsObj->cursor() as $item)
+            $return[$item->group??'others'][]=$item;
+        
+        return $return;
     }
 
     function find(int $id): CategoryCharacteristic {

@@ -8,6 +8,8 @@ import 'react-tabs/style/react-tabs.css'
 import ProductsStore from "../../stores/ProductsStore"
 import BtnSave from "../BtnSave"
 import { objectToArrList, objectTreeToArrList } from "../../helpers"
+import ProductCharacteristicGroup from "./ProductCharacteristicGroup"
+import { v4 as uuidv4 } from 'uuid'
 
 class ProductForm extends React.Component {
     constructor(props) {
@@ -18,7 +20,7 @@ class ProductForm extends React.Component {
             item: { name: '', description: '', category_id: null, vendor_id: null, price: 0, price_min: 0 },
             categories: [],
             vendors: [],
-            characteristics:[]
+            characteristics: []
         }
 
         this.store = new ProductsStore()
@@ -85,11 +87,11 @@ class ProductForm extends React.Component {
             toast.error('Cannot save item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
         })
 
-        this.store.emitter.addListener('GET_PRODUCT_CHARACTERISTICS_SUCCESS',()=>{
-toast.dismiss()
-this.setState({
-    characteristics:this.store.characteristics
-})
+        this.store.emitter.addListener('GET_PRODUCT_CHARACTERISTICS_SUCCESS', () => {
+            toast.dismiss()
+            this.setState({
+                characteristics: this.store.characteristics
+            })
         })
 
         this.store.emitter.addListener('GET_PRODUCT_CHARACTERISTICS_ERROR', (errors) => {
@@ -181,7 +183,11 @@ this.setState({
                     </div>
                 </TabPanel>
                 <TabPanel>
-
+                    <div className="container-fluid">
+                        <Row>
+                            {Object.keys(characteristics).map((key) => <ProductCharacteristicGroup key={uuidv4} name={key} items={characteristics[key]}></ProductCharacteristicGroup>)}
+                        </Row>
+                    </div>
                 </TabPanel>
                 <TabPanel>
 

@@ -14,8 +14,10 @@ use function response;
 
 class ResourcesController extends Controller {
 
-    /**
-     * Get a list of aditional resources like: categories, vendors, etc
+    /** Get a list of aditional resources like: categories, vendors, etc
+     * Can be sent in GET/POST arguments, parameters like:
+     * - object : category, categories-tree, vendors, characteristics
+     * - category-id : For characteristics and characteristics-tree. Return characteristics for this category
      *
      * @return Response
      */
@@ -40,6 +42,11 @@ class ResourcesController extends Controller {
         if (checkIfInput(request()->input('object'), 'characteristics')) {
             $characteristicsService = new CategoryCharacteristicsService();
             $data['characteristics'] = $characteristicsService->getAll(request()->input('category-id'));
+        }
+        
+        if(checkIfInput(request()->input('object'), 'characteristics-tree')){
+            $characteristicsService=new CategoryCharacteristicsService();
+            $data['characteristics-tree']=$characteristicsService->getTree(request()->input('category-id'));
         }
 
         return response()->json(['status' => 'ok', 'data' => $data]);
