@@ -2,7 +2,7 @@ import React from "react"
 import { toast } from "react-toastify"
 import { Editor } from "@tinymce/tinymce-react"
 import Select2 from 'react-select2-wrapper'
-import { Card, Col, Container, Row, Form } from "react-bootstrap"
+import { Card, Col, Container, Row, Form, Image } from "react-bootstrap"
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import ProductsStore from "../../stores/ProductsStore"
@@ -10,6 +10,7 @@ import BtnSave from "../BtnSave"
 import { objectToArrList, objectTreeToArrList } from "../../helpers"
 import ProductCharacteristicGroup from "./ProductCharacteristicGroup"
 import { v4 as uuidv4 } from 'uuid'
+import SingleImageUpload from "../SingleImageUpload"
 
 class ProductForm extends React.Component {
     constructor(props) {
@@ -17,10 +18,11 @@ class ProductForm extends React.Component {
 
         this.state = {
             id: this.props.match.params.id ? this.props.match.params.id : 0,
-            item: { name: '', description: '', category_id: null, vendor_id: null, price: 0, price_min: 0 },
+            item: { name: '', description: '', category_id: null, vendor_id: null, price: 0, price_min: 0, images: [{ file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }] },
             categories: [],
             vendors: [],
-            characteristics: []
+            characteristics: [],
+            images: []
         }
 
         this.store = new ProductsStore()
@@ -31,12 +33,19 @@ class ProductForm extends React.Component {
         }
 
         this.handleChange = (e) => {
-            let item = this.state.item
-            item[e.target.name] = e.target.value
+            let { item, images } = this.state
+
+            if ('file' == e.target.type)
+                for (let f of e.target.files) {
+                    item.images.push({ file: URL.createObjectURL(f) })
+                    images.push(f)
+                }
+            else
+                item[e.target.name] = e.target.value
 
             if (item.price_min > item.price && item.price) item.price_min = item.price
 
-            this.setState({ item: item })
+            this.setState({ item: item, images: images })
         }
 
         this.handleEditorChange = (content, editor) => {
@@ -101,7 +110,7 @@ class ProductForm extends React.Component {
     }
 
     render() {
-        const { id, item, categories, vendors, characteristics } = this.state
+        const { id, item, categories, vendors, characteristics, images } = this.state
 
         return <Form id={`prod-${id}`}>
             <Tabs>
@@ -190,7 +199,12 @@ class ProductForm extends React.Component {
                     </div>
                 </TabPanel>
                 <TabPanel>
-
+                    <div className="container-fluid gallery">
+                        <Row>
+                            <Col xl="2" lg="4" md="4" sm="6" xs="12" ><Form.Control type="file" multiple accept="image/*" onChange={this.handleChange}></Form.Control></Col>
+                            {item.images.map(image => <Col xl="1" lg="2" md="4" sm="6" xs="12" ><Image src={image.file} thumbnail></Image></Col>)}
+                        </Row>
+                    </div>
                 </TabPanel>
             </Tabs>
             <BtnSave onClick={this.save} onCancel={this.cancel}></BtnSave>
