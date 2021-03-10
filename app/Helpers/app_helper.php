@@ -48,3 +48,16 @@ function recursiveKeySort(array &$data) {
         }
     }
 }
+
+/** Check if the input (array or string) is or contain the $checkedValue
+ * 
+ * @param string|array $input
+ * @param string $checkedValue
+ * @return bool
+ */
+function checkIfInput($input, string $checkedValue): bool {
+    if ((is_string($input) && $checkedValue === $input) || (is_array($input) && in_array($checkedValue, $input)))
+        return true;
+    else
+        return false;
+}

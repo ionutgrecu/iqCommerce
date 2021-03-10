@@ -6,6 +6,31 @@ export const inArray = (needle, haystack) => {
     return false;
 }
 
+/** Rearrange an array or object
+ */
+export const objectToArrList = (obj, inputParameters, outputParameters) => {
+    if ('object' != typeof (obj)) throw 'obj must be an object!'
+
+    if ('object' != typeof (inputParameters) || 'object' != typeof (outputParameters)) throw 'inputParameters and outputParameters must be arrays!'
+
+    if (inputParameters.length != outputParameters.length)
+        throw 'inputParameters must be the same size as outputParameters!'
+
+    let arrOut = []
+
+    for (let o of obj) {
+        let objOut = {}
+
+        for (let i in inputParameters)
+            if ('undefined' != typeof (o[inputParameters[i]]))
+                objOut[outputParameters[i]] = o[inputParameters[i]]
+
+        arrOut.push(objOut)
+    }
+
+    return arrOut
+}
+
 /** Recursive function to convert an object having child subobjects to array and prepare labels accordingly
  */
 export const objectTreeToArrList = (obj, childParameter, labelParameter, inputParameters, outputParameters, iterationCount = 0) => {

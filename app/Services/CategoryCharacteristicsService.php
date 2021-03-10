@@ -36,8 +36,10 @@ class CategoryCharacteristicsService {
         return false;
     }
 
-    function getAll(): Collection {
+    function getAll(int $categoryId=null): Collection {
         $characteristicsObj = CategoryCharacteristic::select('*')->with('category');
+        
+        if($categoryId)$characteristicsObj->whereCategoryId($categoryId);
 
         return $characteristicsObj->orderBy('category_id', 'ASC')->orderBy('group', 'ASC')->orderBy('order', 'ASC')->get();
     }

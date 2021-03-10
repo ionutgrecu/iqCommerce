@@ -3,42 +3,64 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Services\CategoryCharacteristicsService;
+use App\Services\ProductCategoriesService;
+use App\Services\ProductVendorsService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use function checkIfInput;
+use function request;
+use function response;
 
-class ResourcesController extends Controller
-{
+class ResourcesController extends Controller {
+
     /**
      * Get a list of aditional resources like: categories, vendors, etc
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function index()
-    {
-        switch(request()->input('object')){
-            
+    public function index() {
+        $data = [];
+
+        if (checkIfInput(request()->input('object'), 'categories')) {
+            $categoriesService = new ProductCategoriesService();
+            $data['categories'] = $categoriesService->getAll();
         }
-        
-        return 'resource '.$type;
+
+        if (checkIfInput(request()->input('object'), 'categories-tree')) {
+            $categoriesService = new ProductCategoriesService();
+            $data['categoriesTree'] = $categoriesService->getTree();
+        }
+
+        if (checkIfInput(request()->input('object'), 'vendors')) {
+            $vendorsService = new ProductVendorsService();
+            $data['vendors'] = $vendorsService->getAll();
+        }
+
+        if (checkIfInput(request()->input('object'), 'characteristics')) {
+            $characteristicsService = new CategoryCharacteristicsService();
+            $data['characteristics'] = $characteristicsService->getAll(request()->input('category-id'));
+        }
+
+        return response()->json(['status' => 'ok', 'data' => $data]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -46,10 +68,9 @@ class ResourcesController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -57,22 +78,20 @@ class ResourcesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -80,10 +99,10 @@ class ResourcesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
+
 }

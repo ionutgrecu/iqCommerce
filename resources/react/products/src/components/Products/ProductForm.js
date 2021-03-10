@@ -1,11 +1,13 @@
+import React from "react"
+import { toast } from "react-toastify"
 import { Editor } from "@tinymce/tinymce-react"
 import Select2 from 'react-select2-wrapper'
-import React from "react"
 import { Card, Col, Container, Row, Form } from "react-bootstrap"
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import ProductsStore from "../../stores/ProductsStore"
 import BtnSave from "../BtnSave"
+import { objectToArrList, objectTreeToArrList } from "../../helpers"
 
 class ProductForm extends React.Component {
     constructor(props) {
@@ -16,11 +18,15 @@ class ProductForm extends React.Component {
             item: { name: '', description: '', category_id: null, vendor_id: null, price: 0, price_min: 0 },
             categories: [],
             vendors: [],
+            characteristics:[]
         }
 
         this.store = new ProductsStore()
 
-        if(!this.props.match.params.id)this.store.loadResources()
+        if (!this.props.match.params.id) {
+            toast.info('Loading resources, wait...', { position: toast.POSITION.BOTTOM_RIGHT, autoClose: false })
+            this.store.loadResources()
+        }
 
         this.handleChange = (e) => {
             let item = this.state.item
@@ -33,13 +39,16 @@ class ProductForm extends React.Component {
 
         this.handleEditorChange = (content, editor) => {
             let item = this.state.item
-            item.description = content
+            item[editor.targetElm.name] = content
             this.setState({ item: item })
         }
 
         this.handleSelectChange = (currentNode, selectedNodes) => {
             let item = this.state.item
             item[currentNode.target.name] = currentNode.target.value
+
+            if ('category_id' == currentNode.target.name) this.store.loadCharacteristics(currentNode.target.value)
+
             this.setState({ item: item })
         }
 
@@ -52,8 +61,45 @@ class ProductForm extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.store.emitter.addListener('GET_PRODUCT_RESOURcES_SUCCESS', () => {
+            let categories = []
+
+            try {
+                categories = objectTreeToArrList(this.store.resources.categoriesTree, 'childs', 'name', ['id', 'name'], ['id', 'text'])
+            } catch (error) {
+                console.log(error)
+                categories = []
+            }
+
+            this.setState({
+                categories: categories,
+                vendors: objectToArrList(this.store.resources.vendors, ['id', 'name'], ['id', 'text'])
+            })
+
+            toast.dismiss()
+        })
+
+        this.store.emitter.addListener('GET_PRODUCT_RESOURcES_ERROR', (errors) => {
+            toast.dismiss()
+            toast.error('Cannot save item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
+        })
+
+        this.store.emitter.addListener('GET_PRODUCT_CHARACTERISTICS_SUCCESS',()=>{
+toast.dismiss()
+this.setState({
+    characteristics:this.store.characteristics
+})
+        })
+
+        this.store.emitter.addListener('GET_PRODUCT_CHARACTERISTICS_ERROR', (errors) => {
+            toast.dismiss()
+            toast.error('Cannot save item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
+        })
+    }
+
     render() {
-        const {id, item, categories, vendors } = this.state
+        const { id, item, categories, vendors, characteristics } = this.state
 
         return <Form id={`prod-${id}`}>
             <Tabs>
@@ -76,6 +122,7 @@ class ProductForm extends React.Component {
                                         <Form.Group>
                                             <Form.Label>Product description</Form.Label>
                                             <Editor
+                                                textareaName="description"
                                                 initialValue={item.description}
                                                 value={item.description}
                                                 init={{
@@ -102,11 +149,11 @@ class ProductForm extends React.Component {
                                     <Card.Body>
                                         <Form.Group>
                                             <Form.Label>Category</Form.Label>
-                                            <Select2 required style={{ width: '100%' }} data={categories} options={{ placeholder: 'Select parent category' }} value={item.category_id} onChange={this.handleSelectChange} />
+                                            <Select2 name="category_id" required style={{ width: '100%' }} data={categories} options={{ placeholder: 'Select parent category' }} value={item.category_id} onChange={this.handleSelectChange} />
                                         </Form.Group>
                                         <Form.Group>
                                             <Form.Label>Vendor</Form.Label>
-                                            <Select2 required style={{ width: '100%' }} data={vendors} options={{ placeholder: 'Select vendor' }} value={item.vendor_id} onChange={this.handleSelectChange} />
+                                            <Select2 name="vendor_id" required style={{ width: '100%' }} data={vendors} options={{ placeholder: 'Select vendor' }} value={item.vendor_id} onChange={this.handleSelectChange} />
                                         </Form.Group>
                                     </Card.Body>
                                 </Card>
@@ -134,7 +181,7 @@ class ProductForm extends React.Component {
                     </div>
                 </TabPanel>
                 <TabPanel>
-                    <h2>Any content 2</h2>
+
                 </TabPanel>
                 <TabPanel>
 
