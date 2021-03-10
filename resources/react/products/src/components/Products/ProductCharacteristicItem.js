@@ -17,7 +17,7 @@ class ProductCharacteristicItem extends React.Component {
 
     render() {
         const { item } = this.state
-        console.log(item)
+
         return <Form.Group>
             {'boolean' != item.type ? <Form.Label>{item.name}</Form.Label> : ''}
             <div className="input-group">

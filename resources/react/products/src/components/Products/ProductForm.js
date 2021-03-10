@@ -50,6 +50,7 @@ class ProductForm extends React.Component {
 
         this.handleEditorChange = (content, editor) => {
             let item = this.state.item
+            console.log(editor.targetElm.name)
             item[editor.targetElm.name] = content
             this.setState({ item: item })
         }
@@ -64,7 +65,8 @@ class ProductForm extends React.Component {
         }
 
         this.save = () => {
-
+            toast.info('Saving...', { position: toast.POSITION.BOTTOM_RIGHT })
+            this.store.saveItem(this.state.item, this.state.images)
         }
 
         this.cancel = () => {
@@ -91,9 +93,9 @@ class ProductForm extends React.Component {
             toast.dismiss()
         })
 
-        this.store.emitter.addListener('GET_PRODUCT_RESOURcES_ERROR', (errors) => {
+        this.store.emitter.addListener('GET_PRODUCT_RESOURCES_ERROR', (errors) => {
             toast.dismiss()
-            toast.error('Cannot save item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
+            toast.error('Cannot retrieve item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
         })
 
         this.store.emitter.addListener('GET_PRODUCT_CHARACTERISTICS_SUCCESS', () => {
@@ -106,6 +108,17 @@ class ProductForm extends React.Component {
         this.store.emitter.addListener('GET_PRODUCT_CHARACTERISTICS_ERROR', (errors) => {
             toast.dismiss()
             toast.error('Cannot save item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
+        })
+
+        this.store.emitter.addListener('GET_PRODUCT_RESOURCES_ERROR', (errors) => {
+            toast.dismiss()
+            toast.error('Cannot save item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
+        })
+
+        this.store.emitter.addListener('SAVE_PRODUCT_SUCCESS', () => {
+            toast.dismiss()
+            toast.success('Item saved', { position: toast.POSITION.BOTTOM_RIGHT, pauseOnFocusLoss: false })
+            this.setState({ item: this.store.item })
         })
     }
 
@@ -123,19 +136,18 @@ class ProductForm extends React.Component {
                 <TabPanel>
                     <div className="container-fluid">
                         <Row>
-                            <Col xs="12" lg="6" md="6">
+                            <Col xs="12" lg="6" md="6" key={uuidv4()}>
                                 <Card>
                                     <Card.Body>
                                         <Form.Group>
                                             <Form.Label>Product name</Form.Label>
-                                            <Form.Control required type="text" name="name" value={item.name} onChange={this.handleChange}></Form.Control>
+                                            <Form.Control name="name" required type="text" value={item.name} onChange={this.handleChange} key={uuidv4()}></Form.Control>
                                         </Form.Group>
                                         <Form.Group>
                                             <Form.Label>Product description</Form.Label>
                                             <Editor
                                                 textareaName="description"
                                                 initialValue={item.description}
-                                                value={item.description}
                                                 init={{
                                                     height: 300,
                                                     menubar: false,
@@ -155,7 +167,7 @@ class ProductForm extends React.Component {
                                     </Card.Body>
                                 </Card>
                             </Col>
-                            <Col xs="12" lg="6" md="6">
+                            <Col xs="12" lg="6" md="6" key={uuidv4()}>
                                 <Card>
                                     <Card.Body>
                                         <Form.Group>
@@ -194,15 +206,15 @@ class ProductForm extends React.Component {
                 <TabPanel>
                     <div className="container-fluid">
                         <Row>
-                            {Object.keys(characteristics).map((key) => <ProductCharacteristicGroup key={uuidv4} name={key} items={characteristics[key]}></ProductCharacteristicGroup>)}
+                            {Object.keys(characteristics).map((key) => <ProductCharacteristicGroup key={uuidv4()} name={key} items={characteristics[key]}></ProductCharacteristicGroup>)}
                         </Row>
                     </div>
                 </TabPanel>
                 <TabPanel>
                     <div className="container-fluid gallery">
                         <Row>
-                            <Col xl="2" lg="4" md="4" sm="6" xs="12" ><Form.Control type="file" multiple accept="image/*" onChange={this.handleChange}></Form.Control></Col>
-                            {item.images.map(image => <Col xl="1" lg="2" md="4" sm="6" xs="12" ><Image src={image.file} thumbnail></Image></Col>)}
+                            <Col xl="2" lg="4" md="4" sm="6" xs="12" key={uuidv4()}><Form.Control type="file" multiple accept="image/*" onChange={this.handleChange}></Form.Control></Col>
+                            {item.images.map(image => <Col xl="1" lg="2" md="4" sm="6" xs="12" key={uuidv4()}><Image src={image.file} thumbnail></Image></Col>)}
                         </Row>
                     </div>
                 </TabPanel>

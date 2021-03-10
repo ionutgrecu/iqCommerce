@@ -4,6 +4,7 @@ import { errorsRoll } from "../helpers"
 
 class ProductsStore {
     constructor() {
+        this.item = {}
         this.resources = {}
         this.characteristics = {}
         this.emitter = new EventEmitter
@@ -16,7 +17,7 @@ class ProductsStore {
                 this.emitter.emit('GET_PRODUCT_RESOURcES_SUCCESS')
             }, (error) => {
                 let errors = errorsRoll(error)
-                this.emitter.emit('GET_PRODUCT_RESOURcES_ERROR', errors)
+                this.emitter.emit('GET_PRODUCT_RESOURCES_ERROR', errors)
             })
     }
 
@@ -30,6 +31,28 @@ class ProductsStore {
             }, (error) => {
                 let errors = errorsRoll(error)
                 this.emitter.emit('GET_PRODUCT_CHARACTERISTICS_ERROR', errors)
+            })
+    }
+
+    async saveItem(item, files) {
+        const formData = new FormData()
+
+        for (const key in item)
+            if (Object.hasOwnProperty.call(item, key)) {
+                let value = item[key]
+                formData.append(key, value)
+            }
+
+        for (const key in files)
+            formData.append(key, files[key])
+
+        Axios.post(`${APIURL}products`, formData, { withCredentials: true })
+            .then((response) => {
+                this.item = response.data.data
+                this.emitter.emit('SAVE_PRODUCT_SUCCESS')
+            }, (error) => {
+                let errors = errorsRoll(error)
+                this.emitter.emit('SAVE_PRODUCT_ERROR', errors.message, errors.errors)
             })
     }
 } export default ProductsStore

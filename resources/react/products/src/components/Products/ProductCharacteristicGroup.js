@@ -18,7 +18,7 @@ class ProductCharacteristicGroup extends React.Component {
             <Card>
                 <Card.Header>{this.state.name}</Card.Header>
                 <Card.Body>
-                    {Object.keys(this.state.items).map((key) => <ProductCharacteristicItem key={uuidv4} name={key} item={this.state.items[key]}></ProductCharacteristicItem>)}
+                    {Object.keys(this.state.items).map((key) => <ProductCharacteristicItem key={uuidv4()} name={key} item={this.state.items[key]}></ProductCharacteristicItem>)}
                 </Card.Body>
             </Card>
         </Col>
