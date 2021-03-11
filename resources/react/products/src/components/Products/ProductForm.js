@@ -1,6 +1,5 @@
 import React from "react"
 import { toast } from "react-toastify"
-import { Editor } from "@tinymce/tinymce-react"
 import Select2 from 'react-select2-wrapper'
 import { Card, Col, Container, Row, Form, Image } from "react-bootstrap"
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
@@ -10,7 +9,8 @@ import BtnSave from "../BtnSave"
 import { objectToArrList, objectTreeToArrList } from "../../helpers"
 import ProductCharacteristicGroup from "./ProductCharacteristicGroup"
 import { v4 as uuidv4 } from 'uuid'
-import SingleImageUpload from "../SingleImageUpload"
+import {Editor, EditorState} from 'draft-js'
+import 'draft-js/dist/Draft.css'
 
 class ProductForm extends React.Component {
     constructor(props) {
@@ -37,26 +37,44 @@ class ProductForm extends React.Component {
 
             if ('file' == e.target.type)
                 for (let f of e.target.files) {
+                    console.log(f)
                     item.images.push({ file: URL.createObjectURL(f) })
                     images.push(f)
                 }
             else
                 item[e.target.name] = e.target.value
-
+            console.log(e.target.name)
+            console.log(e.target.value)
+            console.log(item)
             if (item.price_min > item.price && item.price) item.price_min = item.price
 
             this.setState({ item: item, images: images })
         }
 
-        this.handleEditorChange = (content, editor) => {
-            let item = this.state.item
-            console.log(editor.targetElm.name)
-            item[editor.targetElm.name] = content
-            this.setState({ item: item })
+        this.handleEditorChange = (editorState) => {
+            // if (!editor || !editor.targetElm || !content) return
+
+            // let item = this.state.item
+            // // let name = editor.targetElm.name
+            // let name='description'
+            // console.log(editor.targetElm)
+            // let text = editor.getContent()
+            // // let text=content
+
+            // if (!name) return
+
+            // item[name] = text
+
+            // // setTimeout(() => {
+            //     this.setState({ item: item })
+            // // }, 0)
+
+            console.log(editorState)
         }
 
         this.handleSelectChange = (currentNode, selectedNodes) => {
             let item = this.state.item
+            console.log('select')
             item[currentNode.target.name] = currentNode.target.value
 
             if ('category_id' == currentNode.target.name) this.store.loadCharacteristics(currentNode.target.value)
@@ -95,7 +113,7 @@ class ProductForm extends React.Component {
 
         this.store.emitter.addListener('GET_PRODUCT_RESOURCES_ERROR', (errors) => {
             toast.dismiss()
-            toast.error('Cannot retrieve item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
+            toast.error('Cannot retrieve resources: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
         })
 
         this.store.emitter.addListener('GET_PRODUCT_CHARACTERISTICS_SUCCESS', () => {
@@ -107,12 +125,7 @@ class ProductForm extends React.Component {
 
         this.store.emitter.addListener('GET_PRODUCT_CHARACTERISTICS_ERROR', (errors) => {
             toast.dismiss()
-            toast.error('Cannot save item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
-        })
-
-        this.store.emitter.addListener('GET_PRODUCT_RESOURCES_ERROR', (errors) => {
-            toast.dismiss()
-            toast.error('Cannot save item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
+            toast.error('Cannot retrieve item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
         })
 
         this.store.emitter.addListener('SAVE_PRODUCT_SUCCESS', () => {
@@ -125,7 +138,7 @@ class ProductForm extends React.Component {
     render() {
         const { id, item, categories, vendors, characteristics, images } = this.state
 
-        return <Form id={`prod-${id}`}>
+        return <>
             <Tabs>
                 <TabList>
                     <Tab>General info</Tab>
@@ -134,74 +147,56 @@ class ProductForm extends React.Component {
                 </TabList>
 
                 <TabPanel>
-                    <div className="container-fluid">
-                        <Row>
-                            <Col xs="12" lg="6" md="6" key={uuidv4()}>
-                                <Card>
-                                    <Card.Body>
-                                        <Form.Group>
-                                            <Form.Label>Product name</Form.Label>
-                                            <Form.Control name="name" required type="text" value={item.name} onChange={this.handleChange} key={uuidv4()}></Form.Control>
-                                        </Form.Group>
-                                        <Form.Group>
-                                            <Form.Label>Product description</Form.Label>
-                                            <Editor
-                                                textareaName="description"
-                                                initialValue={item.description}
-                                                init={{
-                                                    height: 300,
-                                                    menubar: false,
-                                                    plugins: [
-                                                        'advlist autolink lists link image charmap print preview anchor',
-                                                        'searchreplace visualblocks code fullscreen',
-                                                        'insertdatetime media table paste code help wordcount'
-                                                    ],
-                                                    toolbar:
-                                                        'undo redo | formatselect | bold italic backcolor | \
-             alignleft aligncenter alignright alignjustify | \
-             bullist numlist outdent indent | removeformat | help'
-                                                }}
-                                                onEditorChange={this.handleEditorChange}
-                                            />
-                                        </Form.Group>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                            <Col xs="12" lg="6" md="6" key={uuidv4()}>
-                                <Card>
-                                    <Card.Body>
-                                        <Form.Group>
-                                            <Form.Label>Category</Form.Label>
-                                            <Select2 name="category_id" required style={{ width: '100%' }} data={categories} options={{ placeholder: 'Select parent category' }} value={item.category_id} onChange={this.handleSelectChange} />
-                                        </Form.Group>
-                                        <Form.Group>
-                                            <Form.Label>Vendor</Form.Label>
-                                            <Select2 name="vendor_id" required style={{ width: '100%' }} data={vendors} options={{ placeholder: 'Select vendor' }} value={item.vendor_id} onChange={this.handleSelectChange} />
-                                        </Form.Group>
-                                    </Card.Body>
-                                </Card>
-                                <Card>
-                                    <Card.Body>
-                                        <Form.Group>
-                                            <Form.Label>Price</Form.Label>
-                                            <div className="input-group">
-                                                <Form.Control required type="number" name="price" min="0" max="999999" value={item.price} onChange={this.handleChange}></Form.Control>
-                                                <div className="input-group-append"><span className="input-group-text">LEI</span></div>
-                                            </div>
-                                        </Form.Group>
-                                        <Form.Group>
-                                            <Form.Label>Min price</Form.Label>
-                                            <div className="input-group">
-                                                <Form.Control type="number" name="price_min" min="0" max="999999" value={item.price_min} onChange={this.handleChange}></Form.Control>
-                                                <div className="input-group-append"><span className="input-group-text">LEI</span></div>
-                                            </div>
-                                            <p className="help-block">The minimum price below which the virtual agent should not go. Leave 0 or empty for no minimum price.</p>
-                                        </Form.Group>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
-                    </div>
+                    <Form id={"prod-" + id}>
+                        <div className="container-fluid">
+                            <Row>
+                                <Col xs="12" lg="6" md="6" key={uuidv4()}>
+                                    <Card>
+                                        <Card.Body>
+                                            <Form.Group>
+                                                <Form.Label>Product name</Form.Label>
+                                                <Form.Control name="name" required type="text" value={item.name} onChange={this.handleChange} key={uuidv4()}></Form.Control>
+                                            </Form.Group>
+                                            <Editor onChange={this.handleEditorChange} />
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                <Col xs="12" lg="6" md="6" key={uuidv4()}>
+                                    <Card>
+                                        <Card.Body>
+                                            <Form.Group>
+                                                <Form.Label>Category</Form.Label>
+                                                <Select2 name="category_id" required style={{ width: '100%' }} data={categories} options={{ placeholder: 'Select parent category' }} value={item.category_id} onChange={this.handleSelectChange} />
+                                            </Form.Group>
+                                            <Form.Group>
+                                                <Form.Label>Vendor</Form.Label>
+                                                <Select2 name="vendor_id" required style={{ width: '100%' }} data={vendors} options={{ placeholder: 'Select vendor' }} value={item.vendor_id} onChange={this.handleSelectChange} />
+                                            </Form.Group>
+                                        </Card.Body>
+                                    </Card>
+                                    <Card>
+                                        <Card.Body>
+                                            <Form.Group>
+                                                <Form.Label>Price</Form.Label>
+                                                <div className="input-group">
+                                                    <Form.Control required type="number" name="price" min="0" max="999999" value={item.price} onChange={this.handleChange}></Form.Control>
+                                                    <div className="input-group-append"><span className="input-group-text">LEI</span></div>
+                                                </div>
+                                            </Form.Group>
+                                            <Form.Group>
+                                                <Form.Label>Min price</Form.Label>
+                                                <div className="input-group">
+                                                    <Form.Control type="number" name="price_min" min="0" max="999999" value={item.price_min} onChange={this.handleChange}></Form.Control>
+                                                    <div className="input-group-append"><span className="input-group-text">LEI</span></div>
+                                                </div>
+                                                <p className="help-block">The minimum price below which the virtual agent should not go. Leave 0 or empty for no minimum price.</p>
+                                            </Form.Group>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </div>
+                    </Form>
                 </TabPanel>
                 <TabPanel>
                     <div className="container-fluid">
@@ -220,6 +215,6 @@ class ProductForm extends React.Component {
                 </TabPanel>
             </Tabs>
             <BtnSave onClick={this.save} onCancel={this.cancel}></BtnSave>
-        </Form>
+        </>
     }
 } export default ProductForm
