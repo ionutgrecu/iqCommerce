@@ -11,6 +11,11 @@ class ProductCharacteristicGroup extends React.Component {
             name: props.name,
             items: props.items
         }
+
+        this.handleChange = (e) => {
+            if ('function' == typeof (this.props.onChange))
+                this.props.onChange(e)
+        }
     }
 
     render() {
@@ -18,7 +23,7 @@ class ProductCharacteristicGroup extends React.Component {
             <Card>
                 <Card.Header>{this.state.name}</Card.Header>
                 <Card.Body>
-                    {Object.keys(this.state.items).map((key) => <ProductCharacteristicItem key={uuidv4()} name={key} item={this.state.items[key]}></ProductCharacteristicItem>)}
+                    {Object.keys(this.state.items).map((key) => <ProductCharacteristicItem key={key} name={key} item={this.state.items[key]} onChange={this.handleChange}></ProductCharacteristicItem>)}
                 </Card.Body>
             </Card>
         </Col>

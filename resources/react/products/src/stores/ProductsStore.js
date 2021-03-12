@@ -21,10 +21,10 @@ class ProductsStore {
             })
     }
 
-    async loadCharacteristics(categoryId) {
+    async loadCharacteristics(categoryId,productId) {
         if (!categoryId) return
 
-        Axios.get(`${APIURL}/resources?object=characteristics-tree&category-id=${categoryId}`, { withCredentials: true })
+        Axios.get(`${APIURL}/resources?object=characteristics-tree&category-id=${categoryId}&product-id=${productId}`, { withCredentials: true })
             .then((response) => {
                 this.characteristics = response.data.data['characteristics-tree']
                 this.emitter.emit('GET_PRODUCT_CHARACTERISTICS_SUCCESS')

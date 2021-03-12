@@ -11,7 +11,8 @@ class ProductCharacteristicItem extends React.Component {
         }
 
         this.handleChange = (e) => {
-
+            if ('function' == typeof (this.props.onChange))
+                this.props.onChange(e)
         }
     }
 
@@ -30,8 +31,8 @@ class ProductCharacteristicItem extends React.Component {
                                 <Form.Check.Label htmlFor={`characteristic-${item.id}`}>{item.name}</Form.Check.Label>
                             </Form.Check>
                         </Form.Label>,
-                        'numeric': <Form.Control type="number" name={`characteristic-${item.id}`} onChange={this.handleChange}></Form.Control>,
-                        'short_text': <Form.Control type="text" name={`characteristic-${item.id}`} onChange={this.handleChange}></Form.Control>,
+                        'numeric': <Form.Control type="number" name={`characteristic-${item.id}`} value={item.value} onChange={this.handleChange}></Form.Control>,
+                        'short_text': <Form.Control type="text" name={`characteristic-${item.id}`} onChange={this.handleChange} value={item.value}></Form.Control>,
                         'text': <Editor
                             init={{
                                 height: 300,
@@ -43,8 +44,8 @@ class ProductCharacteristicItem extends React.Component {
                                 ],
                                 toolbar:
                                     'undo redo | formatselect | bold italic backcolor | \
-             alignleft aligncenter alignright alignjustify | \
-             bullist numlist outdent indent | removeformat | help'
+                                    alignleft aligncenter alignright alignjustify | \
+                                    bullist numlist outdent indent | removeformat | help'
                             }}
                         />,
                     }[item.type]

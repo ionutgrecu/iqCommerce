@@ -9,8 +9,7 @@ import BtnSave from "../BtnSave"
 import { objectToArrList, objectTreeToArrList } from "../../helpers"
 import ProductCharacteristicGroup from "./ProductCharacteristicGroup"
 import { v4 as uuidv4 } from 'uuid'
-import {Editor, EditorState} from 'draft-js'
-import 'draft-js/dist/Draft.css'
+import { Editor } from '@tinymce/tinymce-react'
 
 class ProductForm extends React.Component {
     constructor(props) {
@@ -18,7 +17,7 @@ class ProductForm extends React.Component {
 
         this.state = {
             id: this.props.match.params.id ? this.props.match.params.id : 0,
-            item: { name: '', description: '', category_id: null, vendor_id: null, price: 0, price_min: 0, images: [{ file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }, { file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }] },
+            item: { name: '', description: '', category_id: null, vendor_id: null, price: 0, price_min: 0, images: [{ file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }] },
             categories: [],
             vendors: [],
             characteristics: [],
@@ -33,7 +32,8 @@ class ProductForm extends React.Component {
         }
 
         this.handleChange = (e) => {
-            let { item, images } = this.state
+            let { item, images, characteristics } = this.state
+            let name = e.target.name
 
             if ('file' == e.target.type)
                 for (let f of e.target.files) {
@@ -41,35 +41,33 @@ class ProductForm extends React.Component {
                     item.images.push({ file: URL.createObjectURL(f) })
                     images.push(f)
                 }
-            else
-                item[e.target.name] = e.target.value
-            console.log(e.target.name)
+            else if (name.indexOf('characteristic-') > -1) {
+                let chId = name.split('-')[1]
+                for (let i in characteristics)
+                    for (let j in characteristics[i])
+                        if (characteristics[i][j].id == chId)
+                            characteristics[i][j].value = e.target.value
+            } else
+                item[name] = e.target.value
+            console.log(name)
             console.log(e.target.value)
             console.log(item)
             if (item.price_min > item.price && item.price) item.price_min = item.price
 
-            this.setState({ item: item, images: images })
+            this.setState({ item: item, images: images, characteristics: characteristics })
         }
 
-        this.handleEditorChange = (editorState) => {
-            // if (!editor || !editor.targetElm || !content) return
+        this.handleEditorChange = (content, editor) => {
+            if (!editor || !editor.targetElm || !content) return
 
-            // let item = this.state.item
-            // // let name = editor.targetElm.name
-            // let name='description'
-            // console.log(editor.targetElm)
-            // let text = editor.getContent()
-            // // let text=content
+            let item = this.state.item
+            let name = editor.targetElm.name
 
-            // if (!name) return
+            if (!name) return
 
-            // item[name] = text
+            item[name] = content
 
-            // // setTimeout(() => {
-            //     this.setState({ item: item })
-            // // }, 0)
-
-            console.log(editorState)
+            this.setState({ item: item })
         }
 
         this.handleSelectChange = (currentNode, selectedNodes) => {
@@ -77,7 +75,7 @@ class ProductForm extends React.Component {
             console.log('select')
             item[currentNode.target.name] = currentNode.target.value
 
-            if ('category_id' == currentNode.target.name) this.store.loadCharacteristics(currentNode.target.value)
+            if ('category_id' == currentNode.target.name) this.store.loadCharacteristics(currentNode.target.value,item.id)
 
             this.setState({ item: item })
         }
@@ -139,29 +137,47 @@ class ProductForm extends React.Component {
         const { id, item, categories, vendors, characteristics, images } = this.state
 
         return <>
-            <Tabs>
-                <TabList>
-                    <Tab>General info</Tab>
-                    <Tab>Characteristics</Tab>
-                    <Tab>Images</Tab>
-                </TabList>
+            <Form id={`prod-${id}`}>
+                <Tabs>
+                    <TabList>
+                        <Tab>General info</Tab>
+                        <Tab>Characteristics</Tab>
+                        <Tab>Images</Tab>
+                    </TabList>
 
-                <TabPanel>
-                    <Form id={"prod-" + id}>
+                    <TabPanel>
                         <div className="container-fluid">
                             <Row>
-                                <Col xs="12" lg="6" md="6" key={uuidv4()}>
+                                <Col xs="12" lg="6" md="6">
                                     <Card>
                                         <Card.Body>
                                             <Form.Group>
                                                 <Form.Label>Product name</Form.Label>
-                                                <Form.Control name="name" required type="text" value={item.name} onChange={this.handleChange} key={uuidv4()}></Form.Control>
+                                                <Form.Control name="name" required type="text" value={item.name} onChange={this.handleChange}></Form.Control>
                                             </Form.Group>
-                                            <Editor onChange={this.handleEditorChange} />
+                                            <Editor
+                                                initialValue={item.description}
+                                                value={item.description}
+                                                textareaName="description"
+                                                init={{
+                                                    height: 300,
+                                                    menubar: false,
+                                                    plugins: [
+                                                        'advlist autolink lists link image charmap print preview anchor',
+                                                        'searchreplace visualblocks code fullscreen',
+                                                        'insertdatetime media table paste code help wordcount'
+                                                    ],
+                                                    toolbar:
+                                                        'undo redo | formatselect | bold italic backcolor | \
+                                                        alignleft aligncenter alignright alignjustify | \
+                                                        bullist numlist outdent indent | removeformat | help'
+                                                }}
+                                                onEditorChange={this.handleEditorChange}
+                                            />
                                         </Card.Body>
                                     </Card>
                                 </Col>
-                                <Col xs="12" lg="6" md="6" key={uuidv4()}>
+                                <Col xs="12" lg="6" md="6">
                                     <Card>
                                         <Card.Body>
                                             <Form.Group>
@@ -196,25 +212,25 @@ class ProductForm extends React.Component {
                                 </Col>
                             </Row>
                         </div>
-                    </Form>
-                </TabPanel>
-                <TabPanel>
-                    <div className="container-fluid">
-                        <Row>
-                            {Object.keys(characteristics).map((key) => <ProductCharacteristicGroup key={uuidv4()} name={key} items={characteristics[key]}></ProductCharacteristicGroup>)}
-                        </Row>
-                    </div>
-                </TabPanel>
-                <TabPanel>
-                    <div className="container-fluid gallery">
-                        <Row>
-                            <Col xl="2" lg="4" md="4" sm="6" xs="12" key={uuidv4()}><Form.Control type="file" multiple accept="image/*" onChange={this.handleChange}></Form.Control></Col>
-                            {item.images.map(image => <Col xl="1" lg="2" md="4" sm="6" xs="12" key={uuidv4()}><Image src={image.file} thumbnail></Image></Col>)}
-                        </Row>
-                    </div>
-                </TabPanel>
-            </Tabs>
-            <BtnSave onClick={this.save} onCancel={this.cancel}></BtnSave>
+                    </TabPanel>
+                    <TabPanel>
+                        <div className="container-fluid">
+                            <Row>
+                                {Object.keys(characteristics).map((key) => <ProductCharacteristicGroup key={key} name={key} items={characteristics[key]} onChange={this.handleChange}></ProductCharacteristicGroup>)}
+                            </Row>
+                        </div>
+                    </TabPanel>
+                    <TabPanel>
+                        <div className="container-fluid gallery">
+                            <Row>
+                                <Col xl="2" lg="4" md="4" sm="6" xs="12" key={uuidv4()}><Form.Control type="file" multiple accept="image/*" onChange={this.handleChange}></Form.Control></Col>
+                                {item.images.map(image => <Col xl="1" lg="2" md="4" sm="6" xs="12" key={uuidv4()}><Image src={image.file} thumbnail></Image></Col>)}
+                            </Row>
+                        </div>
+                    </TabPanel>
+                </Tabs>
+                <BtnSave onClick={this.save} onCancel={this.cancel}></BtnSave>
+            </Form>
         </>
     }
 } export default ProductForm

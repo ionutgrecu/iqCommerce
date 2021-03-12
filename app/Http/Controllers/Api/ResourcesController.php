@@ -43,10 +43,10 @@ class ResourcesController extends Controller {
             $characteristicsService = new CategoryCharacteristicsService();
             $data['characteristics'] = $characteristicsService->getAll(request()->input('category-id'));
         }
-        
-        if(checkIfInput(request()->input('object'), 'characteristics-tree')){
-            $characteristicsService=new CategoryCharacteristicsService();
-            $data['characteristics-tree']=$characteristicsService->getTree(request()->input('category-id'));
+
+        if (checkIfInput(request()->input('object'), 'characteristics-tree')) {
+            $characteristicsService = new CategoryCharacteristicsService();
+            $data['characteristics-tree'] = $characteristicsService->getTree(request()->input('category-id'), request()->input('product-id'));
         }
 
         return response()->json(['status' => 'ok', 'data' => $data]);

@@ -13,7 +13,6 @@ namespace App\Services;
 use App\Http\Requests\Api\CharacteristicRequest;
 use App\Models\CategoryCharacteristic;
 use Arr;
-use Illuminate\Database\Eloquent\Collection;
 use TheSeer\Tokenizer\Exception;
 
 /**
@@ -45,17 +44,20 @@ class CategoryCharacteristicsService {
         return $characteristicsObj->orderBy('category_id', 'ASC')->orderBy('group', 'ASC')->orderBy('order', 'ASC')->get();
     }
 
-    function getTree(int $categoryId = null) {
+    function getTree(int $categoryId = null, int $productId = null) {
         $return = [];
 
         $characteristicsObj = CategoryCharacteristic::select('*');
 
         if ($categoryId)
             $characteristicsObj->whereCategoryId($categoryId);
-        
-        foreach($characteristicsObj->cursor() as $item)
-            $return[$item->group??'others'][]=$item;
-        
+
+        if ($productId)
+            $characteristicsObj->withValues($productId);
+//dd($characteristicsObj->toSql());
+        foreach ($characteristicsObj->cursor() as $item)
+            $return[$item->group ?? 'others'][] = $item;
+
         return $return;
     }
 
