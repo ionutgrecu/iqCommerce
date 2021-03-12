@@ -18,6 +18,7 @@ class ResourcesController extends Controller {
      * Can be sent in GET/POST arguments, parameters like:
      * - object : category, categories-tree, vendors, characteristics
      * - category-id : For characteristics and characteristics-tree. Return characteristics for this category
+     * - suggested-values : 0 or 1, for characteristics-tree
      *
      * @return Response
      */
@@ -46,7 +47,7 @@ class ResourcesController extends Controller {
 
         if (checkIfInput(request()->input('object'), 'characteristics-tree')) {
             $characteristicsService = new CategoryCharacteristicsService();
-            $data['characteristics-tree'] = $characteristicsService->getTree(request()->input('category-id'), request()->input('product-id'));
+            $data['characteristics-tree'] = $characteristicsService->getTree((integer) request()->input('category-id'), (integer) request()->input('product-id'));
         }
 
         return response()->json(['status' => 'ok', 'data' => $data]);

@@ -17,10 +17,10 @@ class CreateProductCharacteristicsTable extends Migration
             $table->id();
             $table->bigInteger('product_id')->unsigned()->index();
             $table->bigInteger('category_characteristic_id')->unsigned()->index();
-            $table->tinyInteger('val_boolean')->nullable()->index();
-            $table->float('val_numeric')->nullable()->index();
-            $table->string('val_short_text',512)->nullable()->index();
-            $table->mediumText('val_text')->nullable();
+            $table->tinyInteger('val_boolean')->default(0)->index();
+            $table->float('val_numeric')->default(0)->index();
+            $table->string('val_short_text',512)->default('')->index();
+            $table->mediumText('val_text')->default('');
             $table->timestamps();
         });
     }

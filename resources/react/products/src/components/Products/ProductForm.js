@@ -41,20 +41,41 @@ class ProductForm extends React.Component {
                     item.images.push({ file: URL.createObjectURL(f) })
                     images.push(f)
                 }
-            else if (name.indexOf('characteristic-') > -1) {
-                let chId = name.split('-')[1]
-                for (let i in characteristics)
-                    for (let j in characteristics[i])
-                        if (characteristics[i][j].id == chId)
-                            characteristics[i][j].value = e.target.value
-            } else
+            else
                 item[name] = e.target.value
-            console.log(name)
-            console.log(e.target.value)
-            console.log(item)
+
             if (item.price_min > item.price && item.price) item.price_min = item.price
 
             this.setState({ item: item, images: images, characteristics: characteristics })
+        }
+
+        this.handleChangeCharacteristics = (e) => {
+            let { characteristics } = this.state
+            let name = e.target.name
+
+            let chId = name.split('-')[1]
+            for (let i in characteristics)
+                for (let j in characteristics[i])
+                    if (characteristics[i][j].id == chId)
+                        switch (characteristics[i][j].type) {
+                            case 'boolean':
+                                characteristics[i][j].val_boolean = e.target.checked ? 1 : 0
+                                break;
+
+                            case 'numeric':
+                                characteristics[i][j].val_numeric = e.target.value
+                                break;
+
+                            case 'short_text':
+                                characteristics[i][j].val_short_text = e.target.value
+                                break;
+
+                            case 'text':
+                                characteristics[i][j].val_text = e.target.value
+                                break;
+                        }
+
+            this.setState({ characteristics: characteristics })
         }
 
         this.handleEditorChange = (content, editor) => {
@@ -71,11 +92,11 @@ class ProductForm extends React.Component {
         }
 
         this.handleSelectChange = (currentNode, selectedNodes) => {
-            let item = this.state.item
-            console.log('select')
+            let { id, item } = this.state
+
             item[currentNode.target.name] = currentNode.target.value
 
-            if ('category_id' == currentNode.target.name) this.store.loadCharacteristics(currentNode.target.value,item.id)
+            if ('category_id' == currentNode.target.name) this.store.loadCharacteristics(currentNode.target.value, id)
 
             this.setState({ item: item })
         }
@@ -216,7 +237,7 @@ class ProductForm extends React.Component {
                     <TabPanel>
                         <div className="container-fluid">
                             <Row>
-                                {Object.keys(characteristics).map((key) => <ProductCharacteristicGroup key={key} name={key} items={characteristics[key]} onChange={this.handleChange}></ProductCharacteristicGroup>)}
+                                {Object.keys(characteristics).map((key) => <ProductCharacteristicGroup key={key} name={key} items={characteristics[key]} onChange={this.handleChangeCharacteristics}></ProductCharacteristicGroup>)}
                             </Row>
                         </div>
                     </TabPanel>

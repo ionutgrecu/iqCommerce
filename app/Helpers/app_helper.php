@@ -61,3 +61,10 @@ function checkIfInput($input, string $checkedValue): bool {
     else
         return false;
 }
+
+function toSqlBinds($builder) {
+    if (is_a($builder, '\Illuminate\Database\Query\Builder') || is_a($builder, '\Illuminate\Database\Eloquent\Builder'))
+        return \Str::replaceArray('?', $builder->getBindings(), $builder->toSql());
+    else
+        throw new Error(__FILE__ . "@" . __FUNCTION__ . ' line ' . __LINE__ . '. Parameter passed is not a builder');
+}

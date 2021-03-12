@@ -49,12 +49,12 @@ class CategoryCharacteristicsService {
 
         $characteristicsObj = CategoryCharacteristic::select('*');
 
-        if ($categoryId)
+        if (null !== $categoryId)
             $characteristicsObj->whereCategoryId($categoryId);
 
-        if ($productId)
+        if (null !== $productId)
             $characteristicsObj->withValues($productId);
-//dd($characteristicsObj->toSql());
+
         foreach ($characteristicsObj->cursor() as $item)
             $return[$item->group ?? 'others'][] = $item;
 

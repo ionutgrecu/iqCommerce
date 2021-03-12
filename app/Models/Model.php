@@ -18,13 +18,23 @@ class Model extends BaseModel {
         }
         return $enum;
     }
-    
+
     public function fill(array $attributes) {
-        foreach ($attributes as $key => $value) 
-            if ($value==='null') 
+        foreach ($attributes as $key => $value)
+            if ($value === 'null')
                 unset($attributes[$key]);
-        
+
         parent::fill($attributes);
+    }
+
+    public function toArray() {
+        $array = parent::toArray();
+
+        foreach ($this->getMutatedAttributes() as $key)
+            if (!array_key_exists($key, $array))
+                $array[$key] = $this->{$key};
+
+        return $array;
     }
 
 }
