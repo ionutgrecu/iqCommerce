@@ -16,12 +16,6 @@ use function config;
  * @package 
  * @subpackage 
  */
-
-/**
- * Description of CategoriesService
- *
- * @author ionut
- */
 class ProductCategoriesService {
 
     private $item;

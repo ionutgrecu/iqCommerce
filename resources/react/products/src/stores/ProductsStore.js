@@ -21,7 +21,7 @@ class ProductsStore {
             })
     }
 
-    async loadCharacteristics(categoryId,productId) {
+    async loadCharacteristics(categoryId, productId) {
         if (!categoryId) return
 
         Axios.get(`${APIURL}/resources?object=characteristics-tree&category-id=${categoryId}&product-id=${productId}`, { withCredentials: true })
@@ -34,25 +34,33 @@ class ProductsStore {
             })
     }
 
-    async saveItem(item, files) {
+    async saveItem(item, characteristics, files) {
         const formData = new FormData()
+        console.log(files)
 
         for (const key in item)
             if (Object.hasOwnProperty.call(item, key)) {
-                let value = item[key]
+                let value = item[key];
                 formData.append(key, value)
             }
+        console.log(characteristics)
+        for (let keyGroup in characteristics) {
+            for (let ch of characteristics[keyGroup]) {
+                formData.append(`characteristic-${ch.id}`,ch)
+            }
+        }
 
-        for (const key in files)
+        for (let key in files)
             formData.append(key, files[key])
 
-        Axios.post(`${APIURL}products`, formData, { withCredentials: true })
+
+        Axios.post(`${APIURL}/products`, formData, { withCredentials: true })
             .then((response) => {
                 this.item = response.data.data
                 this.emitter.emit('SAVE_PRODUCT_SUCCESS')
             }, (error) => {
                 let errors = errorsRoll(error)
-                this.emitter.emit('SAVE_PRODUCT_ERROR', errors.message, errors.errors)
+                this.emitter.emit('SAVE_PRODUCT_ERROR', errors)
             })
     }
 } export default ProductsStore

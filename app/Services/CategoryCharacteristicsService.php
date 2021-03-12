@@ -1,13 +1,5 @@
 <?php
 
-/** @version 1.0.0
- * @author Ionut Grecu
- * @copyright Copyright (C) 2021
- * @license Poprietary
- * @package 
- * @subpackage 
- */
-
 namespace App\Services;
 
 use App\Http\Requests\Api\CharacteristicRequest;
@@ -15,10 +7,12 @@ use App\Models\CategoryCharacteristic;
 use Arr;
 use TheSeer\Tokenizer\Exception;
 
-/**
- * Description of CharacteristicsService
- *
- * @author ionut
+/** @version 1.0.0
+ * @author Ionut Grecu
+ * @copyright Copyright (C) 2021
+ * @license Poprietary
+ * @package 
+ * @subpackage 
  */
 class CategoryCharacteristicsService {
 

@@ -17,7 +17,7 @@ class ProductForm extends React.Component {
 
         this.state = {
             id: this.props.match.params.id ? this.props.match.params.id : 0,
-            item: { name: '', description: '', category_id: null, vendor_id: null, price: 0, price_min: 0, images: [{ file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }] },
+            item: { name: '', description: '', product_category_id: null, product_vendor_id: null, price: 0, price_min: 0, images: [{ file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }] },
             categories: [],
             vendors: [],
             characteristics: [],
@@ -96,14 +96,14 @@ class ProductForm extends React.Component {
 
             item[currentNode.target.name] = currentNode.target.value
 
-            if ('category_id' == currentNode.target.name) this.store.loadCharacteristics(currentNode.target.value, id)
+            if ('product_category_id' == currentNode.target.name) this.store.loadCharacteristics(currentNode.target.value, id)
 
             this.setState({ item: item })
         }
 
         this.save = () => {
             toast.info('Saving...', { position: toast.POSITION.BOTTOM_RIGHT })
-            this.store.saveItem(this.state.item, this.state.images)
+            this.store.saveItem(this.state.item, this.state.characteristics, this.state.images)
         }
 
         this.cancel = () => {
@@ -150,7 +150,12 @@ class ProductForm extends React.Component {
         this.store.emitter.addListener('SAVE_PRODUCT_SUCCESS', () => {
             toast.dismiss()
             toast.success('Item saved', { position: toast.POSITION.BOTTOM_RIGHT, pauseOnFocusLoss: false })
-            this.setState({ item: this.store.item })
+            // this.setState({ item: this.store.item })
+        })
+
+        this.store.emitter.addListener('SAVE_PRODUCT_ERROR', (errors) => {
+            toast.dismiss()
+            toast.error('Cannot save item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
         })
     }
 
@@ -203,11 +208,11 @@ class ProductForm extends React.Component {
                                         <Card.Body>
                                             <Form.Group>
                                                 <Form.Label>Category</Form.Label>
-                                                <Select2 name="category_id" required style={{ width: '100%' }} data={categories} options={{ placeholder: 'Select parent category' }} value={item.category_id} onChange={this.handleSelectChange} />
+                                                <Select2 name="product_category_id" required style={{ width: '100%' }} data={categories} options={{ placeholder: 'Select parent category' }} value={item.product_category_id} onChange={this.handleSelectChange} />
                                             </Form.Group>
                                             <Form.Group>
                                                 <Form.Label>Vendor</Form.Label>
-                                                <Select2 name="vendor_id" required style={{ width: '100%' }} data={vendors} options={{ placeholder: 'Select vendor' }} value={item.vendor_id} onChange={this.handleSelectChange} />
+                                                <Select2 name="product_vendor_id" required style={{ width: '100%' }} data={vendors} options={{ placeholder: 'Select vendor' }} value={item.product_vendor_id} onChange={this.handleSelectChange} />
                                             </Form.Group>
                                         </Card.Body>
                                     </Card>

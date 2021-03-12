@@ -15,8 +15,8 @@ class CreateProductsTable extends Migration {
     public function up() {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_vendors_id')->unsigned()->nullable()->index();
-            $table->bigInteger('product_category_id')->unsigned()->nullable()->index();
+            $table->integer('product_vendors_id')->unsigned()->nullable()->index();
+            $table->integer('product_category_id')->unsigned()->nullable()->index();
             $table->string('name',255);
             $table->longText('description')->nullable();
             $table->decimal('price',6,2,true)->comment('The default price');

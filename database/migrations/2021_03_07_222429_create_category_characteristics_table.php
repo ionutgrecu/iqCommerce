@@ -14,7 +14,7 @@ class CreateCategoryCharacteristicsTable extends Migration {
     public function up() {
         Schema::create('category_characteristics', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('category_id')->nullable()->index();
+            $table->integer('category_id')->unsigned()->nullable()->index();
             $table->string('name',255)->index();
             $table->string('group',255)->nullable()->index()->description('Group characteristics by this value. Useful for boolean types.');
             $table->enum('type', ['boolean','numeric','short_text','text'])->description('For boolean, numeric and short_text can be enabled the is_filter option.');

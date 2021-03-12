@@ -1,13 +1,5 @@
 <?php
 
-/** @version 1.0.0
- * @author Ionut Grecu
- * @copyright Copyright (C) 2021
- * @license Poprietary
- * @package 
- * @subpackage 
- */
-
 namespace App\Services;
 
 use App\Http\Requests\Api\VendorRequest;
@@ -17,10 +9,12 @@ use Illuminate\Database\Eloquent\Collection;
 use Storage;
 use function config;
 
-/**
- * Description of ProductVendorsService
- *
- * @author ionut
+/** @version 1.0.0
+ * @author Ionut Grecu
+ * @copyright Copyright (C) 2021
+ * @license Poprietary
+ * @package 
+ * @subpackage 
  */
 class ProductVendorsService {
 
