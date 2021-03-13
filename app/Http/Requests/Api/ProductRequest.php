@@ -27,7 +27,7 @@ class ProductRequest extends FormRequest {
             'name' => 'required|max:255',
             'description' => 'max:65535',
             'product_category_id' => 'integer|min:0',
-            'product_vendor_id' => 'integer|min:0',
+            'product_vendors_id' => 'integer|min:0',
             'price' => 'required|numeric|min:0',
         ];
     }

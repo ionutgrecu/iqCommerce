@@ -17,7 +17,7 @@ class ProductForm extends React.Component {
 
         this.state = {
             id: this.props.match.params.id ? this.props.match.params.id : 0,
-            item: { name: '', description: '', product_category_id: null, product_vendor_id: null, price: 0, price_min: 0, images: [{ file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }] },
+            item: { name: '', description: '', product_category_id: null, product_vendors_id: null, price: 0, price_min: 0, images: [{ file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }] },
             categories: [],
             vendors: [],
             characteristics: [],
@@ -150,7 +150,7 @@ class ProductForm extends React.Component {
         this.store.emitter.addListener('SAVE_PRODUCT_SUCCESS', () => {
             toast.dismiss()
             toast.success('Item saved', { position: toast.POSITION.BOTTOM_RIGHT, pauseOnFocusLoss: false })
-            // this.setState({ item: this.store.item })
+            this.setState({ item: this.store.item })
         })
 
         this.store.emitter.addListener('SAVE_PRODUCT_ERROR', (errors) => {
@@ -212,7 +212,7 @@ class ProductForm extends React.Component {
                                             </Form.Group>
                                             <Form.Group>
                                                 <Form.Label>Vendor</Form.Label>
-                                                <Select2 name="product_vendor_id" required style={{ width: '100%' }} data={vendors} options={{ placeholder: 'Select vendor' }} value={item.product_vendor_id} onChange={this.handleSelectChange} />
+                                                <Select2 name="product_vendors_id" required style={{ width: '100%' }} data={vendors} options={{ placeholder: 'Select vendor' }} value={item.product_vendors_id} onChange={this.handleSelectChange} />
                                             </Form.Group>
                                         </Card.Body>
                                     </Card>

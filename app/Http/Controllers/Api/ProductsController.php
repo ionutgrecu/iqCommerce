@@ -57,7 +57,9 @@ class ProductsController extends Controller {
      * @return Response
      */
     public function show($id) {
-        //
+        $product = $this->service->findOrNew((integer) $id);
+
+        return response()->json(['status' => 'ok', 'data' => $product]);
     }
 
     /**

@@ -43,16 +43,13 @@ class ProductsStore {
                 let value = item[key];
                 formData.append(key, value)
             }
-        console.log(characteristics)
-        for (let keyGroup in characteristics) {
-            for (let ch of characteristics[keyGroup]) {
-                formData.append(`characteristic-${ch.id}`,ch)
-            }
-        }
 
-        for (let key in files)
-            formData.append(key, files[key])
+        for (let keyGroup in characteristics)
+            for (let ch of characteristics[keyGroup])
+                formData.append(`characteristics[${ch.id}]`, JSON.stringify({ val_boolean: ch.val_boolean, val_numeric: ch.val_numeric, val_short_text: ch.val_short_text, val_text: ch.val_text }))
 
+        for (let i in files)
+            formData.append(`image[${i}]`, files[i])
 
         Axios.post(`${APIURL}/products`, formData, { withCredentials: true })
             .then((response) => {

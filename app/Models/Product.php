@@ -11,6 +11,11 @@ class Product extends Model {
     use HasFactory,
         SoftDeletes;
 
-    protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
+    protected $appends = ['images'];
+
+    function getImagesAttribute() {
+        return ProductImages::whereProductId($this->id)->get()->all();
+    }
 
 }
