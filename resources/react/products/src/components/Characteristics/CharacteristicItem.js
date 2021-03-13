@@ -5,24 +5,24 @@ class CharacteristicItem extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state={item:props.item}
+        this.state = { item: props.item }
 
-        this.delete=()=>{
-if('function'==typeof(props.onDelete))
-props.onDelete(this.state.item)
+        this.delete = () => {
+            if ('function' == typeof (props.onDelete))
+                props.onDelete(this.state.item)
         }
     }
 
-    render(){
-        const {item}=this.state
+    render() {
+        const { item } = this.state
 
         return <tr>
             <td>{item.id}</td>
-            <td>{item.prepend?(<small>{item.prepend}</small>):''} {item.name} {item.append?(<small>{item.append}</small>):''} {item.group?(<><br /><small>Group {item.group}</small></>):''}</td>
-            <td>{item.category?item.category.name:'*'}</td>
+            <td>{item.prepend ? (<small>{item.prepend}</small>) : ''} {item.name} {item.append ? (<small>{item.append}</small>) : ''} {item.group ? (<><br /><small>Group {item.group}</small></>) : ''}</td>
+            <td>{item.category ? item.category.name : '*'}</td>
             <td>{item.type}</td>
-            <td>{item.is_filter?(<i className="fas fa-check"></i>):''}</td>
-            <td><Button variant="success" href={"#/edit-characteristic/"+item.id}><i className="fas fa-pencil-alt"></i> Edit</Button> <Button variant="danger" onClick={this.delete}><i className="fas fa-trash-alt"></i> Delete</Button></td>
+            <td>{item.is_filter ? (<i className="fas fa-check"></i>) : ''}</td>
+            <td><Button variant="success" href={"#/edit-characteristic/" + item.id}><i className="fas fa-pencil-alt"></i> Edit</Button> <Button variant="danger" onClick={this.delete}><i className="fas fa-trash-alt"></i> Delete</Button></td>
         </tr>
     }
 } export default CharacteristicItem

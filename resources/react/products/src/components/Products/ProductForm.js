@@ -39,7 +39,7 @@ class ProductForm extends React.Component {
             if ('file' == e.target.type)
                 for (let f of e.target.files) {
                     console.log(f)
-                    item.images.push({ file: URL.createObjectURL(f) })
+                    // item.images.push({ file: URL.createObjectURL(f) })
                     images.push(f)
                 }
             else
@@ -100,6 +100,18 @@ class ProductForm extends React.Component {
             if ('product_category_id' == currentNode.target.name) this.store.loadCharacteristics(currentNode.target.value, id)
 
             this.setState({ item: item })
+        }
+
+        this.handleImageDelete = (e,id) => {
+            console.log('handleImageDelete')
+            console.log(this.state.images)
+            console.log(id)
+            // let {item}=this.state
+        }
+
+        this.handleImageOnlineDelete = (e,id) => {
+            console.log('handleImageOnlineDelete')
+            console.log(e)
         }
 
         this.save = () => {
@@ -251,7 +263,8 @@ class ProductForm extends React.Component {
                         <div className="container-fluid gallery">
                             <Row>
                                 <Col xl="2" lg="4" md="4" sm="6" xs="12" key={uuidv4()}><Form.Control type="file" multiple accept="image/*" onChange={this.handleChange}></Form.Control></Col>
-                                {item.images.map(image => <ProductFormImage key={uuidv4()} item={image}></ProductFormImage>)}
+                                {item.images.map((image,k) => <ProductFormImage key={uuidv4()} id={k} item={image} onDelete={this.handleImageDelete}></ProductFormImage>)}
+                                {item.images.map((image,k)=><ProductFormImage key={uuidv4()} id={k} item={image} onDelete={this.handleImageOnlineDelete}></ProductFormImage>)}
                             </Row>
                         </div>
                     </TabPanel>
