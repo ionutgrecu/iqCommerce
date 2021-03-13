@@ -5,7 +5,10 @@ namespace App\Services;
 use App\Http\Requests\Api\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductCharacteristics;
+use App\Models\ProductImages;
+use Storage;
 use TheSeer\Tokenizer\Exception;
+use function config;
 use function GuzzleHttp\json_decode;
 
 /** @version 1.0.0
@@ -47,11 +50,25 @@ class ProductsService {
                         'product_id' => $this->item->id,
                         'category_characteristic_id' => $key
             ]);
-            
+
             $productCharacteristic->product_id = $this->item->id;
             $productCharacteristic->category_characteristic_id = $key;
             $productCharacteristic->fill($values);
             $productCharacteristic->save();
+        }
+
+        foreach ($request['image'] as $key => $image) {
+            if (!$request->hasFile("image.$key") || !$request->file("image.$key")->isValid() || !in_array($request->file("image.$key")->extension(), config('app.extensions.images')))
+                continue;
+
+            $imageFile = Storage::disk('public')->url(Storage::disk('public')->putFile('products/' . $this->item->id, $request->file("image.$key"), 'public'));
+
+            $image = new ProductImages();
+            $image->fill([
+                'product_id' => $this->item->id,
+                'file' => $imageFile,
+            ]);
+            $image->save();
         }
 
         return $this->item;
