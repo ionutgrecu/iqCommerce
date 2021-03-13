@@ -10,6 +10,7 @@ import { objectToArrList, objectTreeToArrList } from "../../helpers"
 import ProductCharacteristicGroup from "./ProductCharacteristicGroup"
 import { v4 as uuidv4 } from 'uuid'
 import { Editor } from '@tinymce/tinymce-react'
+import ProductFormImage from "./ProductFormImage"
 
 class ProductForm extends React.Component {
     constructor(props) {
@@ -250,7 +251,7 @@ class ProductForm extends React.Component {
                         <div className="container-fluid gallery">
                             <Row>
                                 <Col xl="2" lg="4" md="4" sm="6" xs="12" key={uuidv4()}><Form.Control type="file" multiple accept="image/*" onChange={this.handleChange}></Form.Control></Col>
-                                {item.images.map(image => <Col xl="1" lg="2" md="4" sm="6" xs="12" key={uuidv4()}><Image src={image.file} thumbnail></Image></Col>)}
+                                {item.images.map(image => <ProductFormImage key={uuidv4()} item={image}></ProductFormImage>)}
                             </Row>
                         </div>
                     </TabPanel>
