@@ -14,7 +14,7 @@ class CreateCategoryCharacteristicsTable extends Migration {
     public function up() {
         Schema::create('category_characteristics', function (Blueprint $table) {
             $table->id();
-            $table->integer('category_id')->unsigned()->nullable()->index();
+            $table->integer('category_id')->unsigned()->nullable();
             $table->string('name',255)->index();
             $table->string('group',255)->nullable()->index()->description('Group characteristics by this value. Useful for boolean types.');
             $table->enum('type', ['boolean','numeric','short_text','text'])->description('For boolean, numeric and short_text can be enabled the is_filter option.');
@@ -25,6 +25,8 @@ class CreateCategoryCharacteristicsTable extends Migration {
             $table->integer('order')->nullable()->index();
             $table->timestamps();
         });
+        
+        \DB::statement("ALTER TABLE `category_characteristics` ADD CONSTRAINT `FK_category_characteristics_product_categories` FOREIGN KEY (`category_id`) REFERENCES `product_categories` (`id`) ON UPDATE CASCADE ON DELETE CASCADE");
     }
 
     /**

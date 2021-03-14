@@ -40,7 +40,7 @@ class ProductFormImage extends React.Component {
                         <Button variant="warning" onClick={this.handleImageFavorite} title="Make default"><i className="far fa-star"></i></Button>
                         <Button variant="danger" onClick={this.handleImageDelete} title="Delete"><i className="fas fa-trash-alt"></i></Button>
                     </div>
-                    <Image src={item.file.indexOf(':/') == -1 ? `${ASSETS_URL}${item.file}` : item.file} thumbnail></Image></>
+                    <Image src={-1 == item.file.indexOf(':/') ? `${ASSETS_URL}${item.file}` : item.file} thumbnail></Image></>
             }
         }
 

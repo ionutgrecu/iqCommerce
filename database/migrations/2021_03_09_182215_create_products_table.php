@@ -15,17 +15,19 @@ class CreateProductsTable extends Migration {
     public function up() {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_vendors_id')->unsigned()->nullable()->index();
-            $table->integer('product_category_id')->unsigned()->nullable()->index();
-            $table->string('name',255);
+            $table->integer('product_vendors_id')->unsigned()->nullable();
+            $table->integer('product_category_id')->unsigned()->nullable();
+            $table->string('name', 255);
             $table->longText('description')->nullable();
-            $table->decimal('price',6,2,true)->comment('The default price');
-            $table->decimal('price_min',6,2,true)->nullable()->default(null)->comment('The minimum price below which the virtual agent should not go');
+            $table->decimal('price', 6, 2, true)->comment('The default price');
+            $table->decimal('price_min', 6, 2, true)->nullable()->default(null)->comment('The minimum price below which the virtual agent should not go');
             $table->timestamps();
             $table->softDeletes();
         });
-        
-        \DB::statement("ALTER TABLE products ADD FULLTEXT search(name,description)");
+
+        DB::statement("ALTER TABLE products ADD FULLTEXT search(name,description)");
+        DB::statement("ALTER TABLE `products` ADD CONSTRAINT `FK_product_vendors_id` FOREIGN KEY (`product_vendors_id`) REFERENCES `product_vendors` (`id`) ON UPDATE CASCADE ON DELETE SET NULL");
+        DB::statement("ALTER TABLE `products` ADD CONSTRAINT `FK_product_category_id` FOREIGN KEY (`product_category_id`) REFERENCES `product_categories` (`id`) ON UPDATE CASCADE ON DELETE SET NULL");
     }
 
     /**

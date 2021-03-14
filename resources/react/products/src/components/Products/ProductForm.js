@@ -132,7 +132,7 @@ class ProductForm extends React.Component {
     }
 
     componentDidMount() {
-        this.store.emitter.addListener('GET_PRODUCT_RESOURcES_SUCCESS', () => {
+        this.store.emitter.addListener('GET_PRODUCT_RESOURCES_SUCCESS', () => {
             let categories = []
 
             try {

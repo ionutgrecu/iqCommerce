@@ -4,17 +4,39 @@ import { errorsRoll } from "../helpers"
 
 class ProductsStore {
     constructor() {
+        this.items = []
         this.item = {}
         this.resources = {}
         this.characteristics = {}
         this.emitter = new EventEmitter
     }
 
+    async getItems() {
+        Axios.get(`${APIURL}/products`, { withCredentials: true })
+            .then((response) => {
+                this.items = response.data.data
+                this.emitter.emit('GET_PRODUCTS_SUCCESS')
+            }), (error) => {
+                let errors = errorsRoll(error)
+                this.emitter.emit('GET_PRODUCTS_ERROR', errors)
+            }
+    }
+
+    async deleteProduct(id){
+Axios.delete(`${APIURL}products`.{withCredentials:true})
+.then((response)=>{
+
+},(error)=>{
+    let errors = errorsRoll(error)
+                this.emitter.emit('GET_PRODUCTS_ERROR', errors)
+})
+    }
+
     async loadResources() {
         Axios.get(`${APIURL}/resources?object[]=categories-tree&object[]=vendors`, { withCredentials: true })
             .then((response) => {
                 this.resources = response.data.data
-                this.emitter.emit('GET_PRODUCT_RESOURcES_SUCCESS')
+                this.emitter.emit('GET_PRODUCT_RESOURCES_SUCCESS')
             }, (error) => {
                 let errors = errorsRoll(error)
                 this.emitter.emit('GET_PRODUCT_RESOURCES_ERROR', errors)
@@ -62,7 +84,7 @@ class ProductsStore {
     }
 
     async deleteImage(id) {
-        Axios.delete(`${APIURL}/products/products/image/${id}`, { withCredentials: true })
+        Axios.delete(`${APIURL}/products/image/${id}`, { withCredentials: true })
             .then((response) => {
                 this.emitter.emit('DELETE_PRODUCT_IMAGE_SUCCESS', id)
             }, (error) => {

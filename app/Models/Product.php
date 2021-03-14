@@ -18,4 +18,12 @@ class Product extends Model {
         return ProductImages::whereProductId($this->id)->get()->all();
     }
 
+    public function vendor() {
+        return $this->belongsTo(ProductVendor::class, 'product_vendors_id', 'id');
+    }
+
+    public function images() {
+        return $this->hasMany(ProductImages::class, 'product_id', 'id')->orderBy('order', 'ASC');
+    }
+
 }

@@ -14,11 +14,13 @@ class CreateProductImagesTable extends Migration {
     public function up() {
         Schema::create('product_images', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_id')->unsigned()->index();
+            $table->bigInteger('product_id')->unsigned();
             $table->string('file', 255);
             $table->integer('order')->nullable()->default(0);
             $table->timestamps();
         });
+
+        DB::statement("ALTER TABLE `product_images` ADD CONSTRAINT `FK_product_images_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON UPDATE CASCADE ON DELETE CASCADE");
     }
 
     /**

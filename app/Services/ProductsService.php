@@ -22,6 +22,12 @@ class ProductsService {
 
     private $item;
 
+    function getAll() {
+        $productsObj = Product::with('vendor', 'images');
+
+        return $productsObj->get();
+    }
+
     function findOrNew(int $id = null): Product {
         if (!$id)
             $this->item = new Product;
