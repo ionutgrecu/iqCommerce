@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ProductRequest;
+use App\Services\ProductImagesService;
 use App\Services\ProductsService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -91,6 +92,13 @@ class ProductsController extends Controller {
      */
     public function destroy($id) {
         //
+    }
+
+    public function deleteImage($id) {
+        $imageService = new ProductImagesService();
+        $imageService->delete((integer) $id);
+
+        return response()->json(['status' => 'ok']);
     }
 
 }

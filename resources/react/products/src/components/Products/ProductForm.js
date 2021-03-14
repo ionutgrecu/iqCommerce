@@ -102,16 +102,23 @@ class ProductForm extends React.Component {
             this.setState({ item: item })
         }
 
-        this.handleImageDelete = (e,id) => {
-            console.log('handleImageDelete')
-            console.log(this.state.images)
-            console.log(id)
-            // let {item}=this.state
-        }
+        this.handleImageDelete = (e, id, itemImage) => {
+            let { item, images } = this.state
 
-        this.handleImageOnlineDelete = (e,id) => {
-            console.log('handleImageOnlineDelete')
-            console.log(e)
+            if ('File' == itemImage.constructor.name) {
+                delete images[id]
+            } else {
+                console.log(item.images)
+                if ('string' == typeof (item.images[id].id)) {
+                    this.store.deleteImage(item.images[id].id)
+                } else {
+                    delete item.images[id]
+                }
+                //
+                //
+            }
+
+            this.setState({ item: item, images: images })
         }
 
         this.save = () => {
@@ -163,12 +170,24 @@ class ProductForm extends React.Component {
         this.store.emitter.addListener('SAVE_PRODUCT_SUCCESS', () => {
             toast.dismiss()
             toast.success('Item saved', { position: toast.POSITION.BOTTOM_RIGHT, pauseOnFocusLoss: false })
-            this.setState({ item: this.store.item })
+            this.setState({ item: this.store.item, images: [] })
         })
 
         this.store.emitter.addListener('SAVE_PRODUCT_ERROR', (errors) => {
             toast.dismiss()
             toast.error('Cannot save item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
+        })
+
+        this.store.emitter.addListener('DELETE_PRODUCT_IMAGE_ERROR', (errors) => {
+            toast.dismiss()
+            toast.error('Cannot delete image: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
+        })
+
+        this.store.emitter.addListener('DELETE_PRODUCT_IMAGE_SUCCESS', (id) => {
+            toast.dismiss()
+            let { item } = this.state
+            delete item.images[id]
+            this.setState({ item: item })
         })
     }
 
@@ -263,8 +282,8 @@ class ProductForm extends React.Component {
                         <div className="container-fluid gallery">
                             <Row>
                                 <Col xl="2" lg="4" md="4" sm="6" xs="12" key={uuidv4()}><Form.Control type="file" multiple accept="image/*" onChange={this.handleChange}></Form.Control></Col>
-                                {item.images.map((image,k) => <ProductFormImage key={uuidv4()} id={k} item={image} onDelete={this.handleImageDelete}></ProductFormImage>)}
-                                {item.images.map((image,k)=><ProductFormImage key={uuidv4()} id={k} item={image} onDelete={this.handleImageOnlineDelete}></ProductFormImage>)}
+                                {item.images.map((image, k) => <ProductFormImage className="uploaded" key={uuidv4()} id={k} item={image} onDelete={this.handleImageDelete}></ProductFormImage>)}
+                                {images.map((image, k) => <ProductFormImage className="to-be-uploaded" key={uuidv4()} id={k} item={image} onDelete={this.handleImageDelete}></ProductFormImage>)}
                             </Row>
                         </div>
                     </TabPanel>

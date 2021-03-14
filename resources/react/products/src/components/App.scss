@@ -33,6 +33,13 @@
     }
 }
 
-.card{
+.card {
     margin-bottom: 22px;
+}
+
+.gallery {
+    .img-thumbnail {
+        min-width: 25px;
+        min-height: 25px;
+    }
 }

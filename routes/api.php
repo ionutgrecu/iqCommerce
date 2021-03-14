@@ -24,6 +24,8 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth', 'api']], function() {
         Route::resource('/categories', 'App\Http\Controllers\Api\CategoriesController');
         Route::resource('/vendors', 'App\Http\Controllers\Api\VendorsController');
         Route::resource('/characteristics', 'App\Http\Controllers\Api\CharacteristicsController');
+        Route::delete('products/image/{id}','App\Http\Controllers\Api\ProductsController@deleteImage');
         Route::resource('/products', 'App\Http\Controllers\Api\ProductsController');
+        
     });
 });

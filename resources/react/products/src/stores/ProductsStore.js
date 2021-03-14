@@ -60,4 +60,14 @@ class ProductsStore {
                 this.emitter.emit('SAVE_PRODUCT_ERROR', errors)
             })
     }
+
+    async deleteImage(id) {
+        Axios.delete(`${APIURL}/products/products/image/${id}`, { withCredentials: true })
+            .then((response) => {
+                this.emitter.emit('DELETE_PRODUCT_IMAGE_SUCCESS', id)
+            }, (error) => {
+                let errors = errorsRoll(error)
+                this.emitter.emit('DELETE_PRODUCT_IMAGE_ERROR', errors)
+            })
+    }
 } export default ProductsStore

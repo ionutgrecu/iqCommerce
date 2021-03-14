@@ -57,19 +57,20 @@ class ProductsService {
             $productCharacteristic->save();
         }
 
-        foreach ($request['image'] as $key => $image) {
-            if (!$request->hasFile("image.$key") || !$request->file("image.$key")->isValid() || !in_array($request->file("image.$key")->extension(), config('app.extensions.images')))
-                continue;
+        if (is_array($request['image']))
+            foreach ($request['image'] as $key => $image) {
+                if (!$request->hasFile("image.$key") || !$request->file("image.$key")->isValid() || !in_array($request->file("image.$key")->extension(), config('app.extensions.images')))
+                    continue;
 
-            $imageFile = Storage::disk('public')->url(Storage::disk('public')->putFile('products/' . $this->item->id, $request->file("image.$key"), 'public'));
+                $imageFile = Storage::disk('public')->url(Storage::disk('public')->putFile('products/' . $this->item->id, $request->file("image.$key"), 'public'));
 
-            $image = new ProductImages();
-            $image->fill([
-                'product_id' => $this->item->id,
-                'file' => $imageFile,
-            ]);
-            $image->save();
-        }
+                $image = new ProductImages();
+                $image->fill([
+                    'product_id' => $this->item->id,
+                    'file' => $imageFile,
+                ]);
+                $image->save();
+            }
 
         return $this->item;
     }

@@ -22,7 +22,7 @@ class CreateProductCharacteristicsTable extends Migration {
             $table->mediumText('val_text')->default('');
             $table->timestamps();
             
-            $table->unique(['product_id', 'category_characteristic_id']);
+            $table->unique(['product_id', 'category_characteristic_id'],'product_category_unique');
         });
     }
 
