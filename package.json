@@ -87,6 +87,7 @@
         "fbemitter": "^3.0.0",
         "jquery": "^3.5.1",
         "laravel-mix": "^6.0.11",
+        "memoize-one": "^5.1.1",
         "perfect-scrollbar": "1.5.0",
         "popper.js": "^1.16.1",
         "prop-types": "^15.7.2",

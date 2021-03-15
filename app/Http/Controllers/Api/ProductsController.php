@@ -91,7 +91,10 @@ class ProductsController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        //
+        if ($this->service->deleteItem($id))
+            return response()->json(['status' => 'ok', 'id' => $id]);
+        else
+            return response()->json(['status' => 'failed', 'id' => $id, 'message' => 'Item not found']);
     }
 
     public function deleteImage($id) {

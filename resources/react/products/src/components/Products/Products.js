@@ -3,20 +3,23 @@ import { Button, Image } from "react-bootstrap"
 import DataTable from "react-data-table-component"
 import { toast } from "react-toastify"
 import ProductsStore from "../../stores/ProductsStore"
+import { v4 as uuidv4 } from 'uuid'
+import memoize from 'memoize-one'
 
 class Products extends React.Component {
     constructor() {
         super()
 
+        const  columns=memoize(handleAction =>  [
+            { name: '#', selector: 'id', sortable: true },
+            { name: 'Name', selector: 'name', sortable: true },
+            { name: 'Vendor', selector: 'vendor.name', sortable: true },
+            { name: 'Image', cell: row => <>{row.images.length ? <Image src={-1 == row.images[0].file.indexOf(':/') ? `${ASSETS_URL}${row.images[0].file}` : row.images[0].file} className="preview"></Image> : ''}</> },
+            { name: "Price", cell: (row) => <>{row.price_min > 0 ? <><del>{row.price}</del> <div className="price">{row.price_min}</div></> : <div className="price">{row.price}</div>}</>, sortable: false, right: true },
+            { name: '', cell: (row) => <Button variant="danger" onClick={this.deleteItem} id={`btnId-${row.id}`}><i className="fas fa-trash-alt" id={`btnIdIcon-${row.id}`}></i></Button>, ignoreRowClick: false, allowOverflow: true, button: false }
+        ])
+
         this.state = {
-            columns: [
-                { name: '#', selector: 'id', sortable: true },
-                { name: 'Name', selector: 'name', sortable: true },
-                { name: 'Vendor', selector: 'vendor.name', sortable: true },
-                { name: 'Image', cell: row => <>{row.images.length ? <Image src={-1 == row.images[0].file.indexOf(':/') ? `${ASSETS_URL}${row.images[0].file}` : row.images[0].file} className="preview"></Image> : ''}</> },
-                { name: "Price", cell: (row) => <>{row.price_min > 0 ? <><del>{row.price}</del> <div className="price">{row.price_min}</div></> : <div className="price">{row.price}</div>}</>, sortable: false, right: true },
-                { name: '', cell: (row) => <Button variant="danger" onClick={this.deleteItem} id={row.id}><i className="fas fa-trash-alt"></i></Button>, ignoreRowClick: true, allowOverflow: true, button: true }
-            ],
             items: []
         }
 
@@ -24,7 +27,8 @@ class Products extends React.Component {
         this.store.getItems()
 
         this.deleteItem = (e) => {
-            this.store.deleteItem(e.target.id)
+            let id = e.target.id.replace('btnId-', '').replace('btnIdIcon-', '')
+            this.store.deleteItem(id)
         }
     }
 
@@ -37,11 +41,32 @@ class Products extends React.Component {
         this.store.emitter.addListener('GET_PRODUCTS_ERROR', errors => {
             toast.dismiss()
             toast.error('Cannot retrieve data: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
-        });
+        })
+
+        this.store.emitter.addListener('DELETE_PRODUCT_SUCCESS', (id) => {
+            let { items } = this.state
+
+            for (let i in items){
+                console.log(items[i].id+" "+id)
+                if (items[i].id == id){
+                    console.log('xx')
+                     delete items[i]
+                }
+            }
+
+            this.setState({ items: items })
+            this.handleAction
+            toast.dismiss()
+        })
+
+        this.store.emitter.addListener('DELETE_PRODUCT_ERROR', errors => {
+            toast.dismiss()
+            toast.error('Cannot delete item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
+        })
     }
 
     render() {
-        let { columns, items } = this.state
+        let { items } = this.state
 
         return <DataTable
             title="Product list"
@@ -49,7 +74,7 @@ class Products extends React.Component {
             paginationServer={true}
             paginationServerOptions={{ persistSelectedOnPageChange: false, persistSelectedOnSort: false }}
             className="table"
-            columns={columns}
+            columns={this.columns}
             data={items}
         />
     }

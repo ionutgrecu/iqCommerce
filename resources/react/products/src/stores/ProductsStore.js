@@ -22,14 +22,14 @@ class ProductsStore {
             }
     }
 
-    async deleteProduct(id){
-Axios.delete(`${APIURL}products`.{withCredentials:true})
-.then((response)=>{
-
-},(error)=>{
-    let errors = errorsRoll(error)
-                this.emitter.emit('GET_PRODUCTS_ERROR', errors)
-})
+    async deleteItem(id) {
+        Axios.delete(`${APIURL}/products/${id}`, { withCredentials: true })
+            .then((response) => {
+                this.emitter.emit('DELETE_PRODUCT_SUCCESS', response.data.id)
+            }, (error) => {
+                let errors = errorsRoll(error)
+                this.emitter.emit('DELETE_PRODUCT_ERROR', errors)
+            })
     }
 
     async loadResources() {

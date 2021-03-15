@@ -23,13 +23,12 @@ class ProductCategoriesService {
     function deleteItem(int $id): bool {
         $item = ProductCategory::find($id);
 
-        if ($item) {
-            Storage2::disk('public')->deleteDirectory("categories/{$item->id}");
-            $item->delete();
-            return true;
-        }
+        if (!$item)
+            return false;
 
-        return false;
+        Storage2::disk('public')->deleteDirectory("categories/{$item->id}");
+        $item->delete();
+        return true;
     }
 
     function getAll(int $exceptId = null): Collection {

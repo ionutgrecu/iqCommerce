@@ -22,6 +22,17 @@ class ProductsService {
 
     private $item;
 
+    function deleteItem(int $id): bool {
+        $item = Product::find($id);
+
+        if (!$item)
+            return false;
+
+        Storage::disk('public')->deleteDirectory("products/{$item->id}");
+        $item->delete();
+        return true;
+    }
+
     function getAll() {
         $productsObj = Product::with('vendor', 'images');
 
