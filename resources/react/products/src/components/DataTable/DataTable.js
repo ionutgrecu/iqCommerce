@@ -1,5 +1,7 @@
 import React, { useMemo } from "react"
 import { Button, Image, Table } from "react-bootstrap"
+import { objectRecursiveValue } from "../../helpers"
+const _ = require('lodash')
 
 class DataTable extends React.Component {
     constructor(props) {
@@ -14,7 +16,8 @@ class DataTable extends React.Component {
     shouldComponentUpdate(props) {
         let { items } = this.state
 
-        if (JSON.stringify(items) === JSON.stringify(props.items)) return false;
+        // if (JSON.stringify(items) === JSON.stringify(props.items)) return false;
+        if (_.isEqual(items, props.items)) return false;
 
         this.setState({ items: props.items })
         return true
@@ -31,7 +34,10 @@ class DataTable extends React.Component {
             </thead>
             <tbody>
                 {items.map(row => <tr key={`datatable-tr-${row.id}`}>
-                    {columns.map(col => <td key={`datatable-td-${row.id}-${col.name}`}>{row[col.selector]}</td>)}
+                    {columns.map(col => <td key={`datatable-td-${row.id}-${col.name}`}>
+                        {col.selector ? objectRecursiveValue(row, col.selector) : ''}
+                        {col.cell ? col.cell(row) : ''}
+                    </td>)}
                 </tr>)}
             </tbody>
         </Table>

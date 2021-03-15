@@ -25,6 +25,9 @@ class Products extends React.Component {
         this.store.getItems()
 
         this.deleteItem = (e) => {
+            if (!confirm('Delete this item?')) return
+
+            toast.info('Deleting item...', { position: toast.POSITION.BOTTOM_RIGHT })
             let id = e.target.id.replace('btnId-', '').replace('btnIdIcon-', '')
             this.store.deleteItem(id)
         }
@@ -42,15 +45,15 @@ class Products extends React.Component {
         })
 
         this.store.emitter.addListener('DELETE_PRODUCT_SUCCESS', (id) => {
-            let { items } = this.state
+            // let { items } = this.state
 
-            for (let i in items)
-                if (items[i].id == id)
-                    delete items[i]
+            // for (let i in items)
+            //     if (items[i].id == id)
+            //         items.splice(i,1)
 
-            this.setState({ items: items })
-            this.handleAction
-            toast.dismiss()
+            // this.setState({ items: items })
+            // toast.dismiss()
+            this.store.getItems()
         })
 
         this.store.emitter.addListener('DELETE_PRODUCT_ERROR', errors => {
@@ -61,7 +64,7 @@ class Products extends React.Component {
 
     render() {
         let { items, columns } = this.state
-
+        console.log(items)
         return <DataTable columns={columns} items={items}></DataTable>
     }
 } export default Products

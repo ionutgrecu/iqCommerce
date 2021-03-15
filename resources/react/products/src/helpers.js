@@ -71,6 +71,19 @@ export const objectTreeToArrList = (obj, childParameter, labelParameter, inputPa
     return arrOut
 }
 
+/** Return a value or subvalue of object identified by key/subkey like 'key.subkey'
+ *
+ * @param {*} obj
+ * @param {*} key
+ * @returns
+ */
+export const objectRecursiveValue = (obj, key) => {
+    if (key.indexOf('.') == -1) return obj[key]
+
+    let i = key.indexOf('.')
+    return objectRecursiveValue(obj[key.slice(0, i)], key.slice(i + 1))
+}
+
 /** Convert an internal url to an absolute one by prepend ASSETS_URL . If external url, it returned as it is
  */
 export const urlAbsolute = (url) => {
