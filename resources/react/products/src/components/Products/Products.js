@@ -16,7 +16,7 @@ class Products extends React.Component {
                 { name: 'Vendor', selector: 'vendor.name', sortable: true },
                 { name: 'Image', cell: row => <>{row.images.length ? <Image src={-1 == row.images[0].file.indexOf(':/') ? `${ASSETS_URL}${row.images[0].file}` : row.images[0].file} className="preview"></Image> : ''}</> },
                 { name: "Price", cell: (row) => <>{row.price_min > 0 ? <><del>{row.price}</del> <div className="price">{row.price_min}</div></> : <div className="price">{row.price}</div>}</>, sortable: false, right: true },
-                { name: '', cell: (row) => <Button variant="danger" onClick={this.deleteItem} id={`btnId-${row.id}`}><i className="fas fa-trash-alt" id={`btnIdIcon-${row.id}`}></i></Button>, ignoreRowClick: true, allowOverflow: true, button: true }
+                { name: '', cell: (row) => <><Button variant="success" href={`#/edit-product/${row.id}`} title="Edit"><i className="fas fa-pencil-alt"></i></Button> <Button variant="danger" onClick={this.deleteItem} id={`btnId-${row.id}`} title="Delete"><i className="fas fa-trash-alt" id={`btnIdIcon-${row.id}`}></i></Button></>, ignoreRowClick: true, allowOverflow: true, button: true }
             ],
             items: []
         }
@@ -64,7 +64,7 @@ class Products extends React.Component {
 
     render() {
         let { items, columns } = this.state
-        console.log(items)
+
         return <DataTable columns={columns} items={items}></DataTable>
     }
 } export default Products
