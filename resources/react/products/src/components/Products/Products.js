@@ -18,7 +18,9 @@ class Products extends React.Component {
                 { name: "Price", cell: (row) => <>{row.price_min > 0 ? <><del>{row.price}</del> <div className="price">{row.price_min}</div></> : <div className="price">{row.price}</div>}</>, sortable: false, right: true },
                 { name: '', cell: (row) => <><Button variant="success" href={`#/edit-product/${row.id}`} title="Edit"><i className="fas fa-pencil-alt"></i></Button> <Button variant="danger" onClick={this.deleteItem} id={`btnId-${row.id}`} title="Delete"><i className="fas fa-trash-alt" id={`btnIdIcon-${row.id}`}></i></Button></>, ignoreRowClick: true, allowOverflow: true, button: true }
             ],
-            items: []
+            items: [],
+            links: [],
+            currentPage: 1,
         }
 
         this.store = new ProductsStore()
@@ -31,11 +33,18 @@ class Products extends React.Component {
             let id = e.target.id.replace('btnId-', '').replace('btnIdIcon-', '')
             this.store.deleteItem(id)
         }
+
+        this.handePageClick = (e) => {
+            if (!e.target.dataset.page) return
+
+            let url = new URL(e.target.dataset.page)
+            this.store.getItems(url.searchParams.get('page'))
+        }
     }
 
     componentDidMount() {
         this.store.emitter.addListener('GET_PRODUCTS_SUCCESS', () => {
-            this.setState({ items: this.store.items })
+            this.setState({ items: this.store.items, links: this.store.links, currentPage: this.store.currentPage })
             toast.dismiss()
         })
 
@@ -63,8 +72,8 @@ class Products extends React.Component {
     }
 
     render() {
-        let { items, columns } = this.state
+        let { columns, items, links, currentPage } = this.state
 
-        return <DataTable columns={columns} items={items}></DataTable>
+        return <DataTable columns={columns} items={items} links={links} currentPage={currentPage} onPageClick={this.handePageClick}></DataTable>
     }
 } export default Products

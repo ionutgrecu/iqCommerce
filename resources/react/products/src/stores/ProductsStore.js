@@ -5,16 +5,20 @@ import { errorsRoll } from "../helpers"
 class ProductsStore {
     constructor() {
         this.items = []
+        this.links = []
+        this.currentPage=1
         this.item = {}
         this.resources = {}
         this.characteristics = {}
         this.emitter = new EventEmitter
     }
 
-    async getItems() {
-        Axios.get(`${APIURL}/products`, { withCredentials: true })
+    async getItems(pageNo=1) {
+        Axios.get(`${APIURL}/products?page=${pageNo}`, { withCredentials: true })
             .then((response) => {
                 this.items = response.data.data
+                this.links = response.data.links
+                this.currentPage=response.data.current_page
                 this.emitter.emit('GET_PRODUCTS_SUCCESS')
             }), (error) => {
                 let errors = errorsRoll(error)

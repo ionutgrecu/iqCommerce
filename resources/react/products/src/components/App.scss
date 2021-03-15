@@ -43,3 +43,11 @@
         min-height: 25px;
     }
 }
+
+.pagination{
+    li{
+        a{
+            cursor: pointer;
+        }
+    }
+}
