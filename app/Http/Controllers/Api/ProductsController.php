@@ -26,7 +26,7 @@ class ProductsController extends Controller {
      * @return Response
      */
     public function index() {
-        return response()->json(['status' => 'ok', 'data' => $this->service->getAll()]);
+        return response()->json(array_merge(['status' => 'ok'], $this->service->paginate()->toArray()));
     }
 
     /**

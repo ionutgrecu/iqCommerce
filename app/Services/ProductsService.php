@@ -38,6 +38,12 @@ class ProductsService {
 
         return $productsObj->get();
     }
+    
+    function paginate(): \Illuminate\Pagination\LengthAwarePaginator{
+        $productsObj = Product::with('vendor', 'images');
+
+        return $productsObj->paginate();
+    }
 
     function findOrNew(int $id = null): Product {
         if (!$id)
