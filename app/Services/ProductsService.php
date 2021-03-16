@@ -6,6 +6,7 @@ use App\Http\Requests\Api\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductCharacteristics;
 use App\Models\ProductImages;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Storage;
 use TheSeer\Tokenizer\Exception;
 use function config;
@@ -38,8 +39,8 @@ class ProductsService {
 
         return $productsObj->get();
     }
-    
-    function paginate(): \Illuminate\Pagination\LengthAwarePaginator{
+
+    function paginate(): LengthAwarePaginator {
         $productsObj = Product::with('vendor', 'images');
 
         return $productsObj->paginate();
@@ -50,6 +51,15 @@ class ProductsService {
             $this->item = new Product;
         else
             $this->item = Product::findOrNew($id);
+
+        return $this->item;
+    }
+
+    function find(int $id): Product {
+        $this->item = Product::find($id);
+        
+        if (!$this->item)
+            throw new \Exception('Item not found');
 
         return $this->item;
     }

@@ -27,15 +27,10 @@ class ProductForm extends React.Component {
 
         this.store = new ProductsStore()
 
-        if(this.props.match.params.id){
+        if (this.props.match.params.id) {
             toast.info('Loading item, wait...', { position: toast.POSITION.BOTTOM_RIGHT, autoClose: false })
-            this.store.loadItem()
-        }
-
-        if (!this.props.match.params.id) {
-            toast.info('Loading resources, wait...', { position: toast.POSITION.BOTTOM_RIGHT, autoClose: false })
-            this.store.loadResources()
-        }
+            this.store.getItem(this.props.match.params.id)
+        } else this.loadResources()
 
         this.handleChange = (e) => {
             let { item, images, characteristics } = this.state
@@ -155,6 +150,18 @@ class ProductForm extends React.Component {
             toast.dismiss()
         })
 
+        this.store.emitter.addListener('GET_PRODUCT_SUCCESS', () => {
+            if (this.store.item)
+                this.setState({ item: this.store.item })
+            toast.dismiss()
+            this.loadResources()
+        })
+
+        this.store.emitter.addListener('GET_PRODUCT_ERROR', (errors) => {
+            toast.dismiss()
+            toast.error('Cannot retrieve item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
+        })
+
         this.store.emitter.addListener('GET_PRODUCT_RESOURCES_ERROR', (errors) => {
             toast.dismiss()
             toast.error('Cannot retrieve resources: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
@@ -169,7 +176,7 @@ class ProductForm extends React.Component {
 
         this.store.emitter.addListener('GET_PRODUCT_CHARACTERISTICS_ERROR', (errors) => {
             toast.dismiss()
-            toast.error('Cannot retrieve item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
+            toast.error('Cannot retrieve characteristics: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
         })
 
         this.store.emitter.addListener('SAVE_PRODUCT_SUCCESS', () => {
@@ -194,6 +201,11 @@ class ProductForm extends React.Component {
             delete item.images[id]
             this.setState({ item: item })
         })
+    }
+
+    loadResources() {
+        toast.info('Loading resources, wait...', { position: toast.POSITION.BOTTOM_RIGHT, autoClose: false })
+        this.store.loadResources()
     }
 
     render() {

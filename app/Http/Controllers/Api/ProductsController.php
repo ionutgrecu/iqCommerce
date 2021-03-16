@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ProductRequest;
 use App\Services\ProductImagesService;
 use App\Services\ProductsService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use function GuzzleHttp\json_encode;
 use function response;
 
 class ProductsController extends Controller {
@@ -58,7 +60,11 @@ class ProductsController extends Controller {
      * @return Response
      */
     public function show($id) {
-        $product = $this->service->findOrNew((integer) $id);
+        try {
+            $product = $this->service->find((integer) $id);
+        } catch (Exception $ex) {
+            return \Response::json(exceptionToArray($ex), 404);
+        }
 
         return response()->json(['status' => 'ok', 'data' => $product]);
     }
