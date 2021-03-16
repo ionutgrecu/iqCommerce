@@ -30,6 +30,7 @@ class App extends React.Component {
                     <Route path='/edit-characteristic/:id' component={CharacteristicForm} />
                     <Route path='/products' component={Products} />
                     <Route path='/add-product' component={ProductForm} />
+                    <Route path='/edit-product/:id' component={ProductForm} />
                     <Route exact path='/' component={Main} />
                     <Route path='/orders' component={Orders} />
                 </Switch>

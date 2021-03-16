@@ -27,6 +27,11 @@ class ProductForm extends React.Component {
 
         this.store = new ProductsStore()
 
+        if(this.props.match.params.id){
+            toast.info('Loading item, wait...', { position: toast.POSITION.BOTTOM_RIGHT, autoClose: false })
+            this.store.loadItem()
+        }
+
         if (!this.props.match.params.id) {
             toast.info('Loading resources, wait...', { position: toast.POSITION.BOTTOM_RIGHT, autoClose: false })
             this.store.loadResources()
