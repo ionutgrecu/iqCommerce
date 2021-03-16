@@ -1,6 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\CategoriesController;
+use App\Http\Controllers\Api\CharacteristicsController;
+use App\Http\Controllers\Api\ProductsController;
+use App\Http\Controllers\Api\ResourcesController;
+use App\Http\Controllers\Api\VendorsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,12 +24,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1', 'middleware' => ['auth', 'api']], function() {
     Route::group(['prefix' => 'products'], function() {
-        Route::resource('/resources', 'App\Http\Controllers\Api\ResourcesController');
-        Route::resource('/categories', 'App\Http\Controllers\Api\CategoriesController');
-        Route::resource('/vendors', 'App\Http\Controllers\Api\VendorsController');
-        Route::resource('/characteristics', 'App\Http\Controllers\Api\CharacteristicsController');
-        Route::delete('products/image/{id}','App\Http\Controllers\Api\ProductsController@deleteImage');
-        Route::resource('/products', 'App\Http\Controllers\Api\ProductsController');
-        
+        Route::resource('/resources', ResourcesController::class);
+        Route::resource('/categories', CategoriesController::class);
+        Route::resource('/vendors', VendorsController::class);
+        Route::resource('/characteristics', CharacteristicsController::class);
+        Route::delete('products/image/{id}', [ProductsController::class, 'deleteImage']);
+        Route::resource('/products', ProductsController::class);
     });
 });
