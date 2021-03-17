@@ -9,7 +9,7 @@ use App\Services\ProductsService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use function GuzzleHttp\json_encode;
+use function exceptionToArray;
 use function response;
 
 class ProductsController extends Controller {
@@ -61,7 +61,7 @@ class ProductsController extends Controller {
      */
     public function show($id) {
         try {
-            $product = $this->service->find((integer) $id);
+            $product = $this->service->find((integer) $id)->getItem();
         } catch (Exception $ex) {
             return \Response::json(exceptionToArray($ex), 404);
         }
@@ -106,6 +106,18 @@ class ProductsController extends Controller {
     public function deleteImage($id) {
         $imageService = new ProductImagesService();
         $imageService->delete((integer) $id);
+
+        return response()->json(['status' => 'ok']);
+    }
+
+    public function defaultImage($id) {
+        $imageService = new ProductImagesService();
+
+        try {
+            $imageService->find((integer) $id)->makeDefault();
+        } catch (Exception $ex) {
+            return \Response::json(exceptionToArray($ex), 404);
+        }
 
         return response()->json(['status' => 'ok']);
     }

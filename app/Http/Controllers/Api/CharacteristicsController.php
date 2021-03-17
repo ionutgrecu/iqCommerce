@@ -57,7 +57,7 @@ class CharacteristicsController extends Controller {
      * @return Response
      */
     public function show($id) {
-        $item = $this->service->find($id);
+        $item = $this->service->find($id)->getItem();
         $categories = (new ProductCategoriesService)->getTree();
         $nameValues = $this->service->getUniqueValues('name');
         $groupValues = $this->service->getUniqueValues('group', $item->category_id);

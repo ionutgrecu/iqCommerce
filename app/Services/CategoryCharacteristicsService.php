@@ -55,10 +55,14 @@ class CategoryCharacteristicsService {
         return $return;
     }
 
-    function find(int $id): CategoryCharacteristic {
+    function getItem():CategoryCharacteristic{
+        return $this->item;
+    }
+    
+    function find(int $id): CategoryCharacteristicsService  {
         $this->item = CategoryCharacteristic::with('category')->find($id);
 
-        return $this->item;
+        return $this;
     }
 
     function findOrNew(int $id = null): CategoryCharacteristic {

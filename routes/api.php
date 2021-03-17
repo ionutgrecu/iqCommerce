@@ -29,6 +29,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth', 'api']], function() {
         Route::resource('/vendors', VendorsController::class);
         Route::resource('/characteristics', CharacteristicsController::class);
         Route::delete('products/image/{id}', [ProductsController::class, 'deleteImage']);
+        Route::get('products/default-image/{id}', [ProductsController::class, 'defaultImage']);
         Route::resource('/products', ProductsController::class);
     });
 });

@@ -60,11 +60,15 @@ class ProductCategoriesService {
 
         return $return;
     }
+    
+    function getItem():ProductCategory{
+        return $this->item;
+    }
 
-    function find(int $id): ProductCategory {
+    function find(int $id): ProductCategoriesService {
         $this->item = ProductCategory::with('category')->find($id);
 
-        return $this->item;
+        return $this;
     }
 
     function findOrNew(int $id = null): ProductCategory {

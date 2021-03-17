@@ -17,6 +17,7 @@ class CreateProductImagesTable extends Migration {
             $table->bigInteger('product_id')->unsigned();
             $table->string('file', 255);
             $table->integer('order')->nullable()->default(0);
+            $table->tinyInteger('default')->unsigned()->nullable()->default(0);
             $table->timestamps();
         });
 

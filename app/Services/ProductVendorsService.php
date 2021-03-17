@@ -37,11 +37,15 @@ class ProductVendorsService {
 
         return $vendorObj->orderBy('id', 'DESC')->get();
     }
+    
+    function getItem():ProductVendor{
+        return $this->item;
+    }
 
-    function find(int $id): ProductVendor {
+    function find(int $id): ProductVendorsService  {
         $this->item = ProductVendor::find($id);
 
-        return $this->item;
+        return $this;
     }
 
     function findOrNew(int $id = null): ProductVendor {

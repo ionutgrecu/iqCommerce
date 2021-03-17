@@ -57,7 +57,7 @@ class CategoriesController extends Controller {
      * @return Response
      */
     public function show($id) {
-        $item = $this->service->find($id);
+        $item = $this->service->find($id)->getItem();
         $categories = $this->service->getTree($item->id);
 
         return response()->json(['status' => 'ok', 'data' => $item, 'categories' => $categories]);

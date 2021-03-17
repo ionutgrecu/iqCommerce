@@ -41,12 +41,27 @@
     .img-thumbnail {
         min-width: 25px;
         min-height: 25px;
+
+        &.default {
+            background: yellow;
+            padding: 11px;
+        }
+    }
+
+    .buttons {
+        position: absolute;
+        width: 100%;
+        padding: 0 15px 0 0;
+
+        .btn-danger {
+            float: right;
+        }
     }
 }
 
-.pagination{
-    li{
-        a{
+.pagination {
+    li {
+        a {
             cursor: pointer;
         }
     }

@@ -55,13 +55,17 @@ class ProductsService {
         return $this->item;
     }
 
-    function find(int $id): Product {
+    function getItem():Product{
+        return $this->item;
+    }
+    
+    function find(int $id): ProductsService {
         $this->item = Product::find($id);
         
         if (!$this->item)
             throw new \Exception('Item not found');
 
-        return $this->item;
+        return $this;
     }
 
     /**
