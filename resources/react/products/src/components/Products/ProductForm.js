@@ -30,7 +30,10 @@ class ProductForm extends React.Component {
 
         if (this.props.match.params.id) {
             toast.info('Loading item, wait...', { position: toast.POSITION.BOTTOM_RIGHT, autoClose: false })
-            this.store.getItem(this.props.match.params.id)
+
+            setTimeout(() => {
+                this.store.getItem(this.props.match.params.id)
+            }, 500)
         } else this.getResources()
 
         this.handleChange = (e) => {
@@ -131,16 +134,17 @@ class ProductForm extends React.Component {
         }
     }
 
-    shouldComponentUpdate() {
-        let { item } = this.state
+    // shouldComponentUpdate() {
+    // let { item } = this.state
 
-        if (this.description.current.editor.getContent() != item.description) {
-            this.description.current.editor.setContent(item.description)
-            return false
-        }
+    // console.log((this.description.current.editor))
+    // if (this.description.current.editor.getContent() != item.description) {
+    //     this.description.current.editor.setContent(item.description)
+    //     return false
+    // }
 
-        return true
-    }
+    //     return true
+    // }
 
     componentDidMount() {
         this.store.emitter.addListener('GET_PRODUCT_RESOURCES_SUCCESS', () => {
@@ -249,6 +253,7 @@ class ProductForm extends React.Component {
                                                 init={{
                                                     height: 300,
                                                     menubar: false,
+                                                    branding: false,
                                                     plugins: [
                                                         'advlist autolink lists link image charmap print preview anchor',
                                                         'searchreplace visualblocks code fullscreen',
@@ -311,8 +316,8 @@ class ProductForm extends React.Component {
                         <div className="container-fluid gallery">
                             <Row>
                                 <Col xl="2" lg="4" md="4" sm="6" xs="12" key={uuidv4()}><Form.Control type="file" multiple accept="image/*" onChange={this.handleChange}></Form.Control></Col>
-                                {item.images.map((image, k) => <ProductFormImage className="uploaded" key={uuidv4()} id={k} item={image} onDelete={this.handleImageDelete}></ProductFormImage>)}
-                                {images.map((image, k) => <ProductFormImage className="to-be-uploaded" key={uuidv4()} id={k} item={image} onDelete={this.handleImageDelete}></ProductFormImage>)}
+                                {item.images.map((image, k) => <ProductFormImage className="uploaded" key={k} id={k} item={image} onDelete={this.handleImageDelete}></ProductFormImage>)}
+                                {images.map((image, k) => <ProductFormImage className="to-be-uploaded" key={k} id={k} item={image} onDelete={this.handleImageDelete}></ProductFormImage>)}
                             </Row>
                         </div>
                     </TabPanel>
