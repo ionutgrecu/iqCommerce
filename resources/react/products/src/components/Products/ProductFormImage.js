@@ -30,7 +30,6 @@ class ProductFormImage extends React.Component {
             if ('File' == item.constructor.name) {
                 return <>
                     <div className="buttons">
-                        <Button variant="warning" onClick={this.handleImageFavorite} title="Make default"><i className="far fa-star"></i></Button>
                         <Button variant="danger" onClick={this.handleImageDelete} title="Delete"><i className="fas fa-trash-alt"></i></Button>
                     </div>
                     <Image src={URL.createObjectURL(item)} thumbnail></Image></>
