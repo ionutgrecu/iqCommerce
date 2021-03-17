@@ -18,7 +18,9 @@ class ProductForm extends React.Component {
 
         this.state = {
             id: this.props.match.params.id ? this.props.match.params.id : 0,
-            item: { name: '', description: '', product_category_id: null, product_vendors_id: null, price: 0, price_min: 0, images: [{ file: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' }] },
+            item: {
+                name: '', description: '', product_category_id: null, product_vendors_id: null, price: 0, price_min: 0, images: []
+            },
             categories: [],
             vendors: [],
             characteristics: [],
@@ -111,17 +113,19 @@ class ProductForm extends React.Component {
             if ('File' == itemImage.constructor.name) {
                 delete images[id]
             } else {
-                console.log(item.images)
-                if ('string' == typeof (item.images[id].id)) {
-                    this.store.deleteImage(item.images[id].id)
-                } else {
-                    delete item.images[id]
-                }
-                //
-                //
+                // if ('string' == typeof (item.images[id].id)) {
+                // this.store.deleteImage(item.images[id].id)
+                // } else {
+                //     delete item.images[id]
+                // }
+                this.store.deleteImage(id)
             }
 
             this.setState({ item: item, images: images })
+        }
+
+        this.handleImageDefault = (e, itemImage) => {
+            this.store.defaultImage(itemImage.id)
         }
 
         this.save = () => {
@@ -211,10 +215,34 @@ class ProductForm extends React.Component {
         })
 
         this.store.emitter.addListener('DELETE_PRODUCT_IMAGE_SUCCESS', (id) => {
-            toast.dismiss()
             let { item } = this.state
-            delete item.images[id]
+
+            for (let i in item.images)
+                if (item.images[i].id == id)
+                    delete item.images[i]
+
             this.setState({ item: item })
+            toast.dismiss()
+        })
+
+        this.store.emitter.addListener('DEFAULT_PRODUCT_IMAGE_ERROR', (errors) => {
+            toast.dismiss()
+            toast.error('Cannot make image default: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
+        })
+
+        this.store.emitter.addListener('DEFAULT_PRODUCT_IMAGE_SUCCESS', (id) => {
+            let { item } = this.state
+
+            for (let i in item.images) {
+                if (item.images[i].id == id) {
+                    item.images[i].default = 1
+                    console.log(i)
+                } else
+                    item.images[i].default = 0
+            }
+
+            this.setState({ item: item })
+            toast.dismiss
         })
     }
 
@@ -225,7 +253,7 @@ class ProductForm extends React.Component {
 
     render() {
         const { id, item, categories, vendors, characteristics, images } = this.state
-
+        console.log(item.images)
         return <>
             <Form id={`prod-${id}`}>
                 <Tabs>
@@ -315,9 +343,9 @@ class ProductForm extends React.Component {
                     <TabPanel>
                         <div className="container-fluid gallery">
                             <Row>
-                                <Col xl="2" lg="4" md="4" sm="6" xs="12" key={uuidv4()}><Form.Control type="file" multiple accept="image/*" onChange={this.handleChange}></Form.Control></Col>
-                                {item.images.map((image, k) => <ProductFormImage className="uploaded" key={k} id={k} item={image} onDelete={this.handleImageDelete}></ProductFormImage>)}
-                                {images.map((image, k) => <ProductFormImage className="to-be-uploaded" key={k} id={k} item={image} onDelete={this.handleImageDelete}></ProductFormImage>)}
+                                <Col xl="2" lg="4" md="4" sm="6" xs="12"><Form.Control type="file" multiple accept="image/*" onChange={this.handleChange}></Form.Control></Col>
+                                {item.images.map((image, k) => <ProductFormImage className='uploaded' key={`imageonline-${k}`} id={image.id} item={image} onDelete={this.handleImageDelete} onDefault={this.handleImageDefault}></ProductFormImage>)}
+                                {images.map((image, k) => <ProductFormImage className="to-be-uploaded" key={`imagelocal-${k}`} id={`imagelocal-${k}`} item={image} onDelete={this.handleImageDelete}></ProductFormImage>)}
                             </Row>
                         </div>
                     </TabPanel>

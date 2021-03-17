@@ -18,13 +18,15 @@ class ProductFormImage extends React.Component {
             if ('function' == typeof (props.onDelete)) props.onDelete(e, id, item)
         }
 
-        this.handleImageFavorite = (e) => {
+        this.handleImageDefault = (e) => {
+            let { item } = this.state
 
+            if ('function' == typeof (props.onDefault)) props.onDefault(e, item)
         }
     }
 
     render() {
-        let { item, className } = this.state
+        let { id, item, className } = this.state
 
         const renderImage = () => {
             if ('File' == item.constructor.name) {
@@ -36,14 +38,14 @@ class ProductFormImage extends React.Component {
             } else if ('string' == typeof (item.file)) {
                 return <>
                     <div className="buttons">
-                        <Button variant="warning" onClick={this.handleImageFavorite} title="Make default"><i className="far fa-star"></i></Button>
+                        <Button variant="warning" onClick={this.handleImageDefault} title="Make default"><i className="far fa-star"></i></Button>
                         <Button variant="danger" onClick={this.handleImageDelete} title="Delete"><i className="fas fa-trash-alt"></i></Button>
                     </div>
-                    <Image src={-1 == item.file.indexOf(':/') ? `${ASSETS_URL}${item.file}` : item.file} thumbnail></Image></>
+                    <Image className={item.default?'default':''} src={-1 == item.file.indexOf(':/') ? `${ASSETS_URL}${item.file}` : item.file} thumbnail></Image></>
             }
         }
 
-        return <Col xl="1" lg="2" md="4" sm="6" xs="12" className={className}>
+        return <Col xl="2" lg="2" md="4" sm="6" xs="12" className={className} id={`img-${id}`}>
             {renderImage()}
         </Col>
     }

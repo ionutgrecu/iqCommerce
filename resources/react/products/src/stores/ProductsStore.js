@@ -107,4 +107,14 @@ class ProductsStore {
                 this.emitter.emit('DELETE_PRODUCT_IMAGE_ERROR', errors)
             })
     }
+
+    async defaultImage(id) {
+        Axios.get(`${APIURL}/products/default-image/${id}`, { withCredentials: true })
+            .then((response) => {
+                this.emitter.emit('DEFAULT_PRODUCT_IMAGE_SUCCESS', id)
+            }, (error) => {
+                let errors = errorsRoll(error)
+                this.emitter.emit('DEFAULT_PRODUCT_IMAGE_ERROR', errors)
+            })
+    }
 } export default ProductsStore
