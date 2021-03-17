@@ -153,13 +153,15 @@ class ProductForm extends React.Component {
         this.store.emitter.addListener('GET_PRODUCT_SUCCESS', () => {
             if (this.store.item)
                 this.setState({ item: this.store.item })
-            toast.dismiss()
+
+                toast.dismiss()
             this.loadResources()
         })
 
         this.store.emitter.addListener('GET_PRODUCT_ERROR', (errors) => {
             toast.dismiss()
             toast.error('Cannot retrieve item: ' + errors.message + ", " + errors.errors.join(", "), { position: toast.POSITION.BOTTOM_RIGHT })
+            this.cancel()
         })
 
         this.store.emitter.addListener('GET_PRODUCT_RESOURCES_ERROR', (errors) => {
@@ -210,7 +212,7 @@ class ProductForm extends React.Component {
 
     render() {
         const { id, item, categories, vendors, characteristics, images } = this.state
-
+        console.log(item)
         return <>
             <Form id={`prod-${id}`}>
                 <Tabs>
