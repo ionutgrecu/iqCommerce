@@ -22,15 +22,16 @@ class ProductForm extends React.Component {
             categories: [],
             vendors: [],
             characteristics: [],
-            images: []
+            images: [],
         }
+        this.description=React.createRef()
 
         this.store = new ProductsStore()
 
         if (this.props.match.params.id) {
             toast.info('Loading item, wait...', { position: toast.POSITION.BOTTOM_RIGHT, autoClose: false })
             this.store.getItem(this.props.match.params.id)
-        } else this.loadResources()
+        } else this.getResources()
 
         this.handleChange = (e) => {
             let { item, images, characteristics } = this.state
@@ -86,20 +87,19 @@ class ProductForm extends React.Component {
             let name = editor.targetElm.name
 
             if (!name) return
-
+console.log(name +" "+ content)
             item[name] = content
 
-            this.setState({ item: item })
+            // this.setState({ item: item })
         }
 
         this.handleSelectChange = (currentNode, selectedNodes) => {
             let { id, item } = this.state
 
-            item[currentNode.target.name] = currentNode.target.value
+            if (item[currentNode.target.name] && currentNode.target.value)
+                item[currentNode.target.name] = currentNode.target.value
 
-            if ('product_category_id' == currentNode.target.name) this.store.loadCharacteristics(currentNode.target.value, id)
-
-            this.setState({ item: item })
+            if ('product_category_id' == currentNode.target.name) this.store.getCharacteristics(currentNode.target.value, id)
         }
 
         this.handleImageDelete = (e, id, itemImage) => {
@@ -131,6 +131,12 @@ class ProductForm extends React.Component {
         }
     }
 
+    shouldComponentUpdate(){
+        // this.description.current.props.value='xx'
+        console.log(this.description)
+        return true
+    }
+
     componentDidMount() {
         this.store.emitter.addListener('GET_PRODUCT_RESOURCES_SUCCESS', () => {
             let categories = []
@@ -141,7 +147,7 @@ class ProductForm extends React.Component {
                 console.log(error)
                 categories = []
             }
-
+            // console.log(this.state.item)
             this.setState({
                 categories: categories,
                 vendors: objectToArrList(this.store.resources.vendors, ['id', 'name'], ['id', 'text'])
@@ -151,11 +157,10 @@ class ProductForm extends React.Component {
         })
 
         this.store.emitter.addListener('GET_PRODUCT_SUCCESS', () => {
-            if (this.store.item)
-                this.setState({ item: this.store.item })
-
-                toast.dismiss()
-            this.loadResources()
+            this.setState({ item: this.store.item })
+            console.log('GET_PRODUCT_SUCCESS')
+            toast.dismiss()
+            this.getResources()
         })
 
         this.store.emitter.addListener('GET_PRODUCT_ERROR', (errors) => {
@@ -205,14 +210,14 @@ class ProductForm extends React.Component {
         })
     }
 
-    loadResources() {
+    getResources() {
         toast.info('Loading resources, wait...', { position: toast.POSITION.BOTTOM_RIGHT, autoClose: false })
-        this.store.loadResources()
+        this.store.getResources()
     }
 
     render() {
         const { id, item, categories, vendors, characteristics, images } = this.state
-        console.log(item)
+
         return <>
             <Form id={`prod-${id}`}>
                 <Tabs>
@@ -236,6 +241,7 @@ class ProductForm extends React.Component {
                                                 initialValue={item.description}
                                                 value={item.description}
                                                 textareaName="description"
+                                                ref={this.description}
                                                 init={{
                                                     height: 300,
                                                     menubar: false,

@@ -47,7 +47,7 @@ class ProductsStore {
             })
     }
 
-    async loadResources() {
+    async getResources() {
         Axios.get(`${APIURL}/resources?object[]=categories-tree&object[]=vendors`, { withCredentials: true })
             .then((response) => {
                 this.resources = response.data.data
@@ -58,7 +58,7 @@ class ProductsStore {
             })
     }
 
-    async loadCharacteristics(categoryId, productId) {
+    async getCharacteristics(categoryId, productId) {
         if (!categoryId) return
 
         Axios.get(`${APIURL}/resources?object=characteristics-tree&category-id=${categoryId}&product-id=${productId}`, { withCredentials: true })
