@@ -24,7 +24,7 @@ class ProductForm extends React.Component {
             characteristics: [],
             images: [],
         }
-        this.description=React.createRef()
+        this.description = React.createRef()
 
         this.store = new ProductsStore()
 
@@ -87,10 +87,10 @@ class ProductForm extends React.Component {
             let name = editor.targetElm.name
 
             if (!name) return
-console.log(name +" "+ content)
+            // console.log(name + " " + content)
             item[name] = content
-
-            // this.setState({ item: item })
+            // console.log(item)
+            this.setState({ item: item })
         }
 
         this.handleSelectChange = (currentNode, selectedNodes) => {
@@ -131,9 +131,14 @@ console.log(name +" "+ content)
         }
     }
 
-    shouldComponentUpdate(){
-        // this.description.current.props.value='xx'
-        console.log(this.description)
+    shouldComponentUpdate() {
+        let { item } = this.state
+
+        if (this.description.current.editor.getContent() != item.description) {
+            this.description.current.editor.setContent(item.description)
+            return false
+        }
+
         return true
     }
 
@@ -158,7 +163,6 @@ console.log(name +" "+ content)
 
         this.store.emitter.addListener('GET_PRODUCT_SUCCESS', () => {
             this.setState({ item: this.store.item })
-            console.log('GET_PRODUCT_SUCCESS')
             toast.dismiss()
             this.getResources()
         })
