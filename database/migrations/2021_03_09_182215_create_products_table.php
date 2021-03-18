@@ -19,8 +19,8 @@ class CreateProductsTable extends Migration {
             $table->integer('product_category_id')->unsigned()->nullable();
             $table->string('name', 255);
             $table->longText('description')->nullable();
-            $table->decimal('price', 6, 2, true)->comment('The default price');
-            $table->decimal('price_min', 6, 2, true)->nullable()->default(null)->comment('The minimum price below which the virtual agent should not go');
+            $table->decimal('price', 7, 2, true)->comment('The default price');
+            $table->decimal('price_min', 7, 2, true)->nullable()->default(null)->comment('The minimum price below which the virtual agent should not go');
             $table->timestamps();
             $table->softDeletes();
         });

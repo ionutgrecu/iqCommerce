@@ -3,7 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\CategoryCharacteristic;
+use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductCharacteristics;
+use App\Models\ProductImages;
+use App\Models\ProductVendor;
+use Arr;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 
@@ -15,9 +20,10 @@ class ProductCategorySeeder extends Seeder {
      * @return void
      */
     public function run() {
+        $productId = 0;
         $categoryId = 1;
         $characteristicId = 0;
-        $faker = Factory::create();
+        $faker = Factory::create('ro_RO');
 
         ProductCategory::firstOrCreate(['id' => $categoryId], [
             'name' => 'Electronice',
@@ -35,51 +41,128 @@ class ProductCategorySeeder extends Seeder {
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Tip sistem',
+            'slug' => 'tip-sistem',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Tip procesor',
+            'slug' => 'tip-procesor',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Frecventa procesor',
+            'slug' => 'frecventa-procesor',
             'type' => 'numeric',
-            'append'=>'Ghz',
+            'append' => 'Ghz',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Socket procesor',
+            'slug' => 'socket-procesor',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Capacitate memorie',
+            'slug' => 'capacitate-memorie',
             'type' => 'numeric',
-            'append'=>'Gb',
+            'append' => 'Gb',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Tip HDD',
+            'slug' => 'tip-hdd',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Capacitate HDD',
+            'slug' => 'capacitate-hdd',
             'type' => 'numeric',
-            'append'=>'Gb',
+            'append' => 'Gb',
             'is_filter' => 1,
         ]);
-        
-        $nameArr=include(dirname(__FILE__).'/data/pc-laptop/names.php');
-        $systemArr=include(dirname(__FILE__).'/data/pc-laptop/systems.php');
+
+        $nameArr = include(dirname(__FILE__) . '/data/pc-laptop/names.php');
+        $systemArr = include(dirname(__FILE__) . '/data/pc-laptop/systems.php');
+        $cpuTypesArr = include(dirname(__FILE__) . '/data/pc-laptop/cpu-types.php');
+        $cpuFreqsArr = include(dirname(__FILE__) . '/data/pc-laptop/cpu-freqs.php');
+        $cpuSocketsArr = include(dirname(__FILE__) . '/data/pc-laptop/cpu-sockets.php');
+        $memoryCapacitiesArr = include(dirname(__FILE__) . '/data/pc-laptop/memory-capacities.php');
+        $hddTypesArr = include(dirname(__FILE__) . '/data/pc-laptop/hdd-types.php');
+        $hddSizeArr = include(dirname(__FILE__) . '/data/pc-laptop/hdd-sizes.php');
+        $imageArr = include(dirname(__FILE__) . '/data/pc-laptop/images.php');
+        for ($i = ++$productId; $i < $productId + 5; $i++) {
+            $price = rand(100, 1000) * 10;
+            $priceMin = $price * (1 - (rand(0, 30) / 100));
+
+            $product = Product::firstOrCreate(['id' => $i], [
+                        'product_vendors_id' => ProductVendor::inRandomOrder()->first()->id,
+                        'product_category_id' => $categoryId,
+                        'name' => Arr::random($nameArr),
+                        'description' => $faker->text(200),
+                        'price' => $price,
+                        'price_min' => rand(0, 100) < 50 ? $priceMin : 0,
+            ]);
+
+            foreach ($systemArr as $value) {
+                $count = preg_match("/\\W$value\\W/i", $product->name, $matches);
+                if ($count) {
+                    ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('tip-sistem')->first()->id], ['val_short_text' => $value]);
+                    break;
+                }
+            }
+
+            foreach ($cpuTypesArr as $value) {
+                $count = preg_match("/\\W$value\\W/i", $product->name, $matches);
+                if ($count) {
+                    ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('tip-procesor')->first()->id], ['val_short_text' => $value]);
+                    break;
+                }
+            }
+
+            foreach ($cpuFreqsArr as $value) {
+                $count = preg_match("/\\W$value(0)? Ghz\\W/i", $product->name, $matches);
+                if ($count) {
+                    ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('frecventa-procesor')->first()->id], ['val_numeric' => $value]);
+                    break;
+                }
+            }
+
+            ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('socket-procesor')->first()->id], ['val_short_text' => Arr::random($cpuSocketsArr)]);
+
+            foreach ($memoryCapacitiesArr as $value) {
+                $count = preg_match("/\W$value\s?GB\W/i", $product->name, $matches);
+                if ($count) {
+                    ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('capacitate-memorie')->first()->id], ['val_numeric' => $value]);
+                    break;
+                }
+            }
+
+            foreach ($memoryCapacitiesArr as $value) {
+                $count = preg_match("/\W$value\W/i", $product->name, $matches);
+                if ($count) {
+                    ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('tip-hdd')->first()->id], ['val_short_text' => $value]);
+                    break;
+                }
+            }
+
+            ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('capacitate-hdd')->first()->id], ['val_numeric' => Arr::random($hddSizeArr)]);
+
+            //Images
+            $image = new ProductImages;
+            $image->fill(['product_id' => $i, 'file' => \Arr::random($imageArr), 'default' => 1]);
+            $image->save();
+        }
+        $productId += $i;
         $categoryId++;
 
         ProductCategory::firstOrCreate(['id' => $categoryId], [
@@ -91,78 +174,151 @@ class ProductCategorySeeder extends Seeder {
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Memorie RAM',
+            'slug' => 'memorie-ram',
             'type' => 'numeric',
-            'append'=>'Gb',
+            'append' => 'Gb',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Memorie interna',
+            'slug' => 'memorie-interna',
             'type' => 'numeric',
-            'append'=>'Gb',
+            'append' => 'Gb',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Dimensiuni ecran',
+            'slug' => 'dimensiuni-ecran',
             'type' => 'numeric',
-            'append'=>'inch',
+            'append' => 'inch',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => '3G',
+            'slug' => '3g',
             'type' => 'boolean',
-            'group'=>'Tehnologii',
+            'group' => 'Tehnologii',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => '4G',
+            'slug' => '4g',
             'type' => 'boolean',
-            'group'=>'Tehnologii',
+            'group' => 'Tehnologii',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => '5G',
+            'slug' => '5g',
             'type' => 'boolean',
-            'group'=>'Tehnologii',
+            'group' => 'Tehnologii',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Wi-Fi',
+            'slug' => 'wi-fi',
             'type' => 'boolean',
-            'group'=>'Conectivitate',
+            'group' => 'Conectivitate',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'GPS',
+            'slug' => 'gps',
             'type' => 'boolean',
-            'group'=>'Conectivitate',
+            'group' => 'Conectivitate',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'NFC',
+            'slug' => 'nfc',
             'type' => 'boolean',
-            'group'=>'Conectivitate',
+            'group' => 'Conectivitate',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Slot-uri SIM',
+            'slug' => 'slot-uri-sim',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Culoare',
+            'slug' => 'culoare',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
+
+        $nameArr = include(dirname(__FILE__) . '/data/phones/names.php');
+        $memoryCapacitiesArr = include(dirname(__FILE__) . '/data/phones/memory-capacities.php');
+        $internalMemoryCapacitiesArr = include(dirname(__FILE__) . '/data/phones/internalmemory-capacities.php');
+        $screenSizesArr = include(dirname(__FILE__) . '/data/phones/screen-sizes.php');
+        $colorsArr = include(dirname(__FILE__) . '/data/phones/colors.php');
+        for ($i = ++$productId; $i < $productId + 5; $i++) {
+            $price = rand(50, 500) * 10;
+            $priceMin = $price * (1 - (rand(0, 30) / 100));
+
+            $product=Product::firstOrCreate(['id' => $i], [
+                'product_vendors_id' => ProductVendor::inRandomOrder()->first()->id,
+                'product_category_id' => $categoryId,
+                'name' => Arr::random($nameArr),
+                'description' => $faker->text(200),
+                'price' => $price,
+                'price_min' => rand(0, 100) < 50 ? $priceMin : 0,
+            ]);
+
+            foreach ($memoryCapacitiesArr as $value) {
+                $count = preg_match("/\W$value\s?GB\W/i", $product->name, $matches);
+                if ($count) {
+                    ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('memorie-ram')->first()->id], ['val_numeric' => $value]);
+                    break;
+                }
+            }
+            foreach ($internalMemoryCapacitiesArr as $value) {
+                $count = preg_match("/\W$value\s?GB RAM\W/i", $product->name, $matches);
+                if ($count) {
+                    ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('memorie-interna')->first()->id], ['val_numeric' => $value]);
+                    break;
+                }
+            }
+            ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('dimensiuni-ecran')->first()->id], ['val_numeric' => Arr::random($screenSizesArr)]);
+            if (preg_match("/\W3G,\W/i", $product->name, $matches))
+                ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('3g')->first()->id], ['val_boolean' => 1]);
+            if (preg_match("/\W4G,\W/i", $product->name, $matches))
+                ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('4g')->first()->id], ['val_boolean' => 1]);
+            if (preg_match("/\W5G,\W/i", $product->name, $matches))
+                ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('5g')->first()->id], ['val_boolean' => 1]);
+            ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('wi-fi')->first()->id], ['val_boolean' => (rand(0, 100) < 50) ? 1 : 0]);
+            ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('gps')->first()->id], ['val_boolean' => (rand(0, 100) < 50) ? 1 : 0]);
+            ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('nfc')->first()->id], ['val_boolean' => (rand(0, 100) < 50) ? 1 : 0]);
+            if (preg_match("/\Wdual\s*sim,\W/i", $product->name, $matches))
+                ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('slot-uri-sim')->first()->id], ['val_short_text' => 'Dual sim']);
+            else
+                ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('slot-uri-sim')->first()->id], ['val_short_text' => 'Single sim']);
+
+            foreach ($colorsArr as $value) {
+                $count = preg_match("/\W$value\s*/i", $product->name, $matches);
+                if ($count) {
+                    ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('culoare')->first()->id], ['val_short_text' => $value]);
+
+                    if ($imageArr = include(dirname(__FILE__) . "/data/phones/images-".strtolower($value).".php")) {
+                        $image = new ProductImages;
+                        $image->fill(['product_id' => $i, 'file' => \Arr::random($imageArr), 'default' => 1]);
+                        $image->save();
+                    }
+                    break;
+                }
+            }
+        }
         $categoryId++;
 
         ProductCategory::firstOrCreate(['id' => $categoryId], [

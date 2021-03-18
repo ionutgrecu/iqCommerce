@@ -3,12 +3,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Str;
 
 class CategoryCharacteristic extends Model {
 
     use HasFactory;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    protected static function boot(): void {
+        parent::boot();
+
+        self::saving(function($model) {
+            if (!$model->slug)
+                $model->slug = Str::limit(Str::slug($model->name), 64);
+        });
+    }
 
     function category() {
         return $this->hasOne(ProductCategory::class, 'id', 'category_id');
@@ -30,7 +40,7 @@ class CategoryCharacteristic extends Model {
         if ('text' == $this->type)
             return [];
 
-        $productCharacteristicsobj = ProductCharacteristics::where('category_characteristic_id',$this->id);
+        $productCharacteristicsobj = ProductCharacteristics::where('category_characteristic_id', $this->id);
 
         if ('boolean' == $this->type)
             $productCharacteristicsobj->raw('GROUP BY val_boolean HAVING val_boolean != NULL');
@@ -51,5 +61,4 @@ class CategoryCharacteristic extends Model {
         return $result;
     }
 
-    
 }

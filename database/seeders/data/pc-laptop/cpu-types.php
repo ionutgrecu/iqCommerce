@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'Intel® Atom™',
+    'Intel® Celeron®',
+    'Intel® Pentium®',
+    'Intel® Core™ i3',
+    'Intel® Core™ i5',
+    'Intel® Core™ i7',
+    'Intel® Core™ i9',
+    'Intel® Xeon®',
+    'Intel® Core™ m3',
+    'AMD Athlon™',
+    'AMD Athlon™ II',
+    'AMD A4-Series',
+    'AMD A6-Series',
+    'AMD A8-Series',
+    'AMD A9-Series',
+    'AMD A10-Series',
+    'AMD A12-Series',
+    'AMD Ryzen™ 3',
+    'AMD Ryzen™ 5',
+    'AMD Ryzen™ 7',
+    'AMD Ryzen™ 9',
+];

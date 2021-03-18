@@ -17,7 +17,7 @@ class ProductCategory extends Model {
         parent::boot();
 
         self::saving(function($model) {
-            if ($model->category_id == 'null')
+            if ('null' == $model->category_id)
                 $model->category_id = null;
         });
     }

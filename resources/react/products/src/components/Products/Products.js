@@ -14,7 +14,7 @@ class Products extends React.Component {
                 { name: '#', selector: 'id', sortable: true },
                 { name: 'Name', selector: 'name', sortable: true },
                 { name: 'Vendor', selector: 'vendor.name', sortable: true },
-                { name: 'Image', cell: row => <>{row.image ? <Image src={-1 == row.image.file.indexOf(':/') ? `${ASSETS_URL}${row.image.file}` : row.image.file} className="preview"></Image> : ''}</> },
+                { name: 'Image', cell: row => <>{row.image ? <Image src={-1 == row.image.file.indexOf(':/') ? `${ASSETS_URL}${row.image.file}` : row.image.file} className="preview" loading="lazy"></Image> : ''}</> },
                 { name: "Price", cell: (row) => <>{row.price_min > 0 ? <><del>{row.price}</del> <div className="price">{row.price_min}</div></> : <div className="price">{row.price}</div>}</>, sortable: false, right: true },
                 { name: '', cell: (row) => <><Button variant="success" href={`#/edit-product/${row.id}`} title="Edit"><i className="fas fa-pencil-alt"></i></Button> <Button variant="danger" onClick={this.deleteItem} id={`btnId-${row.id}`} title="Delete"><i className="fas fa-trash-alt" id={`btnIdIcon-${row.id}`}></i></Button></>, ignoreRowClick: true, allowOverflow: true, button: true }
             ],
