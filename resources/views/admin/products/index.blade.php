@@ -5,6 +5,7 @@
     const APIURL = "<?= url('/') ?>/api/v1/products";
     const ASSETS_URL = '<?= url('/') ?>';
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.7.0/tinymce.min.js" integrity="sha512-XaygRY58e7fVVWydN6jQsLpLMyf7qb4cKZjIi93WbKjT6+kG/x4H5Q73Tff69trL9K0YDPIswzWe6hkcyuOHlw==" crossorigin="anonymous"></script>
 @endsection
 
 @section('content')

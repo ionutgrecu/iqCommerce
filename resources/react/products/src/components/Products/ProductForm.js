@@ -219,7 +219,7 @@ class ProductForm extends React.Component {
 
             for (let i in item.images)
                 if (item.images[i].id == id)
-                    delete item.images[i]
+                    item.images.splice(i,1)
 
             this.setState({ item: item })
             toast.dismiss()

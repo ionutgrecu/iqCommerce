@@ -12,10 +12,10 @@ class Product extends Model {
         SoftDeletes;
 
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
-    protected $appends = ['images'];
+    protected $appends = ['image'];
 
-    function getImagesAttribute() {
-        return ProductImages::whereProductId($this->id)->get()->all();
+    function getImageAttribute() {
+        return ProductImages::whereProductId($this->id)->orderBy('default','DESC')->first();
     }
 
     public function vendor() {

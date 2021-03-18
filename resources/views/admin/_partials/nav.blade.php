@@ -15,7 +15,7 @@
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="<?=route('admin.products')?>/#/vendors"><i class="fas fa-user-secret"></i> <?=__('Vendors')?></a></li>
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="<?=route('admin.products')?>/#/categories"><i class="fas fa-sitemap"></i> <?=__('Categories')?></a></li>
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="<?=route('admin.products')?>/#/characteristics"><i class="fas fa-asterisk"></i> <?=__('Characteristics')?></a></li>
-            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="<?=route('admin.products')?>/#/"><i class="fas fa-cubes"></i> <?=__('Products')?></a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="<?=route('admin.products')?>/#/products"><i class="fas fa-cubes"></i> <?=__('Products')?></a></li>
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="<?=route('admin.products')?>/#/orders"><i class="fas fa-dollar-sign"></i> <?=__('Orders')?></a></li>
         </ul>
     </li>
