@@ -20,6 +20,8 @@ class ProductCategorySeeder extends Seeder {
      * @return void
      */
     public function run() {
+        $productsToInsert = 5000;
+
         $productId = 0;
         $categoryId = 1;
         $characteristicId = 0;
@@ -100,7 +102,7 @@ class ProductCategorySeeder extends Seeder {
         $hddTypesArr = include(dirname(__FILE__) . '/data/pc-laptop/hdd-types.php');
         $hddSizeArr = include(dirname(__FILE__) . '/data/pc-laptop/hdd-sizes.php');
         $imageArr = include(dirname(__FILE__) . '/data/pc-laptop/images.php');
-        for ($i = ++$productId; $i < $productId + 5; $i++) {
+        for ($i = ++$productId; $i < $productId + $productsToInsert; $i++) {
             $price = rand(100, 1000) * 10;
             $priceMin = $price * (1 - (rand(0, 30) / 100));
 
@@ -263,17 +265,17 @@ class ProductCategorySeeder extends Seeder {
         $internalMemoryCapacitiesArr = include(dirname(__FILE__) . '/data/phones/internalmemory-capacities.php');
         $screenSizesArr = include(dirname(__FILE__) . '/data/phones/screen-sizes.php');
         $colorsArr = include(dirname(__FILE__) . '/data/phones/colors.php');
-        for ($i = ++$productId; $i < $productId + 5; $i++) {
+        for ($i = ++$productId; $i < $productId + $productsToInsert; $i++) {
             $price = rand(50, 500) * 10;
             $priceMin = $price * (1 - (rand(0, 30) / 100));
 
-            $product=Product::firstOrCreate(['id' => $i], [
-                'product_vendors_id' => ProductVendor::inRandomOrder()->first()->id,
-                'product_category_id' => $categoryId,
-                'name' => Arr::random($nameArr),
-                'description' => $faker->text(200),
-                'price' => $price,
-                'price_min' => rand(0, 100) < 50 ? $priceMin : 0,
+            $product = Product::firstOrCreate(['id' => $i], [
+                        'product_vendors_id' => ProductVendor::inRandomOrder()->first()->id,
+                        'product_category_id' => $categoryId,
+                        'name' => Arr::random($nameArr),
+                        'description' => $faker->text(200),
+                        'price' => $price,
+                        'price_min' => rand(0, 100) < 50 ? $priceMin : 0,
             ]);
 
             foreach ($memoryCapacitiesArr as $value) {
@@ -310,7 +312,7 @@ class ProductCategorySeeder extends Seeder {
                 if ($count) {
                     ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('culoare')->first()->id], ['val_short_text' => $value]);
 
-                    if ($imageArr = include(dirname(__FILE__) . "/data/phones/images-".strtolower($value).".php")) {
+                    if ($imageArr = include(dirname(__FILE__) . "/data/phones/images-" . strtolower($value) . ".php")) {
                         $image = new ProductImages;
                         $image->fill(['product_id' => $i, 'file' => \Arr::random($imageArr), 'default' => 1]);
                         $image->save();
@@ -338,45 +340,103 @@ class ProductCategorySeeder extends Seeder {
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Pentru',
+            'slug' => 'pentru',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Stil',
+            'slug' => 'stil',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Imprimeu',
+            'slug' => 'imprimeu',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Model',
+            'slug' => 'model',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Material',
+            'slug' => 'material',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Mărime',
+            'slug' => 'marime',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Culoare',
+            'slug' => 'culoare-tricouri',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
+
+        foreach (['barbati', 'femei'] as $gender) {
+            $nameArr = include(dirname(__FILE__) . "/data/shirts/$gender/names.php");
+            $stylesArr = include(dirname(__FILE__) . "/data/shirts/styles.php");
+            $printsArr = include(dirname(__FILE__) . "/data/shirts/prints.php");
+            $modelsArr = include(dirname(__FILE__) . "/data/shirts/models.php");
+            $materialArr = include(dirname(__FILE__) . "/data/shirts/materials.php");
+            $sizesArr = include(dirname(__FILE__) . "/data/shirts/sizes.php");
+            $colorsArr = include(dirname(__FILE__) . "/data/shirts/colors.php");
+
+            for ($i = ++$productId; $i < $productId + $productsToInsert; $i++) {
+                $price = rand(1, 33) * 10;
+                $priceMin = $price * (1 - (rand(0, 30) / 100));
+
+                $product = Product::firstOrCreate(['id' => $i], [
+                            'product_vendors_id' => ProductVendor::inRandomOrder()->first()->id,
+                            'product_category_id' => $categoryId,
+                            'name' => Arr::random($nameArr),
+                            'description' => $faker->text(200),
+                            'price' => $price,
+                            'price_min' => rand(0, 100) < 50 ? $priceMin : 0,
+                ]);
+
+                ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('pentru')->first()->id], ['val_short_text' => ucfirst($gender)]);
+                ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('stil')->first()->id], ['val_short_text' => \Arr::random($stylesArr)]);
+                ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('imprimeu')->first()->id], ['val_short_text' => \Arr::random($printsArr)]);
+
+                foreach ($modelsArr as $model)
+                    if (preg_match("/\\W$model\\W/i", $product->name, $matches)) {
+                        ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('model')->first()->id], ['val_short_text' => $model]);
+                        break;
+                    }
+
+                ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('material')->first()->id], ['val_short_text' => \Arr::random($materialArr)]);
+                ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('marime')->first()->id], ['val_short_text' => \Arr::random($sizesArr)]);
+
+                foreach ($colorsArr as $value) {
+                    if (preg_match("/\W$value\s*/i", $product->name, $matches)) {
+                        ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('culoare-tricouri')->first()->id], ['val_short_text' => $value]);
+
+                        if ($imageArr = include(dirname(__FILE__) . "/data/shirts/$gender/images-" . strtolower($value) . ".php")) {
+                            $image = new ProductImages;
+                            $image->fill(['product_id' => $i, 'file' => \Arr::random($imageArr), 'default' => 1]);
+                            $image->save();
+                        }
+                    }
+                }
+            }
+
+            $productId += $i;
+        }
         $categoryId++;
 
         ProductCategory::firstOrCreate(['id' => $categoryId], [
@@ -388,140 +448,193 @@ class ProductCategorySeeder extends Seeder {
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Pentru',
+            'slug' => 'pantaloni-pentru',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Croială',
-            'type' => 'short_text',
-            'is_filter' => 1,
-        ]);
-        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
-            'category_id' => $categoryId,
-            'name' => 'Lungime',
+            'slug' => 'croiala',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Mărime',
+            'slug' => 'marime-pantaloni',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Culoare',
+            'slug' => 'culoare-pantaloni',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Închidere',
+            'slug' => 'inchidere',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Material',
+            'slug' => 'material-pantaloni',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
         CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
             'category_id' => $categoryId,
             'name' => 'Stil',
+            'slug' => 'stil-pantaloni',
             'type' => 'short_text',
             'is_filter' => 1,
         ]);
+
+        foreach (['barbati', 'femei'] as $gender) {
+            $nameArr = include(dirname(__FILE__) . "/data/pants/$gender/names.php");
+            $cutArr = include(dirname(__FILE__) . "/data/pants/cuts.php");
+            $sizesArr = include(dirname(__FILE__) . "/data/pants/sizes.php");
+            $closesArr = include(dirname(__FILE__) . "/data/pants/closes.php");
+            $materialsArr = include(dirname(__FILE__) . "/data/pants/materials.php");
+            $stylesArr = include(dirname(__FILE__) . "/data/pants/styles.php");
+            $colorsArr = include(dirname(__FILE__) . '/data/pants/colors.php');
+
+            for ($i = ++$productId; $i < $productId + $productsToInsert; $i++) {
+                $price = rand(1, 40) * 10;
+                $priceMin = $price * (1 - (rand(0, 30) / 100));
+
+                $product = Product::firstOrCreate(['id' => $i], [
+                            'product_vendors_id' => ProductVendor::inRandomOrder()->first()->id,
+                            'product_category_id' => $categoryId,
+                            'name' => Arr::random($nameArr),
+                            'description' => $faker->text(200),
+                            'price' => $price,
+                            'price_min' => rand(0, 100) < 50 ? $priceMin : 0,
+                ]);
+
+                ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('pantaloni-pentru')->first()->id], ['val_short_text' => ucfirst($gender)]);
+                ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('marime-pantaloni')->first()->id], ['val_short_text' => \Arr::random($sizesArr)]);
+
+                foreach ($cutArr as $value)
+                    if (preg_match("/\\W$model\\W/i", $product->name, $matches)) {
+                        ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('croiala')->first()->id], ['val_short_text' => $value]);
+                        break;
+                    }
+
+                ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('inchidere')->first()->id], ['val_short_text' => \Arr::random($closesArr)]);
+                ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('material-pantaloni')->first()->id], ['val_short_text' => \Arr::random($materialsArr)]);
+                ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('stil-pantaloni')->first()->id], ['val_short_text' => \Arr::random($stylesArr)]);
+
+                foreach ($colorsArr as $value)
+                    if (preg_match("/\W$value\s*/i", $product->name, $matches)) {
+                        ProductCharacteristics::firstOrCreate(['product_id' => $i, 'category_characteristic_id' => CategoryCharacteristic::whereSlug('culoare-pantaloni')->first()->id], ['val_short_text' => $value]);
+
+                        if ($imageArr = include(dirname(__FILE__) . "/data/pants/$gender/images-" . strtolower($value) . ".php")) {
+                            $image = new ProductImages;
+                            $image->fill(['product_id' => $i, 'file' => \Arr::random($imageArr), 'default' => 1]);
+                            $image->save();
+                        }
+                    }
+            }
+
+            $productId += $i;
+        }
         $categoryId++;
 
-        ProductCategory::firstOrCreate(['id' => $categoryId], [
-            'category_id' => 4,
-            'name' => 'Cămăși',
-            'description' => $faker->text(512),
-            'image' => 'https://i.pinimg.com/originals/13/c3/24/13c3240d254c3fabd3ce4505af0eff8a.jpg'
-        ]);
-        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
-            'category_id' => $categoryId,
-            'name' => 'Lungime mânecă',
-            'type' => 'short_text',
-            'is_filter' => 1,
-        ]);
-        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
-            'category_id' => $categoryId,
-            'name' => 'Imprimeu',
-            'type' => 'short_text',
-            'is_filter' => 1,
-        ]);
-        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
-            'category_id' => $categoryId,
-            'name' => 'Mărime',
-            'type' => 'short_text',
-            'is_filter' => 1,
-        ]);
-        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
-            'category_id' => $categoryId,
-            'name' => 'Culoare',
-            'type' => 'short_text',
-            'is_filter' => 1,
-        ]);
-        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
-            'category_id' => $categoryId,
-            'name' => 'Material',
-            'type' => 'short_text',
-            'is_filter' => 1,
-        ]);
-        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
-            'category_id' => $categoryId,
-            'name' => 'Stil',
-            'type' => 'short_text',
-            'is_filter' => 1,
-        ]);
-        $categoryId++;
-
-        ProductCategory::firstOrCreate(['id' => $categoryId], [
-            'category_id' => 4,
-            'name' => 'Geci',
-            'description' => $faker->text(512),
-            'image' => 'https://m.media-amazon.com/images/I/41kpS4bT4vL._AC_UL320_.jpg'
-        ]);
-        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
-            'category_id' => $categoryId,
-            'name' => 'Tip',
-            'type' => 'short_text',
-            'is_filter' => 1,
-        ]);
-        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
-            'category_id' => $categoryId,
-            'name' => 'Gluga',
-            'type' => 'short_text',
-            'is_filter' => 1,
-        ]);
-        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
-            'category_id' => $categoryId,
-            'name' => 'Mărime',
-            'type' => 'short_text',
-            'is_filter' => 1,
-        ]);
-        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
-            'category_id' => $categoryId,
-            'name' => 'Culoare',
-            'type' => 'short_text',
-            'is_filter' => 1,
-        ]);
-        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
-            'category_id' => $categoryId,
-            'name' => 'Material',
-            'type' => 'short_text',
-            'is_filter' => 1,
-        ]);
-        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
-            'category_id' => $categoryId,
-            'name' => 'Stil',
-            'type' => 'short_text',
-            'is_filter' => 1,
-        ]);
-        $categoryId++;
+//        ProductCategory::firstOrCreate(['id' => $categoryId], [
+//            'category_id' => 4,
+//            'name' => 'Cămăși',
+//            'description' => $faker->text(512),
+//            'image' => 'https://i.pinimg.com/originals/13/c3/24/13c3240d254c3fabd3ce4505af0eff8a.jpg'
+//        ]);
+//        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
+//            'category_id' => $categoryId,
+//            'name' => 'Lungime mânecă',
+//            'type' => 'short_text',
+//            'is_filter' => 1,
+//        ]);
+//        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
+//            'category_id' => $categoryId,
+//            'name' => 'Imprimeu',
+//            'type' => 'short_text',
+//            'is_filter' => 1,
+//        ]);
+//        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
+//            'category_id' => $categoryId,
+//            'name' => 'Mărime',
+//            'type' => 'short_text',
+//            'is_filter' => 1,
+//        ]);
+//        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
+//            'category_id' => $categoryId,
+//            'name' => 'Culoare',
+//            'type' => 'short_text',
+//            'is_filter' => 1,
+//        ]);
+//        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
+//            'category_id' => $categoryId,
+//            'name' => 'Material',
+//            'type' => 'short_text',
+//            'is_filter' => 1,
+//        ]);
+//        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
+//            'category_id' => $categoryId,
+//            'name' => 'Stil',
+//            'type' => 'short_text',
+//            'is_filter' => 1,
+//        ]);
+//
+//        $nameArr = include(dirname(__FILE__) . '/data/pc-laptop/names.php');
+//        $categoryId++;
+//
+//        ProductCategory::firstOrCreate(['id' => $categoryId], [
+//            'category_id' => 4,
+//            'name' => 'Geci',
+//            'description' => $faker->text(512),
+//            'image' => 'https://m.media-amazon.com/images/I/41kpS4bT4vL._AC_UL320_.jpg'
+//        ]);
+//        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
+//            'category_id' => $categoryId,
+//            'name' => 'Tip',
+//            'type' => 'short_text',
+//            'is_filter' => 1,
+//        ]);
+//        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
+//            'category_id' => $categoryId,
+//            'name' => 'Gluga',
+//            'type' => 'short_text',
+//            'is_filter' => 1,
+//        ]);
+//        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
+//            'category_id' => $categoryId,
+//            'name' => 'Mărime',
+//            'type' => 'short_text',
+//            'is_filter' => 1,
+//        ]);
+//        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
+//            'category_id' => $categoryId,
+//            'name' => 'Culoare',
+//            'type' => 'short_text',
+//            'is_filter' => 1,
+//        ]);
+//        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
+//            'category_id' => $categoryId,
+//            'name' => 'Material',
+//            'type' => 'short_text',
+//            'is_filter' => 1,
+//        ]);
+//        CategoryCharacteristic::firstOrCreate(['id' => ++$characteristicId], [
+//            'category_id' => $categoryId,
+//            'name' => 'Stil',
+//            'type' => 'short_text',
+//            'is_filter' => 1,
+//        ]);
+//        $categoryId++;
     }
 
 }
