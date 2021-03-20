@@ -30,7 +30,10 @@ mix.js('resources/js/app.js', 'public/js')
 //images
 mix.copy('resources/assets/', 'public/assets/');
 
-//Admin area
+//dev
+mix.copy('resources/js/components/main.js','public/js/');
+
+// Admin area
 mix.copy('node_modules/@coreui/chartjs/dist/css/coreui-chartjs.css', 'public/css/admin');
 mix.copy('node_modules/cropperjs/dist/cropper.css', 'public/css/admin');
 //main css
