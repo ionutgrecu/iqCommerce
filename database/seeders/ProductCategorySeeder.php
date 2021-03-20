@@ -20,7 +20,7 @@ class ProductCategorySeeder extends Seeder {
      * @return void
      */
     public function run() {
-        $productsToInsert = 5000;
+        $productsToInsert = 500;
 
         $productId = 0;
         $categoryId = 1;

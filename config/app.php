@@ -2,6 +2,7 @@
 
 return [
     'name' => env('APP_NAME', 'iqCommerce'),
+    'description'=>'A smart way to do eCommerce.',
     //production, local
     'env' => env('APP_ENV', 'local'),
     'debug' => (bool) env('APP_DEBUG', true),

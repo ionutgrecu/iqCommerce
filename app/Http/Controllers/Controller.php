@@ -7,7 +7,9 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Route;
+use function app;
 use function class_basename;
+use function config;
 use function redirect;
 use function request;
 use function view;
@@ -57,19 +59,42 @@ class Controller extends BaseController {
             $this->params[0] = request()->route()->parameters['slug'] ?: ($action == 'page' ? 'index' : $this->action);
         }
         $this->params['controller'] = class_basename($this);
-        $this->data['params'] = $this->params;
         $this->params['path'] = $this->path;
+        $this->data['params'] = $this->params;
+
+        $this->lang = app()->getLocale();
+        $this->data['lang'] = $this->lang;
 
         $this->setCurrentPage($this->data['params']['controller']);
         $this->setCurrentSubpage($this->data['params']['action']);
+
+        $this->setPageTitle(config('app.name'));
+        $this->setPageDescription(config('app.description'));
     }
 
-    protected function setCurrentPage($value) {
+    protected function setCurrentPage(string $value) {
         $this->data['currentPage'] = strtolower(strtr($value, ['Controller' => '', 'Admin' => '']));
     }
 
-    protected function setCurrentSubpage($value) {
+    protected function setCurrentSubpage(string $value) {
         $this->data['currentSubpage'] = strtolower(strtr($value, ['Controller' => '']));
+    }
+
+    protected function setPageTitle(string $value) {
+        $this->setPageMeta('title', $value);
+    }
+    
+    protected function prependPageTitle(string $value){
+        $value.=' | '.$this->data['meta']['title'];
+        $this->setPageTitle($value);
+    }
+
+    protected function setPageDescription(string $value) {
+        $this->setPageMeta('description', $value);
+    }
+
+    protected function setPageMeta(string $name, string $value) {
+        $this->data['meta'][$name] = $value;
     }
 
     //Default action

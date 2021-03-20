@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use function view;
 
-class PagesController extends Controller
-{
-    function index(){
-        return view('welcome',$this->data);
+class PagesController extends Controller {
+
+    function index() {
+//        dd($this->data);
+        return view('home', $this->data);
     }
+
 }
