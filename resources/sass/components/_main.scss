@@ -1,0 +1,91 @@
+/*
+Theme Name: Saharan
+Theme URI: http://demo.Bootexperts.com/saharan/
+Author: Bootexperts
+Author URI: http://Bootexperts.com/
+Description:  Saharan is a new HTML template for Online Shopping. With this theme, we have multiple layouts for home page. With drag and drop home page layout manager, we can build many variations of home page layout. We also have ajax cart, wishlist, compare, zoom and fancybox to bring into a modern look of website. Some of amazing features like Revolution Slider, Mega Menu, Product Tabs & Carousel, Google map will makes your website more attractive.
+Version: 1.0
+Tags: black, brown, orange, tan, white, yellow, light, one-column, two-columns, right-sidebar, fluid-layout, custom-header, custom-menu, editor-style, featured-images.
+
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+
+/*------------------------------------------------------------------
+[Table of contents]
+
+1. Theme variables
+	1.1 Fonts
+	1.2 Colors
+	1.3 Defined colors
+2. Global CSS
+	2.1 HTML Elements
+	2.2 Front page
+	2.3 Carousel buttons
+	2.4 bootexpert onsale label
+	2.5 Added to cart popup
+	2.6 Quick view
+	2.7 Header default
+		2.7.1 Top bar
+		2.7.2 Menu
+		2.7.3 Mega menu
+	2.8 Footer default
+	2.9 Google map
+	2.10 Content
+		2.10.1 Page headers
+		2.10.2 Shop toolbar
+		2.10.3 List products
+		2.10.4 Product page
+		2.10.5 Contact page
+		2.10.6 Full width template
+		2.10.7 Default page template
+		2.10.8 Page content
+		2.10.9 cart page & checkout page
+		2.10.10 Blog page
+		2.10.11 Error 404 page
+		2.10.12 Sidebars
+		2.10.13 Portfolio page
+		2.10.14 Single project
+3. Home Blocks
+4. Responsive CSS
+-------------------------------------------------------------------*/
+
+.alignnone {
+    margin: 5px 20px 20px 0;
+  }
+
+  .aligncenter, div.aligncenter {
+    display: block;
+    margin: 5px auto 5px auto;
+  }
+
+  .alignright {
+    float: right;
+    margin: 5px 0 20px 20px;
+  }
+
+  .alignleft {
+    float: left;
+    margin: 5px 20px 20px 0;
+  }
+
+  a img {
+    &.alignright {
+      float: right;
+      margin: 5px 0 20px 20px;
+    }
+
+    &.alignnone {
+      margin: 5px 20px 20px 0;
+    }
+
+    &.alignleft {
+      float: left;
+      margin: 5px 20px 20px 0;
+    }
+
+    &.aligncenter {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }

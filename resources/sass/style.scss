@@ -1,7 +1,23 @@
 // bootstrap
-@import 
-    "~bootstrap/scss/bootstrap";
-    
-    body{
-        font-size:35px;
-    }
+@import
+    "~bootstrap/scss/bootstrap",
+    "~slick-carousel/slick/slick",
+    "~slick-carousel/slick/slick-theme",
+    '../assets/lib/rs-plugin/css/settings.css',
+    '../assets/lib/rotatingtweets/style.css',
+    '../assets/lib/ntm/collapse.css',
+    'components/cache.skin',
+    'components/language-selector',
+    'components/bootexpert',
+    'components/megamenu_style',
+    '~@fortawesome/fontawesome-free',
+    '~icomoon/style',
+    'components/bootexpert-compose',
+    'components/main'
+    ;
+
+
+
+
+
+
