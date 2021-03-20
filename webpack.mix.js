@@ -4,7 +4,7 @@ if (!mix.inProduction()) {
     mix.webpackConfig({
         devtool: 'source-map'
     })
-    .sourceMaps();
+        .sourceMaps();
 }
 
 /*
@@ -19,19 +19,19 @@ if (!mix.inProduction()) {
  */
 
 mix.js('resources/js/app.js', 'public/js')
-        .sass('resources/sass/app.scss', 'public/css')
-        .js('resources/js/login.js', 'public/js')
-        .sass('resources/sass/login.scss', 'public/css')
-        .js('resources/js/script.js', 'public/js')
-        .sass('resources/sass/style.scss','public/css')
-        .browserSync('localhost:8001')
-        .version();
+    .sass('resources/sass/app.scss', 'public/css')
+    .js('resources/js/login.js', 'public/js')
+    .sass('resources/sass/login.scss', 'public/css')
+    .js('resources/js/script.js', 'public/js')
+    .sass('resources/sass/style.scss', 'public/css')
+    .browserSync('localhost:8001')
+    .version();
 
 //Admin area
 mix.copy('node_modules/@coreui/chartjs/dist/css/coreui-chartjs.css', 'public/css/admin');
 mix.copy('node_modules/cropperjs/dist/cropper.css', 'public/css/admin');
 //main css
-mix.sass('resources/sass/admin/style.scss', 'public/css/admin/style.css');
+mix.sass('resources/sass/admin/style.scss', 'public/css/admin/style.css').version();
 
 //************** SCRIPTS ******************
 // general scripts
@@ -64,11 +64,11 @@ mix.copy('node_modules/@coreui/icons/css', 'public/assets/admin/icons/css/');
 mix.copy('node_modules/@coreui/icons/fonts', 'public/assets/admin/icons/fonts/');
 mix.copy('node_modules/@coreui/icons/sprites', 'public/assets/admin/icons/sprites/');
 mix.copy('node_modules/@coreui/icons/svg', 'public/assets/admin/icons/svg/');
-mix.copy('node_modules/@fortawesome/fontawesome-free/css/all.min.css','public/assets/admin/fontawesome/css/');
-mix.copy('node_modules/@fortawesome/fontawesome-free/webfonts/','public/assets/admin/fontawesome/webfonts/');
+mix.copy('node_modules/@fortawesome/fontawesome-free/css/all.min.css', 'public/assets/admin/fontawesome/css/');
+mix.copy('node_modules/@fortawesome/fontawesome-free/webfonts/', 'public/assets/admin/fontawesome/webfonts/');
 
 //images
 mix.copy('resources/assets/', 'public/assets/');
 
 //React
-mix.js('resources/react/products/src/index.js','public/js/products.js').react();
+mix.js('resources/react/products/src/index.js', 'public/js/products.js').react().version();
