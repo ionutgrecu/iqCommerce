@@ -31,13 +31,19 @@
         <link href="http://fonts.googleapis.com/css?family=Raleway:400,500,600,700" rel="stylesheet" type="text/css" media="all" />
         <link href="http://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css" media="all" />
         <link href="http://fonts.googleapis.com/css?family=Arimo:400,700" rel="stylesheet" type="text/css" media="all" />
-        
+
         <link rel="stylesheet" href="<?= mix('css/style.css') ?>" />
+        <script src="<?= asset('assets/lib/modernizr-2.8.3.min.js') ?>"></script>
+        @yield('js-header')
     </head>
 
     <body>
-XX
+        XX
 
-<script src="<?=mix('js/script.js')?>"></script>
+        <script src="<?= mix('js/script.js') ?>"></script>
+        <script src="<?= asset('assets/lib/rotatingtweets/jquery.cycle.all.min.js') ?>"></script>
+        <script src="<?= asset('assets/lib/rotatingtweets/rotating_tweet.js') ?>"></script>
+        <script src="<?= asset('assets/lib/ntm/jquery.ntm.js') ?>"></script>
+        @yield('js-footer')
     </body>
 </html>

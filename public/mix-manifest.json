@@ -1,7 +1,7 @@
 {
     "/js/app.js": "/js/app.js?id=6d1746f5d04226863f9b",
     "/js/login.js": "/js/login.js?id=9830a9609a90a80aa594",
-    "/js/script.js": "/js/script.js?id=ed5c3a854d7cba785205",
+    "/js/script.js": "/js/script.js?id=f752accfa792d5ee7f83",
     "/js/admin/menu-create.js": "/js/admin/menu-create.js?id=f29d0b1ebb40b30a5606",
     "/js/admin/menu-edit.js": "/js/admin/menu-edit.js?id=424737501468b053f33f",
     "/js/admin/media.js": "/js/admin/media.js?id=8bf2a218fbeca7d81331",
@@ -11,6 +11,8 @@
     "/css/admin/style.css": "/css/admin/style.css?id=6d180cacf17468e37095",
     "/css/login.css": "/css/login.css?id=40589a26a140b53f8943",
     "/css/app.css": "/css/app.css?id=40589a26a140b53f8943",
+    "/assets/logo-app-black.png": "/assets/logo-app-black.png?id=e0a76ad0a61a641914ed",
+    "/assets/logo.png": "/assets/logo.png?id=d2b2394ab0fbbba29756",
     "/css/admin/coreui-chartjs.css": "/css/admin/coreui-chartjs.css?id=f2ae400edf860e4b91f1",
     "/css/admin/cropper.css": "/css/admin/cropper.css?id=27f22130a15bf5470243",
     "/js/admin/coreui-utils.js": "/js/admin/coreui-utils.js?id=d2b193e4d4dc7c5ec9a3",
@@ -69,7 +71,5 @@
     "/assets/admin/fontawesome/webfonts/fa-solid-900.svg": "/assets/admin/fontawesome/webfonts/fa-solid-900.svg?id=376c1f97f6553dea1ca9",
     "/assets/admin/fontawesome/webfonts/fa-solid-900.ttf": "/assets/admin/fontawesome/webfonts/fa-solid-900.ttf?id=1828deab434c894cf16e",
     "/assets/admin/fontawesome/webfonts/fa-solid-900.woff": "/assets/admin/fontawesome/webfonts/fa-solid-900.woff?id=2cd966756e4b2e254242",
-    "/assets/admin/fontawesome/webfonts/fa-solid-900.woff2": "/assets/admin/fontawesome/webfonts/fa-solid-900.woff2?id=fc56faf526ca07331a77",
-    "/assets/logo-app-black.png": "/assets/logo-app-black.png?id=e0a76ad0a61a641914ed",
-    "/assets/logo.png": "/assets/logo.png?id=d2b2394ab0fbbba29756"
+    "/assets/admin/fontawesome/webfonts/fa-solid-900.woff2": "/assets/admin/fontawesome/webfonts/fa-solid-900.woff2?id=fc56faf526ca07331a77"
 }

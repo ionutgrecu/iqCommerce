@@ -27,6 +27,9 @@ mix.js('resources/js/app.js', 'public/js')
     .browserSync('localhost:8001')
     .version();
 
+//images
+mix.copy('resources/assets/', 'public/assets/');
+
 //Admin area
 mix.copy('node_modules/@coreui/chartjs/dist/css/coreui-chartjs.css', 'public/css/admin');
 mix.copy('node_modules/cropperjs/dist/cropper.css', 'public/css/admin');
@@ -66,9 +69,6 @@ mix.copy('node_modules/@coreui/icons/sprites', 'public/assets/admin/icons/sprite
 mix.copy('node_modules/@coreui/icons/svg', 'public/assets/admin/icons/svg/');
 mix.copy('node_modules/@fortawesome/fontawesome-free/css/all.min.css', 'public/assets/admin/fontawesome/css/');
 mix.copy('node_modules/@fortawesome/fontawesome-free/webfonts/', 'public/assets/admin/fontawesome/webfonts/');
-
-//images
-mix.copy('resources/assets/', 'public/assets/');
 
 //React
 mix.js('resources/react/products/src/index.js', 'public/js/products.js').react().version();
