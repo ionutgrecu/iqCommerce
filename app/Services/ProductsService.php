@@ -6,6 +6,7 @@ use App\Http\Requests\Api\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductCharacteristics;
 use App\Models\ProductImages;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Storage;
 use TheSeer\Tokenizer\Exception;
@@ -34,9 +35,15 @@ class ProductsService {
         return true;
     }
 
-    function getAll() {
+    function getAll(): Collection{
         $productsObj = Product::with('vendor', 'images');
 
+        return $productsObj->get();
+    }
+    
+    function getItemsReduced(int $limit=9): Collection{
+        $productsObj = Product::with('vendor', 'images')->where('price_min','>',0)->whereRaw('price_min < price')->limit($limit)->inRandomOrder();
+        
         return $productsObj->get();
     }
 

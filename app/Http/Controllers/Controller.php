@@ -23,12 +23,21 @@ class Controller extends BaseController {
     protected $data = [];
     protected $lang;
     protected $localeArr;
-
+    protected $categoryService;
+protected $productsService;
+    
     function __construct() {
         $this->data['error'] = request()->session()->pull('error');
         $this->data['success'] = request()->session()->pull('success');
         $this->data['info'] = request()->session()->pull('info');
         $this->data['request'] = request()->input();
+
+        $this->categoryService = new \App\Services\ProductCategoriesService;
+        $this->data['categoryService']= $this->categoryService;
+        $this->data['categories'] = $this->categoryService->getTree();
+        
+        $this->productsService=new \App\Services\ProductsService;
+        $this->data['productsService']= $this->productsService;
 
         if (Route::current()->parameters['wildcard']) {
             $wildcard = Route::current()->parameters['wildcard'];
@@ -83,9 +92,9 @@ class Controller extends BaseController {
     protected function setPageTitle(string $value) {
         $this->setPageMeta('title', $value);
     }
-    
-    protected function prependPageTitle(string $value){
-        $value.=' | '.$this->data['meta']['title'];
+
+    protected function prependPageTitle(string $value) {
+        $value .= ' | ' . $this->data['meta']['title'];
         $this->setPageTitle($value);
     }
 

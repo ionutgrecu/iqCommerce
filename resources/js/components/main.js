@@ -273,200 +273,200 @@
         });
 
         //Products Carousel
-        $('#brands-carousel-5, #brands-carousel-1, #sale_products_digital, .home-tabs-f11 .shop-products, #shop-products-5, #shop-products-2-5').slick({
-            infinite: false,
-            slidesToShow: 5,
-            slidesToScroll: 1,
-            speed: 500,
-            easing: 'linear',
-            swipeToSlide: true,
-            autoplaySpeed: 1000,
-            responsive: [{
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 1
-                }
-            }, {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1
-                }
-            }, {
-                breakpoint: 767,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1
-                }
-            }, {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }]
-        });
+        // $('#brands-carousel-5, #brands-carousel-1, #sale_products_digital, .home-tabs-f11 .shop-products, #shop-products-5, #shop-products-2-5').slick({
+        //     infinite: false,
+        //     slidesToShow: 5,
+        //     slidesToScroll: 1,
+        //     speed: 500,
+        //     easing: 'linear',
+        //     swipeToSlide: true,
+        //     autoplaySpeed: 1000,
+        //     responsive: [{
+        //         breakpoint: 1200,
+        //         settings: {
+        //             slidesToShow: 4,
+        //             slidesToScroll: 1
+        //         }
+        //     }, {
+        //         breakpoint: 992,
+        //         settings: {
+        //             slidesToShow: 3,
+        //             slidesToScroll: 1
+        //         }
+        //     }, {
+        //         breakpoint: 767,
+        //         settings: {
+        //             slidesToShow: 2,
+        //             slidesToScroll: 1
+        //         }
+        //     }, {
+        //         breakpoint: 600,
+        //         settings: {
+        //             slidesToShow: 1,
+        //             slidesToScroll: 1
+        //         }
+        //     }]
+        // });
 
         //Products Carousel
-        $('#featureds_pdct, .home-tabs-f5 .shop-products, .home-tabs-f10 .shop-products, #brands_carousel_6slide, .home-tabs-food .shop-products').slick({
-            infinite: false,
-            slidesToShow: 6,
-            slidesToScroll: 1,
-            speed: 500,
-            easing: 'linear',
-            swipeToSlide: true,
-            autoplaySpeed: 1000,
-            responsive: [{
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 5,
-                    slidesToScroll: 1
-                }
-            }, {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 1
-                }
-            }, {
-                breakpoint: 767,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1
-                }
-            }, {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }]
-        });
+        // $('#featureds_pdct, .home-tabs-f5 .shop-products, .home-tabs-f10 .shop-products, #brands_carousel_6slide, .home-tabs-food .shop-products').slick({
+        //     infinite: false,
+        //     slidesToShow: 6,
+        //     slidesToScroll: 1,
+        //     speed: 500,
+        //     easing: 'linear',
+        //     swipeToSlide: true,
+        //     autoplaySpeed: 1000,
+        //     responsive: [{
+        //         breakpoint: 1200,
+        //         settings: {
+        //             slidesToShow: 5,
+        //             slidesToScroll: 1
+        //         }
+        //     }, {
+        //         breakpoint: 992,
+        //         settings: {
+        //             slidesToShow: 4,
+        //             slidesToScroll: 1
+        //         }
+        //     }, {
+        //         breakpoint: 767,
+        //         settings: {
+        //             slidesToShow: 3,
+        //             slidesToScroll: 1
+        //         }
+        //     }, {
+        //         breakpoint: 600,
+        //         settings: {
+        //             slidesToShow: 1,
+        //             slidesToScroll: 1
+        //         }
+        //     }]
+        // });
 
-        //Products Carousel
-        $('#posts-carousel-2, #hot-deal-slide2').slick({
-            infinite: false,
-            slidesToShow: 2,
-            slidesToScroll: 1,
-            speed: 1000,
-            easing: 'linear',
-            swipeToSlide: true,
-            autoplaySpeed: 3000,
-            responsive: [{
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1
-                }
-            }, {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1
-                }
-            }, {
-                breakpoint: 767,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1
-                }
-            }, {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }]
-        });
+        // //Products Carousel
+        // $('#posts-carousel-2, #hot-deal-slide2').slick({
+        //     infinite: false,
+        //     slidesToShow: 2,
+        //     slidesToScroll: 1,
+        //     speed: 1000,
+        //     easing: 'linear',
+        //     swipeToSlide: true,
+        //     autoplaySpeed: 3000,
+        //     responsive: [{
+        //         breakpoint: 1200,
+        //         settings: {
+        //             slidesToShow: 2,
+        //             slidesToScroll: 1
+        //         }
+        //     }, {
+        //         breakpoint: 992,
+        //         settings: {
+        //             slidesToShow: 2,
+        //             slidesToScroll: 1
+        //         }
+        //     }, {
+        //         breakpoint: 767,
+        //         settings: {
+        //             slidesToShow: 2,
+        //             slidesToScroll: 1
+        //         }
+        //     }, {
+        //         breakpoint: 600,
+        //         settings: {
+        //             slidesToShow: 1,
+        //             slidesToScroll: 1
+        //         }
+        //     }]
+        // });
 
-        //Products carousel
-        $('.home-tabs-glass .shop-products, #shop-products-accessories, #shop-products-kids, #featured_products_digital, #new_products_digital_slide3, .digital3 .shop-products, #posts-carousel-3, .latest_products .shop-products').slick({
-            arrows: true,
-            dots: false,
-            infinite: false,
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            speed: 500,
-            easing: 'linear',
-            autoplay: false,
-            swipeToSlide: true,
-            autoplaySpeed: 3000,
-            responsive: [{
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1
-                }
-            }, {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1
-                }
-            }, {
-                breakpoint: 767,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1
-                }
-            }, {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
+        // //Products carousel
+        // $('.home-tabs-glass .shop-products, #shop-products-accessories, #shop-products-kids, #featured_products_digital, #new_products_digital_slide3, .digital3 .shop-products, #posts-carousel-3, .latest_products .shop-products').slick({
+        //     arrows: true,
+        //     dots: false,
+        //     infinite: false,
+        //     slidesToShow: 3,
+        //     slidesToScroll: 1,
+        //     speed: 500,
+        //     easing: 'linear',
+        //     autoplay: false,
+        //     swipeToSlide: true,
+        //     autoplaySpeed: 3000,
+        //     responsive: [{
+        //         breakpoint: 1200,
+        //         settings: {
+        //             slidesToShow: 3,
+        //             slidesToScroll: 1
+        //         }
+        //     }, {
+        //         breakpoint: 992,
+        //         settings: {
+        //             slidesToShow: 3,
+        //             slidesToScroll: 1
+        //         }
+        //     }, {
+        //         breakpoint: 767,
+        //         settings: {
+        //             slidesToShow: 2,
+        //             slidesToScroll: 1
+        //         }
+        //     }, {
+        //         breakpoint: 600,
+        //         settings: {
+        //             slidesToShow: 1,
+        //             slidesToScroll: 1
+        //         }
+        //     }
 
-            ]
-        });
+        //     ]
+        // });
 
-        //Testimonials carousel
-        $('#testimonials-list-1').slick({
-            arrows: false,
-            dots: true,
-            infinite: false,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            speed: 500,
-            easing: 'linear',
-            autoplay: true,
-            swipeToSlide: true,
-            autoplaySpeed: 3000
-        });
+        // //Testimonials carousel
+        // $('#testimonials-list-1').slick({
+        //     arrows: false,
+        //     dots: true,
+        //     infinite: false,
+        //     slidesToShow: 1,
+        //     slidesToScroll: 1,
+        //     speed: 500,
+        //     easing: 'linear',
+        //     autoplay: true,
+        //     swipeToSlide: true,
+        //     autoplaySpeed: 3000
+        // });
 
-        //Products carousel
-        $('#new_product').slick({
-            arrows: false,
-            infinite: false,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            speed: 500,
-            easing: 'linear',
-            autoplay: true,
-            swipeToSlide: true,
-            autoplaySpeed: 3000
-        });
+        // //Products carousel
+        // $('#new_product').slick({
+        //     arrows: false,
+        //     infinite: false,
+        //     slidesToShow: 1,
+        //     slidesToScroll: 1,
+        //     speed: 500,
+        //     easing: 'linear',
+        //     autoplay: true,
+        //     swipeToSlide: true,
+        //     autoplaySpeed: 3000
+        // });
 
-        //Latest posts carousel - layout 4
-        $('#posts-carousel-digital, #hot-deals-slide1, #testimonials-list-digital,.latest_post .posts-carousel').slick({
-            infinite: false,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            speed: 500,
-            easing: 'linear',
-            autoplay: false,
-            swipeToSlide: true,
-            autoplaySpeed: 3000,
-        });
+        // //Latest posts carousel - layout 4
+        // $('#posts-carousel-digital, #hot-deals-slide1, #testimonials-list-digital,.latest_post .posts-carousel').slick({
+        //     infinite: false,
+        //     slidesToShow: 1,
+        //     slidesToScroll: 1,
+        //     speed: 500,
+        //     easing: 'linear',
+        //     autoplay: false,
+        //     swipeToSlide: true,
+        //     autoplaySpeed: 3000,
+        // });
 
-        /*thumbnails carousel*/
-        $('.quick-thumbnails').slick({
-            slidesToScroll: 1,
-            slidesToShow: 4,
-            arrows: false,
-            dots: true
-        });
+        // /*thumbnails carousel*/
+        // $('.quick-thumbnails').slick({
+        //     slidesToScroll: 1,
+        //     slidesToShow: 4,
+        //     arrows: false,
+        //     dots: true
+        // });
 
         /*thumbnail click*/
         $('.quick-thumbnails a').each(function () {
@@ -550,28 +550,28 @@
         });
 
         //Count down
-        $('.countbox.hastime').each(function () {
-            var countTime = $(this).attr('data-time');
+        // $('.countbox.hastime').each(function () {
+        //     var countTime = $(this).attr('data-time');
 
-            $(this).countdown(countTime, function (event) {
-                $(this).html(
-                    '<span class="timebox day"><strong>' + event.strftime('%D') + '</strong>days</span><span class="timebox hour"><strong>' + event.strftime('%H') + '</strong>hrs</span><span class="timebox minute"><strong>' + event.strftime('%M') + '</strong>mins</span><span class="timebox second"><strong>' + event.strftime('%S') + '</strong>secs</span>'
-                );
-            });
-            //$(this).countdown('stop');
-        });
+        //     $(this).countdown(countTime, function (event) {
+        //         $(this).html(
+        //             '<span class="timebox day"><strong>' + event.strftime('%D') + '</strong>days</span><span class="timebox hour"><strong>' + event.strftime('%H') + '</strong>hrs</span><span class="timebox minute"><strong>' + event.strftime('%M') + '</strong>mins</span><span class="timebox second"><strong>' + event.strftime('%S') + '</strong>secs</span>'
+        //         );
+        //     });
+        //     //$(this).countdown('stop');
+        // });
 
         //Count down 2
-        $('.countbox1.hastime').each(function () {
-            var countTime = $(this).attr('data-time');
+        // $('.countbox1.hastime').each(function () {
+        //     var countTime = $(this).attr('data-time');
 
-            $(this).countdown(countTime, function (event) {
-                $(this).html(
-                    '<span class="timebox day"><span class="timebox-inner"><strong>' + event.strftime('%D') + '</strong>days</span></span> <span class="timebox hour"><span class="timebox-inner"><strong>' + event.strftime('%H') + '</strong>hrs</span></span> <span class="timebox minute"><span class="timebox-inner"><strong>' + event.strftime('%M') + '</strong>mins</span></span> <span class="timebox second"><span class="timebox-inner"><strong>' + event.strftime('%S') + '</strong>secs</span></span>'
-                );
-            });
-            //$(this).countdown('stop');
-        });
+        //     $(this).countdown(countTime, function (event) {
+        //         $(this).html(
+        //             '<span class="timebox day"><span class="timebox-inner"><strong>' + event.strftime('%D') + '</strong>days</span></span> <span class="timebox hour"><span class="timebox-inner"><strong>' + event.strftime('%H') + '</strong>hrs</span></span> <span class="timebox minute"><span class="timebox-inner"><strong>' + event.strftime('%M') + '</strong>mins</span></span> <span class="timebox second"><span class="timebox-inner"><strong>' + event.strftime('%S') + '</strong>secs</span></span>'
+        //         );
+        //     });
+        //     //$(this).countdown('stop');
+        // });
 
         //Checkout Page Login
         $('.showlogin').on('click', function () {

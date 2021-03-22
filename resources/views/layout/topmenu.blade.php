@@ -1,9 +1,3 @@
-<?php
-
-use App\Services\ProductCategoriesService;
-
-$service = new ProductCategoriesService;
-?>
 <div class="visible-large">
     <div id="saharan_mega_main_menu" class="dropdowns_trigger-hover dropdowns_animation-anim_5">
         <div class="menu_holder">
@@ -26,10 +20,7 @@ $service = new ProductCategoriesService;
                             </span>
                         </a>
                         <ul class="mega_dropdown">
-                            <?php
-                            $categories = $service->getItems();
-                            foreach ($categories as $item) {
-                                ?>
+                            <?php foreach ($categories as $item) { ?>
                                 <li class="default_dropdown drop_to_right children-menu">
                                     <a href="<?= $item->getUrl() ?>" class="item_link ">
                                         <span class="link_content">
@@ -76,10 +67,7 @@ $service = new ProductCategoriesService;
                 <li class="children-menu">
                     <a href="#">Produse</a>
                     <ul class="sub-menu">
-                        <?php
-                        $categories = $service->getItems();
-                        foreach ($categories as $item) {
-                            ?>
+                        <?php foreach ($categories as $item) { ?>
                             <li>
                                 <a href="<?= $item->getUrl() ?>"><?= $item->name ?></a>
                             </li>

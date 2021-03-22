@@ -1,9 +1,3 @@
-<?php
-
-use App\Services\ProductCategoriesService;
-
-$service = new ProductCategoriesService();
-?>
 <div class="footer">
     <div class="footer-middle">
         <div class="container">
@@ -52,10 +46,7 @@ $service = new ProductCategoriesService();
                                 <li class="first">
                                     <a href="<?= route('home') ?>">Home</a>
                                 </li>
-                                <?php
-                                $categories = $service->getItems();
-                                foreach ($categories as $item) {
-                                    ?>
+                                <?php foreach ($categories as $item) { ?>
                                     <li>
                                         <a href="<?= $item->getUrl() ?>"><?= $item->name ?></a>
                                     </li>
@@ -70,13 +61,11 @@ $service = new ProductCategoriesService();
     <div class="footer-bottom">
         <div class="container">
             <div class="footer-bottom-inner">
-                <div class="copyright-info">Copyright &copy; 2015
-                    <a href="http://bootexperts.com/">Bootexperts.</a> All Rights Reserved
+                <div class="copyright-info">Copyright &copy; <?= date('Y') ?>
+                    <a href="https://grecu.eu/" target="_blank">Ionut Grecu.</a> All Rights Reserved
                 </div>
                 <div class="bottom-right">
-                    <a href="images/style//payment1.png">
-                        <img src="images/digital/style//payment1.png" alt="payment">
-                    </a>
+
                 </div>
             </div>
         </div>

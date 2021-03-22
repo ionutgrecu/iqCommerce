@@ -61,13 +61,14 @@
             $('.' + options.collapseClass + ' > ul', this).hide();
 
             $('.' + options.parentClass + ' > a', this).click(function(e) {
+                e.preventDefault();
                 var posX = $(this).offset().left;
                 var posY = $(this).offset().top;
 
                 var clickX = e.pageX - posX;
                 var clickY = e.pageY - posY;
 
-                if (clickX <= options.spoilerButtonClickMaxX && clickX >= options.spoilerButtonClickMinX && clickY <= options.spoilerButtonClickMaxY && clickY >= options.spoilerButtonClickMinY) {
+                // if (clickX <= options.spoilerButtonClickMaxX && clickX >= options.spoilerButtonClickMinX && clickY <= options.spoilerButtonClickMaxY && clickY >= options.spoilerButtonClickMinY) {
                     var item = $(this).parent('li');
                     var content = $(this).parent('li').children('ul');
 
@@ -80,7 +81,7 @@
                     }
 
                     e.preventDefault();
-                }
+                // }
             });
         }
     };
