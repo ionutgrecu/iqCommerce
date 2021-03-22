@@ -154,7 +154,7 @@
                             <div class="container">
                                 <div class="nav-container">
                                     <div class="horizontal-menu">
-                                        @include('components.topmenu')
+                                        @include('layout.topmenu')
                                     </div>
                                 </div>
                             </div>
@@ -163,6 +163,12 @@
                     <!-- .header -->
                     <div class="clearfix"></div>
                 </div>
+                <!-- End Header Container -->
+                
+                
+                <!-- Footer -->
+                @include('layout.footer')
+                <!-- End Footer -->
             </div>
         </div>
 
