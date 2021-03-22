@@ -5,4 +5,5 @@ require('cd-pretty-photo');
 require('chosen-js');
 require('jquery.countdown');
 require('../assets/lib/ntm/jquery.ntm');
-require('./components/main');
+require('./components/main')
+;

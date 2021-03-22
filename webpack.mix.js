@@ -24,14 +24,14 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/login.scss', 'public/css')
     .js('resources/js/script.js', 'public/js')
     .sass('resources/sass/style.scss', 'public/css')
-    .browserSync('localhost:8001')
+    .browserSync('0.0.0.0:3000')
     .version();
 
 //images
 mix.copy('resources/assets/', 'public/assets/');
 
 //dev
-mix.copy('resources/js/components/main.js','public/js/');
+// mix.copy('resources/js/components/main.js','public/js/');
 
 // Admin area
 mix.copy('node_modules/@coreui/chartjs/dist/css/coreui-chartjs.css', 'public/css/admin');

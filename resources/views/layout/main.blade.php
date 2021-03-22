@@ -33,6 +33,10 @@
         <link href="http://fonts.googleapis.com/css?family=Arimo:400,700" rel="stylesheet" type="text/css" media="all" />
 
         <link rel="stylesheet" href="<?= mix('css/style.css') ?>" />
+        
+        <!--DEV-->
+        <!--<link rel="stylesheet" href="<?= asset('css/style-dev.css') ?>" />-->
+        
         <script src="<?= asset('assets/lib/modernizr-2.8.3.min.js') ?>"></script>
         @yield('js-header')
     </head>
@@ -41,97 +45,23 @@
         <div class="wrapper">
             <div class="page-wrapper">
                 <div class="header-container layout7">
-                    <div class="top-bar">
-                        <div class="container">
-                            <div class="top-bar-inner">
-                                <div class="header-currency-lang-inner">
-                                    <div class="currency-switcher">
-                                        Currency :
-                                        <select class="wcml_currency_switcher">
-                                            <option value="GBP" selected="selected">GBP</option>
-                                            <option value="EUR">EUR</option>
-                                        </select>
-                                    </div>
-                                    <div class="language-header">
-                                        Language :
-                                        <div id="lang_sel">
-                                            <ul>
-                                                <li>
-                                                    <a href="#" class="lang_sel_sel icl-en">English</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="top-menu widget">
-                                        <div class="menu-my-account-container">
-                                            <ul class="nav_menu">
-                                                <li class="first">
-                                                    <a href="">My Account</a>
-                                                </li>
-                                                <li>
-                                                    <a href="">Shopping cart</a>
-                                                </li>
-                                                <li class="las">
-                                                    <a href="#">About Us</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="header">
                         <div class="container">
                             <div class="header-inner">
                                 <div class="row">
                                     <div class="col-xs-12 col-md-3">
                                         <div class="logo">
-                                            <a href="<?=route('home')?>" title="<?=config('app.name')?>: <?=config('app.description')?>" rel="home">
-                                                <img src="<?=asset('assets/logo.png')?>?>" alt="<?=config('app.name')?>">
+                                            <a href="<?= route('home') ?>" title="<?= config('app.name') ?>: <?= config('app.description') ?>" rel="home">
+                                                <img src="<?= asset('assets/logo.png') ?>?>" alt="<?= config('app.name') ?>">
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-md-7">
+                                    <div class="col-xs-12 col-md-5">
                                         <div class="header-search">
-                                            <div class="cate-toggler">Categories</div>
-                                            <div class="bootexpert widget_product_categories">
-                                                <ul class="product-categories">
-                                                    <li>
-                                                        <a href="">Accessories</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">Computer</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">Digital</a>
-                                                        <ul class="children">
-                                                            <li>
-                                                                <a href="">Camera</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="">Refrigerator</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="">Smart Phone</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">Tables</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
                                             <div class="widget bootexpert widget_product_search">
                                                 <form method="get" id="searchform" action="#">
                                                     <div>
-                                                        <input
-                                                            type="text"
-                                                            value=""
-                                                            name="s"
-                                                            id="ws"
-                                                            placeholder="Search product..."
-                                                            >
+                                                        <input type="text" value="" name="s" id="ws" placeholder="Search product...">
                                                         <button class="btn btn-primary" type="submit" id="wsearchsubmit">
                                                             <i class="fa fa-search"></i>
                                                         </button>
@@ -142,6 +72,21 @@
                                     </div>
                                     <div class="col-xs-12 col-md-2">
                                         <div class="widget bootexpert widget_shopping_cart">
+                                            <h2 class="widgettitle">Contul meu</h2>
+                                            <div class="widget_shopping_cart_content">
+                                                <div class="cart-toggler">
+                                                    <a href="">
+                                                        <span class="mini-cart-link">
+                                                            <i class="fas fa-user"></i>
+                                                            <span class="cart-title">Contul meu</span>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-2">
+                                        <div class="widget bootexpert widget_shopping_cart" id="shopping_cart">
                                             <h2 class="widgettitle">Cart</h2>
                                             <div class="widget_shopping_cart_content">
                                                 <div class="cart-toggler">
@@ -897,7 +842,10 @@
         <script src="<?= mix('js/script.js') ?>"></script>
         <script src="<?= asset('assets/lib/rotatingtweets/jquery.cycle.all.min.js') ?>"></script>
         <script src="<?= asset('assets/lib/rotatingtweets/rotating_tweet.js') ?>"></script>
+        
+        <!--DEV-->
         <!--<script src="<?= asset('js/main.js') ?>"></script>-->
+        
         @yield('js-footer')
     </body>
 </html>
