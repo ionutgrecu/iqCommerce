@@ -2,9 +2,9 @@
     "private": true,
     "scripts": {
         "cleanup": "rimraf public/css public/js public/assets",
-        "predevelopment": "npm run cleanup",
-        "prewatch": "npm run cleanup",
-        "prehot": "npm run cleanup",
+        "Tpredevelopment": "npm run cleanup",
+        "Tprewatch": "npm run cleanup",
+        "Tprehot": "npm run cleanup",
         "preproduction": "npm run cleanup",
         "dev": "npm run development",
         "development": "mix",
