@@ -25,6 +25,10 @@ class ProductCategory extends Model {
     public function category() {
         return $this->belongsTo(ProductCategory::class, 'category_id', 'id');
     }
+    
+    public function getUrl(){
+        return route('shop.category',['cat_id'=>$this->id,'slug'=>\Str::slug($this->name)]);
+    }
 
     public function getParentsAttribute() {
         $return = [];

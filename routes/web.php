@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
 Route::patterns([
@@ -24,4 +25,10 @@ Route::group(['middleware' => 'web'], function() {
 //        return view('welcome');
 //    });
     Route::get('/', [PagesController::class, 'index'])->name('home');
+    Route::get('/despre-proiect', [PagesController::class, 'about'])->name('home.about');
+    Route::get('/contact', [PagesController::class, 'about'])->name('home.contact');
+
+    Route::group(['prefix' => 'shop'], function() {
+        Route::get('/{slug}-{cat_id}', [ShopController::class, 'category'])->name('shop.category');
+    });
 });

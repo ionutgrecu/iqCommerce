@@ -40,6 +40,19 @@ class ProductCategoriesService {
         return $productCategoryObj->orderBy('id', 'DESC')->get();
     }
 
+    function getItems(int $categoryId = 0): Collection {
+        $productCategoryObj = ProductCategory::select('*');
+
+        if (0 == $categoryId)
+            $productCategoryObj->where(function($q) {
+                $q->where('category_id', 0)->orWhereNull('category_id');
+            });
+        else
+            $productCategoryObj->where('category_id', $categoryId);
+
+        return $productCategoryObj->get();
+    }
+
     function getTree(int $exceptId = null, int $parentId = null): array {
         $return = [];
 
@@ -60,8 +73,8 @@ class ProductCategoriesService {
 
         return $return;
     }
-    
-    function getItem():ProductCategory{
+
+    function getItem(): ProductCategory {
         return $this->item;
     }
 

@@ -11,4 +11,12 @@ class PagesController extends Controller {
         return view('home', $this->data);
     }
 
+    function about() {
+        return 'about';
+    }
+
+    function contact() {
+        return 'contact';
+    }
+
 }
