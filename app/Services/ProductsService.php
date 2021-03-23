@@ -41,6 +41,11 @@ class ProductsService {
         return $productsObj->get();
     }
 
+    /** Get a list of products having reduced price
+     * 
+     * @param int $limit
+     * @return Collection
+     */
     function getItemsReduced(int $limit = 9): Collection {
         $productsObj = Product::with('vendor', 'images')
                 ->where('price_min', '>', 0)
@@ -48,6 +53,15 @@ class ProductsService {
 //                ->whereIn('id', [6])
                 ->limit($limit)
                 ->inRandomOrder();
+
+        return $productsObj->get();
+    }
+
+    function getItemsNew(int $limit = 9) {
+        $productsObj = Product::with('vendor', 'images')
+//                ->whereIn('id', [6])
+                ->limit($limit)
+                ->orderBy('id', 'DESC');
 
         return $productsObj->get();
     }
