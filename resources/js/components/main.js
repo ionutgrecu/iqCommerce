@@ -273,40 +273,40 @@
         });
 
         //Products Carousel
-        // $('#brands-carousel-5, #brands-carousel-1, #sale_products_digital, .home-tabs-f11 .shop-products, #shop-products-5, #shop-products-2-5').slick({
-        //     infinite: false,
-        //     slidesToShow: 5,
-        //     slidesToScroll: 1,
-        //     speed: 500,
-        //     easing: 'linear',
-        //     swipeToSlide: true,
-        //     autoplaySpeed: 1000,
-        //     responsive: [{
-        //         breakpoint: 1200,
-        //         settings: {
-        //             slidesToShow: 4,
-        //             slidesToScroll: 1
-        //         }
-        //     }, {
-        //         breakpoint: 992,
-        //         settings: {
-        //             slidesToShow: 3,
-        //             slidesToScroll: 1
-        //         }
-        //     }, {
-        //         breakpoint: 767,
-        //         settings: {
-        //             slidesToShow: 2,
-        //             slidesToScroll: 1
-        //         }
-        //     }, {
-        //         breakpoint: 600,
-        //         settings: {
-        //             slidesToShow: 1,
-        //             slidesToScroll: 1
-        //         }
-        //     }]
-        // });
+        $('#brands-carousel-5, #brands-carousel-1, #sale_products_digital, .home-tabs-f11 .shop-products, #shop-products-5, #shop-products-2-5').slick({
+            infinite: false,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            speed: 500,
+            easing: 'linear',
+            swipeToSlide: true,
+            autoplaySpeed: 1000,
+            responsive: [{
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1
+                }
+            }, {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1
+                }
+            }, {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            }, {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }]
+        });
 
         //Products Carousel
         // $('#featureds_pdct, .home-tabs-f5 .shop-products, .home-tabs-f10 .shop-products, #brands_carousel_6slide, .home-tabs-food .shop-products').slick({

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\ProductCategoriesService;
 use App\Services\ProductsService;
+use App\Services\ProductVendorsService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -27,6 +28,7 @@ class Controller extends BaseController {
     protected $localeArr;
     protected $categoryService;
     protected $productsService;
+    protected $productVendorsService;
 
     function __construct() {
         $this->data['error'] = request()->session()->pull('error');
@@ -40,6 +42,9 @@ class Controller extends BaseController {
 
         $this->productsService = new ProductsService;
         $this->data['productsService'] = $this->productsService;
+
+        $this->productVendorsService = new ProductVendorsService();
+        $this->data['productVendorsService'] = $this->productVendorsService;
 
         if (Route::current()->parameters['wildcard']) {
             $wildcard = Route::current()->parameters['wildcard'];

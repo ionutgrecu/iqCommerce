@@ -28,48 +28,7 @@
         <div class="row-container">
             <div class="parvez_column parvez_column_container parvez_col-sm-12">
                 <div class="parvez_wrapper">
-                    <div id="brands-carousel-1" class="brands-carousel">
-                        <div>
-                            <a href="" title="Logo1">
-                                <img src="images/digital/brand/3.jpg" alt="Logo1">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="" title="Logo2">
-                                <img src="images/digital/brand/4.jpg" alt="Logo2">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="" title="Logo3">
-                                <img src="images/digital/brand/1.jpg" alt="Logo3">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="" title="Logo4">
-                                <img src="images/digital/brand/2.jpg" alt="Logo4">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="" title="Logo5">
-                                <img src="images/digital/brand/3.jpg" alt="Logo5">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="" title="Logo6">
-                                <img src="images/digital/brand/4.jpg" alt="Logo6">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="" title="Logo7">
-                                <img src="images/digital/brand/1.jpg" alt="Logo7">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="" title="Logo8">
-                                <img src="images/digital/brand/2.jpg" alt="Logo8">
-                            </a>
-                        </div>
-                    </div>
+                    @include('layout.brands')
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@
     <div class="product-wrapper">
         <div class="list-col4">
             <div class="product-image">
-                <a href="">
+                <a href="<?=$item->getUrl()?>">
                     <div style="background-image:url(<?= $item->getImageUrl() ?>);" class="primary_image" alt="<?= $item->name ?>"></div>
                 </a>
             </div>

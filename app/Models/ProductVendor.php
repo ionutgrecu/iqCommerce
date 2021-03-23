@@ -17,4 +17,14 @@ class ProductVendor extends Model {
         return $this->hasMany(Product::class, 'product_vendors_id', 'id')->count();
     }
 
+    public function getImageUrl(): string {
+        if (stripos($this->image, ':/') !== false)
+            return $this->image;
+
+        if (!$this->image || !is_file(public_path($this->image)))
+            return asset('assets/no-image.jpg');
+
+        return asset($this->image);
+    }
+
 }
