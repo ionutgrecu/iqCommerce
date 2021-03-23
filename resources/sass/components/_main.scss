@@ -3258,6 +3258,13 @@ legend {
                         position: relative;
                         overflow: hidden;
 
+                        div.primary_image{
+                            height:360px;
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                        }
+
                         img {
                             box-shadow: none;
                             float: none;

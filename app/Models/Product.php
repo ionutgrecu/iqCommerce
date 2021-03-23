@@ -51,9 +51,16 @@ class Product extends Model {
         return asset($this->image->file);
     }
 
+    public function isDiscountEligible(): bool {
+        if ($this->price_min > 0 && $this->price_min < $this->price)
+            return true;
+
+        return false;
+    }
+
     public function proposePrice(): float {
         //TODO: Custom price proposal
-        if (!$this->price_min || $this->price_min >= $this->price)
+        if (!$this->price_min > 0 || $this->price_min >= $this->price)
             return $this->price;
 
         return max($this->price * 0.98, $this->min_price);
