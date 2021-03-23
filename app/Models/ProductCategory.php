@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Str;
+use function route;
 
 class ProductCategory extends Model {
 
@@ -25,9 +27,9 @@ class ProductCategory extends Model {
     public function category() {
         return $this->belongsTo(ProductCategory::class, 'category_id', 'id');
     }
-    
-    public function getUrl(){
-        return route('shop.category',['cat_id'=>$this->id,'slug'=>\Str::slug($this->name)]);
+
+    public function getUrl(): string {
+        return route('shop.category', ['cat_id' => $this->id, 'cat_slug' => Str::slug($this->name)]);
     }
 
     public function getParentsAttribute() {

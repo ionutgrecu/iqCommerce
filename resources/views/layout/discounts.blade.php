@@ -10,9 +10,9 @@
                 </span>
                 <div class="list-col4 ">
                     <div class="product-image">
-                        <a href="" title="<?=$item->name?>">
-                            <img src="images/digital/product/5-600x600.jpg" class="primary_image wp-post-image" alt="5">
-                            <img src="images/digital/product/4-600x600.jpg" class="secondary_image" alt="4">
+                        <a href="<?= $item->getUrl() ?>" title="<?= $item->name ?>">
+                            <img src="<?= $item->getImageUrl() ?>" class="primary_image wp-post-image" alt="5">
+                            <!--<img src="images/digital/product/4-600x600.jpg" class="secondary_image" alt="4">-->
                         </a>
                     </div>
                 </div>
@@ -20,14 +20,14 @@
                     <div class="gridview">
                         <div class="gridview-inner">
                             <h2 class="product-name">
-                                <a href=""><?=$item->name?></a>
+                                <a href=""><?= $item->name ?></a>
                             </h2>
                             <div class="price-box">
                                 <del>
-                                    <span class="amount">&pound;80.00</span>
+                                    <span class="amount"><?= formatPrice($item->price) ?> LEI</span>
                                 </del>
                                 <ins>
-                                    <span class="amount">&pound;70.00</span>
+                                    <span class="amount"><?= formatPrice($item->proposePrice()) ?> LEI</span>
                                 </ins>
                             </div>
                         </div>

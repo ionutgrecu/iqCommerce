@@ -35,15 +35,20 @@ class ProductsService {
         return true;
     }
 
-    function getAll(): Collection{
+    function getAll(): Collection {
         $productsObj = Product::with('vendor', 'images');
 
         return $productsObj->get();
     }
-    
-    function getItemsReduced(int $limit=9): Collection{
-        $productsObj = Product::with('vendor', 'images')->where('price_min','>',0)->whereRaw('price_min < price')->limit($limit)->inRandomOrder();
-        
+
+    function getItemsReduced(int $limit = 9): Collection {
+        $productsObj = Product::with('vendor', 'images')
+                ->where('price_min', '>', 0)
+                ->whereRaw('price_min < price')
+//                ->whereIn('id', [6])
+                ->limit($limit)
+                ->inRandomOrder();
+
         return $productsObj->get();
     }
 
