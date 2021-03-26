@@ -29,7 +29,7 @@ Route::group(['middleware' => 'web'], function() {
     Route::get('/contact', [PagesController::class, 'about'])->name('home.contact');
 
     Route::group(['prefix' => 'shop','name'=>'shop.'], function() {
-        Route::get('/{cat_slug}-{cat_id}', [ShopController::class, 'category'])->name('shop.category');
-        Route::get('/{cat_slug}-{cat_id}/{prod_slug}-{prod_id}', [ShopController::class, 'product'])->name('shop.product');
+        Route::get('/{cat_slug}', [ShopController::class, 'category'])->name('shop.category');
+        Route::get('/{cat_slug}/{prod_slug}', [ShopController::class, 'product'])->name('shop.product');
     });
 });

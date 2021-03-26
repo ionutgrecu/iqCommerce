@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
-    function category($slug,...$args){
-        $catId=$args[0];
+    function category($slug){
+        $catId=slugToId($slug);
         return "category $catId";
     }
     
-    function product(...$params){
-        dd($params);
+    function product($slug){
+        $prodId=slugToId($slug);
         return "product $prodId";
     }
 }

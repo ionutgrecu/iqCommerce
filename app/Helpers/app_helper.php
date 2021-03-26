@@ -80,3 +80,7 @@ function exceptionToArray(Exception $ex): array {
 function formatPrice(float $price): string {
     return number_format($price, 2, '.', ' ');
 }
+
+function slugToId(string $slug){
+    return \Arr::last(explode('-', $slug));
+}
