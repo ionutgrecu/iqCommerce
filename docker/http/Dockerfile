@@ -1,6 +1,6 @@
-FROM alpine:3.12
+FROM alpine:3.13.3
 LABEL Maintainer="Ionut Grecu <ionut@grecu.eu>" \
-      Description="Lightweight container with Nginx 1.18 & PHP-FPM 7.3 based on Alpine Linux. Fork from https://hub.docker.com/r/trafex/alpine-nginx-php7/dockerfile and inspired from https://hub.docker.com/r/lorisleiva/laravel-docker/dockerfile"
+      Description="Lightweight container with Nginx 1.18 & PHP-FPM 7.4 based on Alpine Linux. Fork from https://hub.docker.com/r/trafex/alpine-nginx-php7/dockerfile and inspired from https://hub.docker.com/r/lorisleiva/laravel-docker/dockerfile"
 
 # Install packages and remove default server definitionzip
 RUN apk --no-cache add openssl util-linux php7 php7-fpm php7-opcache php7-mysqli php7-json php7-memcached php7-openssl php7-common php7-curl php-pdo php-pdo_mysql \
