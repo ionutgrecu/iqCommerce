@@ -1,10 +1,12 @@
+<?php $categories = $categoryService->getTree(); ?>
+
 <div class="parvez_wrapper">
     <div class="phm_row hasteck_row parvez_inner phm_row-fluid digital-categories">
         <div class="parvez_column parvez_column_container parvez_col-sm-12">
             <div class="parvez_wrapper">
                 <div class="parvez_wp_custommenu parvez_content_element">
                     <div class="widget widget_nav_menu">
-                        @include('layout.side-menu')
+                        @include('layout.side-menu',['categories'=>$categories])
                     </div>
                 </div>
             </div>

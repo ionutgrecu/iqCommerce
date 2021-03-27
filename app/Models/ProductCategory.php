@@ -29,7 +29,7 @@ class ProductCategory extends Model {
     }
 
     public function getUrl(): string {
-        return route('shop.category', ['cat_id' => $this->id, 'cat_slug' => Str::slug($this->name)]);
+        return route('shop.category', ['cat_slug' => Str::slug($this->name . '-' . $this->id)]);
     }
 
     public function getParentsAttribute() {

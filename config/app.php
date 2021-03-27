@@ -2,7 +2,7 @@
 
 return [
     'name' => env('APP_NAME', 'iqCommerce'),
-    'description'=>'A smart way to do eCommerce.',
+    'description' => 'A smart way to do eCommerce.',
     //production, local
     'env' => env('APP_ENV', 'local'),
     'debug' => (bool) env('APP_DEBUG', true),
@@ -12,8 +12,8 @@ return [
     'locale' => 'ro',
     'fallback_locale' => 'en',
     'faker_locale' => 'ro_RO',
-    'extensions'=>[
-        'images'=>['jpg','jpeg','png','gif'],
+    'extensions' => [
+        'images' => ['jpg', 'jpeg', 'png', 'gif'],
     ],
     'key' => env('APP_KEY', 'base64:OqA4oVBLwFbAY7DvRT4mwmh1tBegpyBp1z9M7yzsYMU='),
     'cipher' => 'AES-256-CBC',
@@ -55,7 +55,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\FortifyServiceProvider::class
+        App\Providers\FortifyServiceProvider::class,
+        App\Providers\ShopServiceProvider::class,
     ],
     'aliases' => [
         'App' => Illuminate\Support\Facades\App::class,

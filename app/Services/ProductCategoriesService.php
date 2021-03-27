@@ -81,6 +81,9 @@ class ProductCategoriesService {
     function find(int $id): ProductCategoriesService {
         $this->item = ProductCategory::with('category')->find($id);
 
+        if (!$this->item)
+            throw new \Exception('Item not found');
+
         return $this;
     }
 

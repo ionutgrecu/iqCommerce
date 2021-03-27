@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Route;
+use View;
 use function app;
 use function class_basename;
 use function config;
@@ -23,28 +24,18 @@ class Controller extends BaseController {
         DispatchesJobs,
         ValidatesRequests;
 
-    protected $data = [];
     protected $lang;
     protected $localeArr;
-    protected $categoryService;
-    protected $productsService;
-    protected $productVendorsService;
 
-    function __construct() {
-        $this->data['error'] = request()->session()->pull('error');
-        $this->data['success'] = request()->session()->pull('success');
-        $this->data['info'] = request()->session()->pull('info');
-        $this->data['request'] = request()->input();
+    function __construct(ProductCategoriesService $categoryService, ProductVendorsService $productVendorsService, ProductsService $productsService) {
+        $this->params['error'] = request()->session()->pull('error');
+        $this->params['success'] = request()->session()->pull('success');
+        $this->params['info'] = request()->session()->pull('info');
+        $this->params['request'] = request()->input();
 
-        $this->categoryService = new ProductCategoriesService;
-        $this->data['categoryService'] = $this->categoryService;
-        $this->data['categories'] = $this->categoryService->getTree();
-
-        $this->productsService = new ProductsService;
-        $this->data['productsService'] = $this->productsService;
-
-        $this->productVendorsService = new ProductVendorsService();
-        $this->data['productVendorsService'] = $this->productVendorsService;
+        View::share('categoryService', $categoryService);
+        View::share('productVendorsService', $productVendorsService);
+        View::share('productsService', $productsService);
 
         if (Route::current()->parameters['wildcard']) {
             $wildcard = Route::current()->parameters['wildcard'];
@@ -76,24 +67,24 @@ class Controller extends BaseController {
         }
         $this->params['controller'] = class_basename($this);
         $this->params['path'] = $this->path;
-        $this->data['params'] = $this->params;
+        $this->params['params'] = $this->params;
 
         $this->lang = app()->getLocale();
-        $this->data['lang'] = $this->lang;
+        $this->params['lang'] = $this->lang;
 
-        $this->setCurrentPage($this->data['params']['controller']);
-        $this->setCurrentSubpage($this->data['params']['action']);
+        $this->setCurrentPage($this->params['params']['controller']);
+        $this->setCurrentSubpage($this->params['params']['action']);
 
         $this->setPageTitle(config('app.name'));
-        $this->setPageDescription(config('app.description'));
+        $this->setPageDescription(config('app.description'));        
     }
 
     protected function setCurrentPage(string $value) {
-        $this->data['currentPage'] = strtolower(strtr($value, ['Controller' => '', 'Admin' => '']));
+        $this->params['currentPage'] = strtolower(strtr($value, ['Controller' => '', 'Admin' => '']));
     }
 
     protected function setCurrentSubpage(string $value) {
-        $this->data['currentSubpage'] = strtolower(strtr($value, ['Controller' => '']));
+        $this->params['currentSubpage'] = strtolower(strtr($value, ['Controller' => '']));
     }
 
     protected function setPageTitle(string $value) {
@@ -101,7 +92,7 @@ class Controller extends BaseController {
     }
 
     protected function prependPageTitle(string $value) {
-        $value .= ' | ' . $this->data['meta']['title'];
+        $value .= ' | ' . $this->params['meta']['title'];
         $this->setPageTitle($value);
     }
 
@@ -110,12 +101,12 @@ class Controller extends BaseController {
     }
 
     protected function setPageMeta(string $name, string $value) {
-        $this->data['meta'][$name] = $value;
+        $this->params['meta'][$name] = $value;
     }
 
     //Default action
     function index() {
-        return view('index', $this->data);
+        return view('index', $this->params);
     }
 
     protected function wildcard() {

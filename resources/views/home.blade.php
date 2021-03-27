@@ -17,7 +17,7 @@
             <div class="right-column parvez_column parvez_column_container parvez_col-sm-9">
                 <div class="parvez_wrapper">
                     @include('layout.main-slider')
-                    
+
                     @include('layout.main-productlist')
                 </div>
             </div>

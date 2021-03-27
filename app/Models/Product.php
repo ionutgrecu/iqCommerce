@@ -35,7 +35,7 @@ class Product extends Model {
     }
 
     public function getUrl(): string {
-        return route('shop.product', ['cat_id' => $this->category->id, 'cat_slug' => Str::slug($this->category->name), 'prod_id' => $this->id, 'prod_slug' => Str::slug($this->name)]);
+        return route('shop.product', ['cat_slug' => Str::slug($this->category->name . '-' . $this->category->id), 'prod_slug' => Str::slug($this->name . '-' . $this->id)]);
     }
 
     public function getImageUrl(): string {
