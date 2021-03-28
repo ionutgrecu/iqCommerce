@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Services\BreadcrumbsService;
+use App\Services\CategoryCharacteristicsService;
 use App\Services\ProductCategoriesService;
+use App\Services\ProductCharacteristicsService;
 use App\Services\ProductsService;
 use App\Services\ProductVendorsService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -29,7 +31,14 @@ class Controller extends BaseController {
     protected $lang;
     protected $localeArr;
 
-    function __construct(ProductCategoriesService $categoryService, ProductVendorsService $productVendorsService, ProductsService $productsService, BreadcrumbsService $breadcrumbService) {
+    function __construct(
+            ProductCategoriesService $categoryService,
+            CategoryCharacteristicsService $categoryCharacteristicsService,
+            ProductVendorsService $productVendorsService,
+            ProductsService $productsService,
+            ProductCharacteristicsService $ProductCharacteristicsService,
+            BreadcrumbsService $breadcrumbService) {
+
         $this->params['error'] = request()->session()->pull('error');
         $this->params['success'] = request()->session()->pull('success');
         $this->params['info'] = request()->session()->pull('info');
@@ -37,8 +46,10 @@ class Controller extends BaseController {
         $breadcrumbService->addBreadcrumb(__('Home'), __('Home'), route('home'), 'fas fa-home');
 
         View::share('categoryService', $categoryService);
+        View::share('categoryCharacteristicsService', $categoryCharacteristicsService);
         View::share('productVendorsService', $productVendorsService);
         View::share('productsService', $productsService);
+        View::share('ProductCharacteristicsService', $ProductCharacteristicsService);
         View::share('breadcrumbService', $breadcrumbService);
 
         if (Route::current()->parameters['wildcard']) {

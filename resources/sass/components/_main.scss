@@ -2981,6 +2981,12 @@ legend {
     position: relative;
     width: 100%;
 
+    .breadcrumb{
+        a, .separator{
+            margin-right: 5px
+        }
+    }
+
     .blog_header {
         text-align: center;
         margin: 0;

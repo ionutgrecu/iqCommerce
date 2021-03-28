@@ -50,6 +50,10 @@ class ProductCategory extends Model {
     public function childs() {
         return $this->hasMany(ProductCategory::class, 'category_id', 'id')->orderBy('name');
     }
+    
+    public function filters(){
+        return $this->hasMany(CategoryCharacteristic::class,'category_id','id')->orderBy('name')->where('is_filter',1);
+    }
 
     public function getProductCount(): int {
         $result = 0;

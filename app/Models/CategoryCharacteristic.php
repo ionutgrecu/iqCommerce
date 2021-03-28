@@ -40,15 +40,15 @@ class CategoryCharacteristic extends Model {
         if ('text' == $this->type)
             return [];
 
-        $productCharacteristicsobj = ProductCharacteristics::where('category_characteristic_id', $this->id);
-//        $productCharacteristicsobj = ProductCharacteristics::select('*');
-//dd($this->type);
+        $productCharacteristicsobj = ProductCharacteristics::select('*')->where('category_characteristic_id', $this->id);
+
         if ('boolean' == $this->type)
-            $productCharacteristicsobj->select('val_boolean')->distinct()->whereNotNull('val_boolean')->groupBy('val_boolean');
+            $productCharacteristicsobj->select('val_boolean')->whereNotNull('val_boolean')->groupBy('val_boolean');
         elseif ('numeric' == $this->type)
-            $productCharacteristicsobj->select('val_numeric')->distinct()->whereNotNull('val_numeric');
+            $productCharacteristicsobj->select('val_numeric')->whereNotNull('val_numeric')->groupBy('val_numeric');
         elseif ('short_text' == $this->type)
-            $productCharacteristicsobj->select('val_short_text')->distinct()->whereNotNull('val_short_text');
+            $productCharacteristicsobj->whereNotNull('val_short_text')->where('val_short_text','!=','')->groupBy('val_short_text');
+        
 //dd(toSqlBinds($productCharacteristicsobj));
         foreach ($productCharacteristicsobj->cursor() as $item) {
             if ('boolean' == $this->type)

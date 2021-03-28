@@ -1,30 +1,39 @@
 @extends('layout.main')
 
 @section('content')
-<?php dd(get_defined_vars())?>
 <div class="page-content">
     <div class="shop_content">
         <div class="container">
             @include('layout.breadcrumbs')
-            
+
             <div class="row">
                 <div id="secondary" class="col-xs-12 col-md-3 sidebar-category">
-                    @include('layout.sidebar')
-                    <aside class="widget">
-                        <h3 class="widget-title"><span>Categories</span></h3>
-                        @include('layout.side-menu',['categories'=>$__data])
-                    </aside>
-                    <aside class="widget">
-                        <h3 class="widget-title"><span>Size</span></h3>
-                        <div class="widget_content">
-                            <ul>
-                                <li><a href="">L</a>  <span class="count">(1)</span></li>
-                                <li><a href="">M</a>  <span class="count">(1)</span></li>
-                                <li><a href="">S</a>  <span class="count">(1)</span></li>
-                                <li><a href="">XL</a>  <span class="count">(1)</span></li>
-                            </ul>
-                        </div>
-                    </aside>
+                    <?php if (count($category->childs)) { ?>
+                        <aside class="widget">
+                            <h3 class="widget-title"><span>Categories</span></h3>
+                            @include('layout.side-menu',['categories'=>$category->childs])
+                        </aside>
+                    <?php } ?>
+
+                    <?php
+                    foreach ($category->filters as $filter) {
+                        $values = $productCharacteristicsService->getSuggestedValuesAttribute();
+                        if ($values) {
+                            ?>
+                            <aside class="widget">
+                                <h3 class="widget-title"><span><?= $filter->name ?></span></h3>
+                                <div class="widget_content">
+                                    <ul>
+                                        <?php foreach($values as $val=>$text){?>
+                                        <li><a href="<?=$val?>"><?=$text?></a>  <span class="count">(1)</span></li>
+                                        <?php }?>
+                                    </ul>
+                                </div>
+                            </aside>
+                        <?php
+                        }
+                    }
+                    ?>
                     <aside class="widget widget_price_filter">
                         <h3 class="widget-title"><span>Filter By Price</span></h3>
                         <div class="widget_content">

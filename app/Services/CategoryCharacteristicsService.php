@@ -55,11 +55,11 @@ class CategoryCharacteristicsService {
         return $return;
     }
 
-    function getItem():CategoryCharacteristic{
+    function getItem(): CategoryCharacteristic {
         return $this->item;
     }
-    
-    function find(int $id): CategoryCharacteristicsService  {
+
+    function find(int $id): CategoryCharacteristicsService {
         $this->item = CategoryCharacteristic::with('category')->find($id);
 
         return $this;
@@ -89,7 +89,13 @@ class CategoryCharacteristicsService {
         return $this->item;
     }
 
-    function getUniqueValues(string $value, int $categoryId = null) {
+    /** Get unique values of certain field from table category_characteristics. Like groupBy() but with some filters
+     * 
+     * @param string $valueType : any of val_boolean, val_numeric, val_short_text
+     * @param int $categoryId
+     * @return array
+     */
+    function getUniqueValues(string $value, int $categoryId = null): array {
         $itemObj = CategoryCharacteristic::select($value)->whereNotNull($value)->groupBy($value);
 
         if ($categoryId)
