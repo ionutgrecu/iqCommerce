@@ -41,14 +41,15 @@ class CategoryCharacteristic extends Model {
             return [];
 
         $productCharacteristicsobj = ProductCharacteristics::where('category_characteristic_id', $this->id);
-
+//        $productCharacteristicsobj = ProductCharacteristics::select('*');
+//dd($this->type);
         if ('boolean' == $this->type)
-            $productCharacteristicsobj->raw('GROUP BY val_boolean HAVING val_boolean != NULL');
+            $productCharacteristicsobj->select('val_boolean')->distinct()->whereNotNull('val_boolean')->groupBy('val_boolean');
         elseif ('numeric' == $this->type)
-            $productCharacteristicsobj->raw('GROUP BY val_numeric HAVING val_numeric != NULL');
+            $productCharacteristicsobj->select('val_numeric')->distinct()->whereNotNull('val_numeric');
         elseif ('short_text' == $this->type)
-            $productCharacteristicsobj->raw('GROUP BY val_short_text HAVING val_short_text != NULL');
-
+            $productCharacteristicsobj->select('val_short_text')->distinct()->whereNotNull('val_short_text');
+//dd(toSqlBinds($productCharacteristicsobj));
         foreach ($productCharacteristicsobj->cursor() as $item) {
             if ('boolean' == $this->type)
                 $result[] = $item->val_boolean ? 1 : 0;
