@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\BreadcrumbsService;
 use App\Services\ProductCategoriesService;
 use App\Services\ProductsService;
 use App\Services\ProductVendorsService;
@@ -16,6 +17,7 @@ use function class_basename;
 use function config;
 use function redirect;
 use function request;
+use function route;
 use function view;
 
 class Controller extends BaseController {
@@ -27,15 +29,17 @@ class Controller extends BaseController {
     protected $lang;
     protected $localeArr;
 
-    function __construct(ProductCategoriesService $categoryService, ProductVendorsService $productVendorsService, ProductsService $productsService) {
+    function __construct(ProductCategoriesService $categoryService, ProductVendorsService $productVendorsService, ProductsService $productsService, BreadcrumbsService $breadcrumbService) {
         $this->params['error'] = request()->session()->pull('error');
         $this->params['success'] = request()->session()->pull('success');
         $this->params['info'] = request()->session()->pull('info');
         $this->params['request'] = request()->input();
+        $breadcrumbService->addBreadcrumb(__('Home'), __('Home'), route('home'), 'fas fa-home');
 
         View::share('categoryService', $categoryService);
         View::share('productVendorsService', $productVendorsService);
         View::share('productsService', $productsService);
+        View::share('breadcrumbService', $breadcrumbService);
 
         if (Route::current()->parameters['wildcard']) {
             $wildcard = Route::current()->parameters['wildcard'];
@@ -76,7 +80,7 @@ class Controller extends BaseController {
         $this->setCurrentSubpage($this->params['params']['action']);
 
         $this->setPageTitle(config('app.name'));
-        $this->setPageDescription(config('app.description'));        
+        $this->setPageDescription(config('app.description'));
     }
 
     protected function setCurrentPage(string $value) {

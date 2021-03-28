@@ -11,7 +11,4 @@ class ProductsController extends Controller
         return view('admin.products.index');
     }
     
-    function getCategories(){
-        return 'x';
-    }
 }
