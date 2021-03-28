@@ -51,6 +51,16 @@ class ProductCategory extends Model {
         return $this->hasMany(ProductCategory::class, 'category_id', 'id')->orderBy('name');
     }
 
+    public function getProductCount(): int {
+        $result = 0;
+
+        $result = Product::where('product_category_id', $this->id)->count();
+        foreach ($this->childs as $child)
+            $result += $child->getProductCount();
+
+        return $result;
+    }
+
     function loadMissingRecursive(int $exceptId = null, ...$relations) {
         if ($exceptId)
             foreach ($relations as $relation)
