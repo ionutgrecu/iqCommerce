@@ -50,7 +50,7 @@ class ResourcesController extends Controller {
             $data['characteristics-tree'] = $characteristicsService->getTree((integer) request()->input('category-id'), (integer) request()->input('product-id'));
         }
 
-        return response()->json(['status' => 'ok', 'data' => $data]);
+        return response(['data' => $data]);
     }
 
     /**

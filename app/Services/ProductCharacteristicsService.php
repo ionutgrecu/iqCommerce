@@ -8,7 +8,5 @@ namespace App\Services;
  * @author ionut
  */
 class ProductCharacteristicsService {
-    function getSuggestedValues(){
-        
-    }
+    
 }

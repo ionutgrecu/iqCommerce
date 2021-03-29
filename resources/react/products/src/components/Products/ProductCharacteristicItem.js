@@ -57,8 +57,8 @@ class ProductCharacteristicItem extends React.Component {
                                 <Form.Check.Label htmlFor={`characteristic-${item.id}`}>{item.name}</Form.Check.Label>
                             </Form.Check>
                         </Form.Label>,
-                        'numeric': <><Form.Control type="number" name={`characteristic-${item.id}`} value={item.val_numeric} onChange={this.handleChange} list={`list-characteristic-${item.id}`}></Form.Control><datalist id={`list-characteristic-${item.id}`}>{item.suggested_values.map(v => <option>{v}</option>)}</datalist></>,
-                        'short_text': <><Form.Control type="text" name={`characteristic-${item.id}`} value={item.val_short_text} onChange={this.handleChange} value={item.val_short_text} list={`list-characteristic-${item.id}`}></Form.Control><datalist id={`list-characteristic-${item.id}`}>{item.suggested_values.map(v => <option>{v}</option>)}</datalist></>,
+                        'numeric': <><Form.Control type="number" name={`characteristic-${item.id}`} value={item.val_numeric} onChange={this.handleChange} list={`list-characteristic-${item.id}`}></Form.Control><datalist id={`list-characteristic-${item.id}`}>{item.suggested_values.map(v => <option>{v.value}</option>)}</datalist></>,
+                        'short_text': <><Form.Control type="text" name={`characteristic-${item.id}`} value={item.val_short_text} onChange={this.handleChange} value={item.val_short_text} list={`list-characteristic-${item.id}`}></Form.Control><datalist id={`list-characteristic-${item.id}`}>{item.suggested_values.map(v => <option>{v.value}</option>)}</datalist></>,
                         'text': <Editor
                             initialValue={item.val_text}
                             value={item.val_text}

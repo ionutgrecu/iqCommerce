@@ -120,9 +120,9 @@ class Controller extends BaseController {
     }
 
     //Default action
-    function index() {
-        return view('index', $this->params);
-    }
+//    function index() {
+//        return view('index', $this->params);
+//    }
 
     protected function wildcard() {
         if ($this->params['controller']) {

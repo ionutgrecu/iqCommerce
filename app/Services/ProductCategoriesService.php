@@ -119,5 +119,4 @@ class ProductCategoriesService {
 
         return $this->item;
     }
-
 }

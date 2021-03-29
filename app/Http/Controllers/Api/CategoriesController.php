@@ -11,21 +11,13 @@ use function response;
 
 class CategoriesController extends Controller {
 
-    private $service;
-
-    function __construct() {
-        parent::__construct();
-
-        $this->service = new ProductCategoriesService;
-    }
-
     /**
      * Return categories
      *
      * @return Response
      */
-    public function index() {
-        return response()->json(['status' => 'ok', 'data' => $this->service->getAll()]);
+    public function index(ProductCategoriesService $service) {
+        return response(['data' => $service->getAll()]);
     }
 
     /**
@@ -43,11 +35,11 @@ class CategoriesController extends Controller {
      * @param  Request  $request
      * @return Response
      */
-    public function store(CategoryRequest $request) {
-        $category = $this->service->findOrNew((integer) $request['id']);
-        $this->service->fillItemWithRequest($request);
+    public function store(CategoryRequest $request, ProductCategoriesService $service) {
+        $category = $service->findOrNew((integer) $request['id']);
+        $service->fillItemWithRequest($request);
 
-        return response()->json(['status' => 'ok', 'data' => $category]);
+        return response(['data' => $category], 201);
     }
 
     /**
@@ -56,11 +48,11 @@ class CategoriesController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
-        $item = $this->service->find($id)->getItem();
-        $categories = $this->service->getTree($item->id);
+    public function show($id, ProductCategoriesService $service) {
+        $item = $service->find($id)->getItem();
+        $categories = $service->getTree($item->id);
 
-        return response()->json(['status' => 'ok', 'data' => $item, 'categories' => $categories]);
+        return response(['data' => $item, 'categories' => $categories]);
     }
 
     /**
@@ -70,7 +62,7 @@ class CategoriesController extends Controller {
      * @return Response
      */
     public function edit($id) {
-//        return response()->json(['status' => 'edit']);
+        //
     }
 
     /**
@@ -90,11 +82,11 @@ class CategoriesController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
-        if ($this->service->deleteItem($id))
-            return response()->json(['status' => 'ok', 'id' => $id]);
+    public function destroy($id, ProductCategoriesService $service) {
+        if ($service->deleteItem($id))
+            return response(['id' => $id]);
         else
-            return response()->json(['status' => 'failed', 'id' => $id, 'message' => 'Item not found']);
+            return response(['id' => $id, 'message' => 'Item not found'], 404);
     }
 
 }

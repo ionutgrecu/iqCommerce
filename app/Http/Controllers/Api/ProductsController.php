@@ -14,21 +14,13 @@ use function response;
 
 class ProductsController extends Controller {
 
-    private $service;
-
-    function __construct() {
-        parent::__construct();
-
-        $this->service = new ProductsService();
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index() {
-        return response()->json(array_merge(['status' => 'ok'], $this->service->paginate()->toArray()));
+    public function index(ProductsService $service) {
+        return response($service->paginate()->toArray());
     }
 
     /**
@@ -46,11 +38,11 @@ class ProductsController extends Controller {
      * @param  Request  $request
      * @return Response
      */
-    public function store(ProductRequest $request) {
-        $product = $this->service->findOrNew((integer) $request['id']);
-        $this->service->fillItemWithRequest($request);
+    public function store(ProductRequest $request, ProductsService $service) {
+        $product = $service->findOrNew((integer) $request['id']);
+        $service->fillItemWithRequest($request);
 
-        return response()->json(['status' => 'ok', 'data' => $product]);
+        return response(['data' => $product], 201);
     }
 
     /**
@@ -59,14 +51,14 @@ class ProductsController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
+    public function show($id, ProductsService $service) {
         try {
-            $product = $this->service->find((integer) $id)->getItem();
+            $product = $service->find((integer) $id)->getItem();
         } catch (Exception $ex) {
-            return \Response::json(exceptionToArray($ex), 404);
+            return response(exceptionToArray($ex), 404);
         }
 
-        return response()->json(['status' => 'ok', 'data' => $product]);
+        return response(['data' => $product]);
     }
 
     /**
@@ -96,18 +88,18 @@ class ProductsController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
-        if ($this->service->deleteItem($id))
-            return response()->json(['status' => 'ok', 'id' => $id]);
+    public function destroy($id, ProductsService $service) {
+        if ($service->deleteItem($id))
+            return response(['id' => $id]);
         else
-            return response()->json(['status' => 'failed', 'id' => $id, 'message' => 'Item not found']);
+            return response(['id' => $id, 'message' => 'Item not found'], 404);
     }
 
     public function deleteImage($id) {
         $imageService = new ProductImagesService();
         $imageService->delete((integer) $id);
 
-        return response()->json(['status' => 'ok']);
+        return response(['id' => $id]);
     }
 
     public function defaultImage($id) {
@@ -116,10 +108,10 @@ class ProductsController extends Controller {
         try {
             $imageService->find((integer) $id)->makeDefault();
         } catch (Exception $ex) {
-            return \Response::json(exceptionToArray($ex), 404);
+            return response(exceptionToArray($ex), 404);
         }
 
-        return response()->json(['status' => 'ok']);
+        return response(['id' => $id]);
     }
 
 }

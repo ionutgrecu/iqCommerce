@@ -11,21 +11,13 @@ use function response;
 
 class VendorsController extends Controller {
 
-    private $service;
-
-    function __construct() {
-        parent::__construct();
-
-        $this->service = new ProductVendorsService;
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index() {
-        return response()->json(['status' => 'ok', 'data' => $this->service->getAll()]);
+    public function index(ProductVendorsService $service) {
+        return response(['data' => $service->getAll()]);
     }
 
     /**
@@ -43,11 +35,11 @@ class VendorsController extends Controller {
      * @param  Request  $request
      * @return Response
      */
-    public function store(VendorRequest $request) {
-        $vendor = $this->service->findOrNew((integer) $request['id']);
-        $this->service->fillItemWithRequest($request);
+    public function store(VendorRequest $request, ProductVendorsService $service) {
+        $vendor = $service->findOrNew((integer) $request['id']);
+        $service->fillItemWithRequest($request);
 
-        return response()->json(['status' => 'ok', 'data' => $vendor]);
+        return response(['data' => $vendor], 201);
     }
 
     /**
@@ -56,10 +48,10 @@ class VendorsController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
-        $item = $this->service->find($id)->getItem();
+    public function show($id, ProductVendorsService $service) {
+        $item = $service->find($id)->getItem();
 
-        return response()->json(['status' => 'ok', 'data' => $item]);
+        return response(['data' => $item]);
     }
 
     /**
@@ -89,11 +81,11 @@ class VendorsController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
-        if ($this->service->deleteItem($id))
-            return response()->json(['status' => 'ok', 'id' => $id]);
+    public function destroy($id, ProductVendorsService $service) {
+        if ($service->deleteItem($id))
+            return response(['id' => $id]);
         else
-            return response()->json(['status' => 'failed', 'id' => $id, 'message' => 'Item not found']);
+            return response(['id' => $id, 'message' => 'Item not found'], 404);
     }
 
 }

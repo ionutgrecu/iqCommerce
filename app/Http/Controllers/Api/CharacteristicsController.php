@@ -12,20 +12,13 @@ use function response;
 
 class CharacteristicsController extends Controller {
 
-    private $service;
-
-    function __construct() {
-        parent::__construct();
-        $this->service = new CategoryCharacteristicsService;
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index() {
-        return response()->json(['status' => 'ok', 'data' => $this->service->getAll()]);
+    public function index(CategoryCharacteristicsService $service) {
+        return response(['data' => $service->getAll()]);
     }
 
     /**
@@ -43,11 +36,11 @@ class CharacteristicsController extends Controller {
      * @param  Request  $request
      * @return Response
      */
-    public function store(CharacteristicRequest $request) {
-        $item = $this->service->findOrNew((integer) $request['id']);
-        $this->service->fillItemWithRequest($request);
+    public function store(CharacteristicRequest $request, CategoryCharacteristicsService $service) {
+        $item = $service->findOrNew((integer) $request['id']);
+        $service->fillItemWithRequest($request);
 
-        return response()->json(['status' => 'ok', 'data' => $item]);
+        return response(['data' => $item], 201);
     }
 
     /**
@@ -56,16 +49,16 @@ class CharacteristicsController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
-        $item = $this->service->find($id)->getItem();
+    public function show($id, CategoryCharacteristicsService $service) {
+        $item = $service->find($id)->getItem();
         $categories = (new ProductCategoriesService)->getTree();
-        $nameValues = $this->service->getUniqueValues('name');
-        $groupValues = $this->service->getUniqueValues('group', $item->category_id);
-        $typeValues = $this->service->getTypeValues();
-        $prependValues = $this->service->getUniqueValues('prepend', $item->category_id);
-        $appendValues = $this->service->getUniqueValues('append', $item->category_id);
+        $nameValues = $service->getUniqueValues('name');
+        $groupValues = $service->getUniqueValues('group', $item->category_id);
+        $typeValues = $service->getTypeValues();
+        $prependValues = $service->getUniqueValues('prepend', $item->category_id);
+        $appendValues = $service->getUniqueValues('append', $item->category_id);
 
-        return response()->json(['status' => 'ok', 'data' => $item, 'categories' => $categories, 'nameValues' => $nameValues, 'groupValues' => $groupValues, 'typeValues' => $typeValues, 'prependValues' => $prependValues, 'appendValues' => $appendValues]);
+        return response(['data' => $item, 'categories' => $categories, 'nameValues' => $nameValues, 'groupValues' => $groupValues, 'typeValues' => $typeValues, 'prependValues' => $prependValues, 'appendValues' => $appendValues]);
     }
 
     /**
@@ -95,11 +88,11 @@ class CharacteristicsController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
-        if ($this->service->deleteItem($id))
-            return response()->json(['status' => 'ok', 'id' => $id]);
+    public function destroy($id, CategoryCharacteristicsService $service) {
+        if ($service->deleteItem($id))
+            return response(['id' => $id]);
         else
-            return response()->json(['status' => 'failed', 'id' => $id, 'message' => 'Item not found']);
+            return response(['id' => $id, 'message' => 'Item not found']);
     }
 
 }
