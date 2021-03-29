@@ -26,7 +26,7 @@ class ShopController extends Controller {
             $breadcrumbService->addBreadcrumb($parent->name, $parent->name, $parent->getUrl());
         $breadcrumbService->addBreadcrumb($category->name, $category->name, $category->getUrl());
 
-        return view('category', $this->params);
+        return view('shop.category', $this->params);
     }
 
     function product($catSlug, $prodSlud, ProductsService $service) {
