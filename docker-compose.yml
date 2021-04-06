@@ -9,9 +9,7 @@ services:
             - "8001:8080"
         restart: unless-stopped
         volumes:
-            - ../../:/var/www/html:rw
-        links:
-            - mysql-local
+            - ./:/var/www/html:rw
         hostname: php.local
         
     mysql-local:
@@ -23,7 +21,7 @@ services:
             - "3301:3306"
         restart: unless-stopped
         environment:
-            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_ROOT_PASSWORD=${DOCKER_MYSQL_ROOT_PASSWORD}
             - PATH=/opt/app-root/src/bin:/opt/app-root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/mysql
             - SUMMARY=Mysql
             - DESCRIPTION
@@ -31,6 +29,6 @@ services:
             - CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/mysql
         volumes:
             - type: bind
-              source: ${MYSQL_DATA_FOLDER}
+              source: ${DOCKER_MYSQL_DATA_FOLDER}
               target: /var/lib/mysql
         hostname: mysql.local
