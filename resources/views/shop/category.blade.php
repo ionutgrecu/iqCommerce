@@ -16,20 +16,20 @@
                     <?php } ?>
 
                     <?php
-                    foreach ($category->suggested_values as $filter) {dd($filter);
-                        if ($values) {
+                    foreach ($category->filters as $filter) {
+                        if ($filter->suggested_values) {
                             ?>
                             <aside class="widget">
                                 <h3 class="widget-title"><span><?= $filter->name ?></span></h3>
                                 <div class="widget_content">
                                     <ul>
-                                        <?php foreach($values as $val=>$text){?>
-                                        <li><a href="<?=$val?>"><?=$text?></a>  <span class="count">(1)</span></li>
-                                        <?php }?>
+                                        <?php foreach ($filter->suggested_values as $filterValue) { ?>
+                                            <li><a href="<?= $filterValue['value'] ?>"><?= $filterValue['value'] ?></a>  <span class="count">(<?= $filterValue['product_count'] ?>)</span></li>
+                                        <?php } ?>
                                     </ul>
                                 </div>
                             </aside>
-                        <?php
+                            <?php
                         }
                     }
                     ?>
