@@ -8,8 +8,7 @@ class PagesController extends Controller {
 
     function index() {
 //        dd($this->data);
-        $this->data['lang']='ro';
-        return view('home');
+        return view('home', $this->params);
     }
 
     function about() {

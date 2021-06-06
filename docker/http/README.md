@@ -16,13 +16,13 @@ Repository: https://websea@bitbucket.org/websea/wd-php7-laravel.git
 
 ## Build
 
-    docker build -t iq-php7-laravel
+    docker build -t iq-php8-laravel
 
 ## Usage
 
 Start the Docker container:
 
-    docker run -p 10000:8080 iq-php7-laravel
+    docker run -p 10000:8080 iq-php8-laravel
 
 See the PHP info on http://localhost:10000, or the static html page on http://localhost/test.html
 

@@ -1,7 +1,7 @@
 version: '3.3'
 services:
     web:
-        image: iq-php7-laravel
+        image: iq-php8-laravel
         container_name: iqCommerce
         #tty: true
         #stdin_open: true

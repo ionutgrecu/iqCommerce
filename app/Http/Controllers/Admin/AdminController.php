@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class AdminController extends \App\Http\Controllers\Controller
 {
     function index(){
-        return view('admin.index');
+        return view('admin.index', $this->params);
     }
     
     function apiCategories(){

@@ -12,7 +12,7 @@ class Authenticate extends Middleware {
      * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
-    protected function redirectTo(\Illuminate\Http\Request $request) {
+    protected function redirectTo($request) {
         if (\Request::isJson()) {
             return json_encode(['status' => 'not authenticated', 'message' => __('Can\' access that page right now.')]);
         } else {
