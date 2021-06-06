@@ -8,7 +8,7 @@
             <meta name="description" content="iqCommerce Admin Area">
             <meta name="author" content="Ionut Grecu <ionut@grecu.eu>">
             <meta name="keyword" content="iqCommerce, Bootstrap, React">
-            <link rel="shortcut icon" href="/<?= $theme_path ?>favicon.ico">
+            <link rel="shortcut icon" href="<?= asset('assets/admin/favicon/favicon.ico') ?>">
             <meta name="csrf-token" content="{{ csrf_token() }}">
 
             @yield('head')

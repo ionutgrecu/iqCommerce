@@ -1,4 +1,6 @@
-<?php $categories = $categoryService->getTree(); ?>
+<?php
+$categories = $categoryService->getTree(); 
+?>
 
 <!doctype html>
 <html lang="<?= $lang ?>">

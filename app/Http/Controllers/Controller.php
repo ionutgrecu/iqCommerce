@@ -30,6 +30,9 @@ class Controller extends BaseController {
 
     protected $lang;
     protected $localeArr;
+    protected $params=[];
+    protected $path='';
+    protected $action='';
 
     function __construct(
             ProductCategoriesService $categoryService,
@@ -52,7 +55,7 @@ class Controller extends BaseController {
         View::share('ProductCharacteristicsService', $ProductCharacteristicsService);
         View::share('breadcrumbService', $breadcrumbService);
 
-        if (Route::current()->parameters['wildcard']) {
+        if (Route::current()->parameters['wildcard']??null) {
             $wildcard = Route::current()->parameters['wildcard'];
             $get = explode('/', $wildcard);
 
@@ -73,12 +76,12 @@ class Controller extends BaseController {
             }
             $this->path = implode('/', $pathArr);
         }
-        if (!$this->params[0]) {
+        if (!($this->params[0]??null)) {
             list($controller, $action) = explode('@', Route::currentRouteAction());
             $controllerArr = explode('\\', $controller);
             $this->params['controller'] = array_pop($controllerArr);
             $this->params['action'] = $action;
-            $this->params[0] = request()->route()->parameters['slug'] ?: ($action == 'page' ? 'index' : $this->action);
+            $this->params[0] = request()->route()->parameters['slug'] ?? ($action == 'page' ? 'index' : $this->action);
         }
         $this->params['controller'] = class_basename($this);
         $this->params['path'] = $this->path;

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ProductsController extends Controller
 {
     function index(){
-        return view('admin.products.index');
+        return view('admin.products.index', $this->params);
     }
     
 }
