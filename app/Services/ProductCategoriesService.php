@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Http\Requests\Api\CategoryRequest;
 use App\Models\ProductCategory;
+use App\Strategies\ProductCategories\GetAllItemsStrategy;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Storage as Storage2;
 use function config;
 
@@ -40,17 +42,23 @@ class ProductCategoriesService {
         return $productCategoryObj->orderBy('id', 'DESC')->get();
     }
 
-    function getItems(int $categoryId = 0): Collection {
+    /** Get all products of most recent find() item, or category_id=0 items
+     * 
+     * @return LengthAwarePaginator
+     */
+    function getItems(array $filters=[]): LengthAwarePaginator {
         $productCategoryObj = ProductCategory::select('*');
 
-        if (0 == $categoryId)
+        if (is_object($this->item))
+            $productCategoryObj->where('category_id', $this->item->id);
+        else
             $productCategoryObj->where(function($q) {
                 $q->where('category_id', 0)->orWhereNull('category_id');
             });
-        else
-            $productCategoryObj->where('category_id', $categoryId);
-
-        return $productCategoryObj->get();
+            
+            if($filters)$productCategoryObj->filterBy($filters);
+dd(toSqlBinds($productCategoryObj));
+        return $productCategoryObj->paginate(12);
     }
 
     function getTree(int $exceptId = null, int $parentId = null): array {
@@ -119,4 +127,5 @@ class ProductCategoriesService {
 
         return $this->item;
     }
+
 }

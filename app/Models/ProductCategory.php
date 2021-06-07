@@ -54,6 +54,11 @@ class ProductCategory extends Model {
     public function filters() {
         return $this->hasMany(CategoryCharacteristic::class, 'category_id', 'id')->orderBy('name')->where('is_filter', 1);
     }
+    
+    public function scopeFilterBy($q,$filters){
+        foreach($filters as $id=>$value)
+            $q->where('id','!=','a');
+    }
 
     public function getProductCount(): int {
         $result = 0;

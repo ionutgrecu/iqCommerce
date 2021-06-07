@@ -23,6 +23,8 @@ class ShopController extends Controller {
         } catch (Exception $ex) {
             abort(404);
         }
+        
+        $this->params['products']=$service->getItems($this->params['filterRequest']);dd($this->params['products']);
 
         foreach ($category->parents as $parent)
             $breadcrumbService->addBreadcrumb($parent->name, $parent->name, $parent->getUrl());
