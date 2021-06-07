@@ -12,8 +12,10 @@ use function view;
 
 class ShopController extends Controller {
 
-    function category($slug, ProductCategoriesService $service, BreadcrumbsService $breadcrumbService) {
+    function category($slug, ProductCategoriesService $service, BreadcrumbsService $breadcrumbService, \Illuminate\Http\Request $request) {
         $catId = slugToId($slug);
+        $this->params['categorySlug'] = $slug;
+        $this->params['filterRequest'] = $request->input('filter')??[];
 
         try {
             $category = $service->find($catId)->getItem();

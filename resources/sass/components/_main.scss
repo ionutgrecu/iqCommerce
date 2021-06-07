@@ -7822,7 +7822,7 @@ legend {
         }
 
         .widget-title {
-            margin: 0 0 20px;
+            margin: 0;
             border-bottom: 1px solid #e5e5e5;
             padding: 0 0 5px;
 
@@ -7942,59 +7942,65 @@ legend {
             }
         }
 
-        &.widget_price_filter .price_slider_wrapper {
-            padding: 0;
+        &.widget_price_filter{
+            .widget-title{
+                margin:0 0 20px;
+            }
+            
+            .price_slider_wrapper {
+                padding: 0;
 
-            .price_slider {
-                background: #cccccc;
-                box-shadow: none;
-                height: 4px;
-                margin: 0 0 30px;
-
-                .ui-slider-range {
-                    background: #00aeef;
-                    border: none;
+                .price_slider {
+                    background: #cccccc;
                     box-shadow: none;
                     height: 4px;
-                }
+                    margin: 0 0 30px;
 
-                .ui-slider-handle {
-                    background: #00aeef;
-                    border-radius: 0;
-                    box-shadow: none;
-                    height: 16px;
-                    margin: 0;
-                    top: -6px;
-                    width: 10px;
-                    -webkit-transition: none;
-                    transition: none;
-
-                    &:last-child {
-                        margin-left: -10px;
-                    }
-                }
-            }
-
-            .price_slider_amount {
-                float: left;
-                width: 100%;
-
-                .price_label {
-                    font-size: 14px;
-                    font-weight: 600;
-
-                    .from,
-                    .to {
-                        font-weight: normal;
-                    }
-                }
-
-                button {
-                    height: 35px;
-                    line-height: 35px;
-
-                    &:hover {
+                    .ui-slider-range {
                         background: #00aeef;
+                        border: none;
+                        box-shadow: none;
+                        height: 4px;
+                    }
+
+                    .ui-slider-handle {
+                        background: #00aeef;
+                        border-radius: 0;
+                        box-shadow: none;
+                        height: 16px;
+                        margin: 0;
+                        top: -6px;
+                        width: 10px;
+                        -webkit-transition: none;
+                        transition: none;
+
+                        &:last-child {
+                            margin-left: -10px;
+                        }
+                    }
+                }
+
+                .price_slider_amount {
+                    float: left;
+                    width: 100%;
+
+                    .price_label {
+                        font-size: 14px;
+                        font-weight: 600;
+
+                        .from,
+                        .to {
+                            font-weight: normal;
+                        }
+                    }
+
+                    button {
+                        height: 35px;
+                        line-height: 35px;
+
+                        &:hover {
+                            background: #00aeef;
+                        }
                     }
                 }
             }
@@ -12281,10 +12287,10 @@ body.home .main-container .page-content {
         }
 
         .widget_content {
-            padding: 20px 0;
+            padding: 0;
             float: left;
             width: 100%;
-            max-height: 189px;
+            max-height: 179px;
             overflow: auto;
         }
 

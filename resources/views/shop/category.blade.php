@@ -23,9 +23,13 @@
                                 <h3 class="widget-title"><span><?= $filter->name ?></span></h3>
                                 <div class="widget_content">
                                     <ul>
-                                        <?php foreach ($filter->suggested_values as $filterValue) { ?>
-                                            <li><a href="<?= $filterValue['value'] ?>"><?= $filterValue['value'] ?></a>  <span class="count">(<?= $filterValue['product_count'] ?>)</span></li>
-                                        <?php } ?>
+                                        <?php
+                                        foreach ($filter->suggested_values as $filterValue) {
+                                            $filterRequestTmp = $filterRequest;
+                                            $filterRequestTmp[$filter->id] = $filterValue['value'];
+                                            ?>
+                                            <li><a href="<?= route('shop.category', ['cat_slug' => $categorySlug, 'filter' => $filterRequestTmp]) ?>"><?= $filterValue['value'] ?></a>  <span class="count">(<?= $filterValue['product_count'] ?>)</span></li>
+        <?php } ?>
                                     </ul>
                                 </div>
                             </aside>
