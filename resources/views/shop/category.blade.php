@@ -29,7 +29,7 @@
                                             $filterRequestTmp[$filter->id] = $filterValue['value'];
                                             ?>
                                             <li><a href="<?= route('shop.category', ['cat_slug' => $categorySlug, 'filter' => $filterRequestTmp]) ?>"><?= $filterValue['value'] ?></a>  <span class="count">(<?= $filterValue['product_count'] ?>)</span></li>
-        <?php } ?>
+                                        <?php } ?>
                                     </ul>
                                 </div>
                             </aside>
@@ -38,45 +38,20 @@
                     }
                     ?>
                     <aside class="widget widget_price_filter">
-                        <h3 class="widget-title"><span>Filter By Price</span></h3>
+                        <h3 class="widget-title"><span>Filtrare dupa pret</span></h3>
                         <div class="widget_content">
                             <form method="get" action="#">
                                 <div class="price_slider_wrapper">
-                                    <div id="slider-range" class="price_slider"></div>
+                                    <div id="slider-range" class="price_slider" data-min="0" data-max="1000"></div>
                                     <div class="price_slider_amount">
-                                        <button type="submit" class="button">Filter</button>
                                         <div class="price_label">
-                                            Price: <input type="text" id="amount">
+                                            Pret: <input type="text" id="price_range" readonly="">
                                         </div>
+                                        <button type="submit" class="button">Filtreaza</button>
                                         <div class="clear"></div>
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                    </aside>
-                    <aside class="widget widget_product_tag_cloud">
-                        <h3 class="widget-title"><span>Popular Tags</span></h3>
-                        <div class="widget_content">
-                            <div class="tagcloud">
-                                <a href="" title='4 topics' style='font-size: 15.5675675676pt;'>blouse</a>
-                                <a href="" title='9 topics' style='font-size: 21.2432432432pt;'>electronic</a>
-                                <a href="" title='10 topics' style='font-size: 22pt;'>fashion</a>
-                                <a href="" title='3 topics' style='font-size: 13.6756756757pt;'>handbag</a>
-                                <a href="" title='1 topic' style='font-size: 8pt;'>hat</a>
-                                <a href="" title='3 topics' style='font-size: 13.6756756757pt;'>laptop</a>
-                                <a href="" title='2 topics' style='font-size: 11.4054054054pt;'>tablet</a>
-                                <a href="" title='4 topics' style='font-size: 15.5675675676pt;'>television</a>
-                            </div>
-                        </div>
-                    </aside>
-                    <aside id="yith-woocompare-widget-4" class="widget yith-woocompare-widget">
-                        <h3 class="widget-title"><span>Compare</span></h3>
-                        <div class="widget_content">
-                            <ul class="products-list" data-lang="en">
-                                <li>No products to compare</li>
-                            </ul>
-                            <a href="" class="clear-all">Clear all</a>
-                            <a href="" class="compare button">Compare</a>
                         </div>
                     </aside>
                 </div>
@@ -950,75 +925,4 @@
     </div>
 </div>
 <div class="clearfix"></div>
-<div class="banner-home-content2">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="banner-box banner-box1">
-                    <h2>MONEY BACK GUARANTEED</h2>
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="banner-box banner-box2">
-                    <h2>FREE WORLDWIDE DELIVERY</h2>
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="banner-box banner-box3">
-                    <h2>ONLINE SUPPORT 24/7</h2>
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="group-modul">
-    <div class="container">
-        <div class="row">
-            <div class="newsletter-container col-md-4 col-sm-12">
-                <h2>SIGN UP FOR OUR WEEKLY NEWSLETTER !</h2>
-                <div class="widget_wysija_cont shortcode_wysija">
-                    <div class="wysija-msg ajax"></div>
-                    <form method="post" action="#wysija" class="widget_wysija">
-                        <p class="wysija-paragraph">
-                            <input type="text" name="email" class="wysija-input" title="Email" placeholder="Email" value="" />
-                        </p>
-                        <input class="wysija-submit" type="submit" value="Subscribe!" />
-                    </form>
-                </div>
-            </div>
-            <div class="brand-container col-md-8 col-sm-12">
-                <div id="brands-carousel-4" class="brands-carousel">
-                    <div>
-                        <a href="" title="">
-                            <img src="images/fashion/brand/logo1.jpg" alt="" />
-                        </a>
-                    </div>
-                    <div>
-                        <a href="" title="">
-                            <img src="images/fashion/brand/logo2.jpg" alt="" />
-                        </a>
-                    </div>
-                    <div>
-                        <a href="" title="">
-                            <img src="images/fashion/brand/logo3.jpg" alt="" />
-                        </a>
-                    </div>
-                    <div>
-                        <a href="" title="">
-                            <img src="images/fashion/brand/logo4.jpg" alt="" />
-                        </a>
-                    </div>
-                    <div>
-                        <a href="" title="">
-                            <img src="images/fashion/brand/logo3.jpg" alt="" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection

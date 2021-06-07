@@ -39,7 +39,7 @@ $categories = $categoryService->getTree();
         <link rel="stylesheet" href="<?= mix('css/style.css') ?>" />
 
         <!--DEV-->
-        <link rel="stylesheet" href="<?= asset('css/style-dev.css') ?>" />
+        <!--<link rel="stylesheet" href="<?= asset('css/style-dev.css') ?>" />-->
 
         <script src="<?= asset('assets/lib/modernizr-2.8.3.min.js') ?>"></script>
         @yield('js-header')

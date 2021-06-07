@@ -610,14 +610,14 @@
         //Price Slider / UI jQuary Slider
         $('#slider-range').slider({
             range: true,
-            min: 45,
-            max: 515,
-            values: [45, 515],
+            min: $('#slider-range').data('min'),
+            max: $('#slider-range').data('max'),
+            values: [$('#slider-range').data('min'), $('#slider-range').data('max')],
             slide: function (event, ui) {
-                $("#amount").val("LEI" + ui.values[0] + " - LEI" + ui.values[1]);
+                $("#price_range").val("LEI" + ui.values[0] + " - LEI" + ui.values[1]);
             }
         });
-        $("#amount").val("LEI" + $("#slider-range").slider("values", 0) +
+        $("#price_range").val("LEI" + $("#slider-range").slider("values", 0) +
             " — LEI" + $("#slider-range").slider("values", 1));
 
 
