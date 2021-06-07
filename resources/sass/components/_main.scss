@@ -3040,6 +3040,15 @@ legend {
         border-bottom: 1px solid #e5e5e5;
         padding: 0 0 15px;
 
+        .orderby-wrapper{
+            label{
+
+            }
+            a{
+
+            }
+        }
+
         &.tb-bottom {
             margin: 0;
             border: none;
@@ -3171,6 +3180,7 @@ legend {
             border: 1px solid #e5e5e5;
             height: 40px;
             overflow: hidden;
+            list-style: none;
 
             li {
                 border: none;

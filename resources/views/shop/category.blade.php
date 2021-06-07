@@ -58,28 +58,11 @@
                 <div id="archive-product" class="col-xs-12 col-md-9">
                     <div class="archive-border shop-sidebar left-sidebar">
                         <div class="toolbar">
-                            <div class="view-mode">
-                                <a href="#" class="grid  active" title="Grid">
-                                    <i class="fa fa-th-large"></i><span>Grid</span>
-                                </a>
-                                <a href="#" class="list " title="List">
-                                    <i class="fa fa-th-list"></i><span>List</span>
-                                </a>
-                            </div>
-                            <p class="bootexpert-result-count">Showing 1&ndash;9 of 20 results</p>
-                            <form class="bootexpert-ordering hidden-xs" method="get">
+                            <div class="bootexpert-ordering">
                                 <div class="orderby-wrapper">
-                                    <label>Sort By</label>
-                                    <select name="orderby" class="orderby">
-                                        <option value="menu_order" selected='selected'>Default sorting</option>
-                                        <option value="popularity">Sort by popularity</option>
-                                        <option value="rating">Sort by average rating</option>
-                                        <option value="date">Sort by newness</option>
-                                        <option value="price">Sort by price: low to high</option>
-                                        <option value="price-desc">Sort by price: high to low</option>
-                                    </select>
+                                    <label>Sortare dupa:</label> <a href="">Pret</a> <a href="">Noutati</a> <a href="">Discount</a> <a href="">Recomandari</a>
                                 </div>
-                            </form>
+                            </div>
                             <nav class="bootexpert-pagination">
                                 <ul class='page-numbers'>
                                     <li><span class='page-numbers current'>1</span></li>
