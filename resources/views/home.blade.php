@@ -18,7 +18,8 @@
                 <div class="parvez_wrapper">
                     @include('layout.main-slider')
 
-                    @include('layout.main-productlist')
+                    <?php $products = $productsService->getItemsNew(9); ?>
+                    @include('shop.list',['products'=>$products])
                 </div>
             </div>
         </div>

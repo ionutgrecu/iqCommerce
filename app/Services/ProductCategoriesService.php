@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Storage as Storage2;
 use function config;
-use function dd;
-use function toSqlBinds;
 
 /** @version 1.0.0
  * @author Ionut Grecu
@@ -88,18 +86,26 @@ class ProductCategoriesService {
 
     /** Get products for previous loaded item via find()
      * 
+     * @param bool  $recursive  Get products from subcategories
      * @param array $filters
      * @return LengthAwarePaginator
      */
-    function getProducts(array $filters = []): LengthAwarePaginator {
+    function getProducts(bool $recursive = true, array $filters = []): LengthAwarePaginator {
         if (!$this->item)
             return (new LengthAwarePaginator([], 0, 1));
 
-        $productObj = Product::where('category_id', $this->item->id);
+        $catArr = [$this->item->id];
+        if ($recursive) {
+            $subcat = $this->getTree(parentId: $this->item->id);
+            foreach ($subcat as $cat)
+                $catArr[] = $cat->id;
+        }
+        $productObj = Product::whereIn((new Product)->getTable() . '.product_category_id', $catArr);
 
         if ($filters)
             $productObj->filterBy($filters);
-        dd(toSqlBinds($productObj));
+//dd(toSqlBinds($productObj));
+        return $productObj->paginate(12);
     }
 
     function find(int $id): ProductCategoriesService {

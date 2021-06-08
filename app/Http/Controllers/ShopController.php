@@ -24,12 +24,11 @@ class ShopController extends Controller {
             abort(404);
         }
 
-        $this->params['products'] = $service->getProducts($this->params['filterRequest']);
-        dd($this->params['products']);
-
         foreach ($category->parents as $parent)
             $breadcrumbService->addBreadcrumb($parent->name, $parent->name, $parent->getUrl());
         $breadcrumbService->addBreadcrumb($category->name, $category->name, $category->getUrl());
+
+        $this->params['products'] = $service->getProducts(filters: $this->params['filterRequest']);
 
         return view('shop.category', $this->params);
     }
