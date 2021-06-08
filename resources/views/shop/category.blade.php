@@ -64,6 +64,7 @@
                                 </div>
                             </div>
                             <nav class="bootexpert-pagination">
+                                <?=$products->links()?>
                                 <ul class='page-numbers'>
                                     <li><span class='page-numbers current'>1</span></li>
                                     <li><a class='page-numbers' href="">2</a></li>

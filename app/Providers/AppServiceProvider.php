@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\BreadcrumbsService;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use function app;
 use function env;
@@ -31,9 +32,11 @@ class AppServiceProvider extends ServiceProvider {
             \Debugbar::enable();
         }
 
-        app()->singleton(BreadcrumbsService::class, function($app) {
+        app()->singleton(BreadcrumbsService::class, function ($app) {
             return new BreadcrumbsService();
         });
+
+        Paginator::defaultView('vendor.pagination.default');
     }
 
 }
