@@ -18,7 +18,7 @@ class ProductCategory extends Model {
     protected static function boot(): void {
         parent::boot();
 
-        self::saving(function($model) {
+        self::saving(function ($model) {
             if ('null' == $model->category_id)
                 $model->category_id = null;
         });
@@ -54,11 +54,6 @@ class ProductCategory extends Model {
     public function filters() {
         return $this->hasMany(CategoryCharacteristic::class, 'category_id', 'id')->orderBy('name')->where('is_filter', 1);
     }
-    
-    public function scopeFilterBy($q,$filters){
-        foreach($filters as $id=>$value)
-            $q->where('id','!=','a');
-    }
 
     public function getProductCount(): int {
         $result = 0;
@@ -73,7 +68,7 @@ class ProductCategory extends Model {
     function loadMissingRecursive(int $exceptId = null, ...$relations) {
         if ($exceptId)
             foreach ($relations as $relation)
-                $this->loadMissing([$relation => function($q)use($exceptId) {
+                $this->loadMissing([$relation => function ($q)use ($exceptId) {
                         $q->where('id', '!=', $exceptId);
                     }]);
         else

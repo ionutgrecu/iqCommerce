@@ -3,13 +3,15 @@
 namespace App\Services;
 
 use App\Http\Requests\Api\CategoryRequest;
+use App\Models\Product;
 use App\Models\ProductCategory;
-use App\Strategies\ProductCategories\GetAllItemsStrategy;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Storage as Storage2;
 use function config;
+use function dd;
+use function toSqlBinds;
 
 /** @version 1.0.0
  * @author Ionut Grecu
@@ -20,7 +22,7 @@ use function config;
  */
 class ProductCategoriesService {
 
-    private $item;
+    private ProductCategory $item;
 
     function deleteItem(int $id): bool {
         $item = ProductCategory::find($id);
@@ -46,19 +48,17 @@ class ProductCategoriesService {
      * 
      * @return LengthAwarePaginator
      */
-    function getItems(array $filters=[]): LengthAwarePaginator {
+    function getItems(): Collection {
         $productCategoryObj = ProductCategory::select('*');
 
-        if (is_object($this->item))
+        if ($this->item)
             $productCategoryObj->where('category_id', $this->item->id);
         else
-            $productCategoryObj->where(function($q) {
+            $productCategoryObj->where(function ($q) {
                 $q->where('category_id', 0)->orWhereNull('category_id');
             });
-            
-            if($filters)$productCategoryObj->filterBy($filters);
-dd(toSqlBinds($productCategoryObj));
-        return $productCategoryObj->paginate(12);
+
+        return $productCategoryObj->get();
     }
 
     function getTree(int $exceptId = null, int $parentId = null): array {
@@ -84,6 +84,22 @@ dd(toSqlBinds($productCategoryObj));
 
     function getItem(): ProductCategory {
         return $this->item;
+    }
+
+    /** Get products for previous loaded item via find()
+     * 
+     * @param array $filters
+     * @return LengthAwarePaginator
+     */
+    function getProducts(array $filters = []): LengthAwarePaginator {
+        if (!$this->item)
+            return (new LengthAwarePaginator([], 0, 1));
+
+        $productObj = Product::where('category_id', $this->item->id);
+
+        if ($filters)
+            $productObj->filterBy($filters);
+        dd(toSqlBinds($productObj));
     }
 
     function find(int $id): ProductCategoriesService {

@@ -11,11 +11,13 @@ class ProductCharacteristics extends Model {
 
     protected $fillable = ['val_boolean', 'val_numeric', 'val_short_text', 'val_text'];
 
+    public const COLUMN_BOOLEAN = 'val_boolean', COLUMN_NUMERIC = 'val_numeric', COLUMN_SHORT_TEXT = 'val_short_text', COLUMN_TEXT = 'val_text';
+
     public function fill(array $attributes) {
-        $attributes['val_boolean'] = $attributes['val_boolean'] ?? 0;
-        $attributes['val_numeric'] = $attributes['val_numeric'] ?? 0;
-        $attributes['val_short_text'] = $attributes['val_short_text'] ?? '';
-        $attributes['val_text'] = $attributes['val_text'] ?? '';
+        $attributes[self::COLUMN_BOOLEAN] = $attributes[self::COLUMN_BOOLEAN] ?? 0;
+        $attributes[self::COLUMN_NUMERIC] = $attributes[self::COLUMN_NUMERIC] ?? 0;
+        $attributes[self::COLUMN_SHORT_TEXT] = $attributes[self::COLUMN_SHORT_TEXT] ?? '';
+        $attributes[self::COLUMN_TEXT] = $attributes[self::COLUMN_TEXT] ?? '';
 
         parent::fill($attributes);
     }
