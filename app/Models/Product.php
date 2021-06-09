@@ -67,7 +67,7 @@ class Product extends Model {
         return max($this->price * 0.98, $this->min_price);
     }
 
-    public function scopeFilterBy(Builder $q, $filters) {
+    public function scopeFilterBy(Builder $q, array $filters) {
         foreach ($filters as $id => $value) {
             $categoryCharacteristic = CategoryCharacteristic::find($id);
             if (!$categoryCharacteristic || !$categoryCharacteristic->is_filter)
@@ -79,6 +79,18 @@ class Product extends Model {
                         $join->on("{$this->getTable()}.id", "$tableName.product_id")->where("$tableName.category_characteristic_id", $id);
                     })
                     ->where("$tableName.{$categoryCharacteristic->getValAttributeName()}", $value);
+        }
+    }
+
+    public function scopeSortBy(Builder $q, string $sortBy, string $sortOrder) {
+        switch ($sortBy) {
+            case 'recommends':
+                //TODO: Know your customer
+                $q->orderByRaw("`price_min`>0 DESC, `price`-`price_min` $sortOrder");
+                break;
+
+            default:
+                $q->orderBy($sortBy, $sortOrder);
         }
     }
 

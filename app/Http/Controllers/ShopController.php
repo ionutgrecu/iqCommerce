@@ -16,6 +16,8 @@ class ShopController extends Controller {
         $catId = slugToId($slug);
         $this->params['categorySlug'] = $slug;
         $this->params['filterRequest'] = $request->input('filter') ?? [];
+        $this->params['sortbyRequest'] = $request->input('sort_by') ?? 'recommends';
+        $this->params['sortRequest'] = $request->input('sort') ?? 'DESC';
 
         try {
             $category = $service->find($catId)->getItem();
@@ -28,7 +30,7 @@ class ShopController extends Controller {
             $breadcrumbService->addBreadcrumb($parent->name, $parent->name, $parent->getUrl());
         $breadcrumbService->addBreadcrumb($category->name, $category->name, $category->getUrl());
 
-        $this->params['products'] = $service->getProducts(filters: $this->params['filterRequest']);
+        $this->params['products'] = $service->getProducts(filters: $this->params['filterRequest'], sortBy: $this->params['sortbyRequest'], sortOrder: $this->params['sortRequest']);
 
         return view('shop.category', $this->params);
     }

@@ -3094,19 +3094,24 @@ legend {
         }
 
         .bootexpert-ordering {
-            float: right;
+            float: left;
             margin: 0;
 
             .orderby-wrapper {
+                a{
+                    margin:0 0 0 10px;
+
+                    &.selected{
+                        font-weight: bold;
+                        text-decoration: underline;
+                    }   
+                }
+
                 select {
                     display: none;
                     font-family: Nunito, Arial, Helvetica, sans-serif;
                     font-size: 12px;
                     text-transform: uppercase;
-                }
-
-                label {
-                    text-transform: capitalize;
                 }
 
                 .chosen-container {

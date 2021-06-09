@@ -28,7 +28,7 @@
                                             $filterRequestTmp = $filterRequest;
                                             $filterRequestTmp[$filter->id] = $filterValue['value'];
                                             ?>
-                                            <li><a class="<?=in_array($filterValue['value'],$filterRequest)?'selected':''?>" href="<?= route('shop.category', ['cat_slug' => $categorySlug, 'filter' => $filterRequestTmp]) ?>"><?= $filterValue['value'] ?></a>  <span class="count">(<?= $filterValue['product_count'] ?>)</span></li>
+                                            <li><a class="<?= in_array($filterValue['value'], $filterRequest) ? 'selected' : '' ?>" href="<?= route('shop.category', ['cat_slug' => $categorySlug, 'filter' => $filterRequestTmp, 'sort_by' => $sortbyRequest, 'sort' => $sortRequest]) ?>"><?= $filterValue['value'] ?></a>  <span class="count">(<?= $filterValue['product_count'] ?>)</span></li>
                                         <?php } ?>
                                     </ul>
                                 </div>
@@ -60,26 +60,26 @@
                         <div class="toolbar">
                             <div class="bootexpert-ordering">
                                 <div class="orderby-wrapper">
-                                    <label>Sortare dupa:</label> <a href="">Pret</a> <a href="">Noutati</a> <a href="">Discount</a> <a href="">Recomandari</a>
+                                    <label>Sortare dupa:</label> <a class="<?= 'price' == $sortbyRequest ? 'selected' : '' ?>" href="<?= route('shop.category', ['cat_slug' => $categorySlug, 'filter' => $filterRequest, 'sort_by' => 'price', 'sort' => 'ASC']) ?>">Pret</a> <a class="<?= 'id' == $sortbyRequest ? 'selected' : '' ?>" href="<?= route('shop.category', ['cat_slug' => $categorySlug, 'filter' => $filterRequest, 'sort_by' => 'id', 'sort' => 'DESC']) ?>">Noutati</a> <a class="<?= 'recommends' == $sortbyRequest ? 'selected' : '' ?>" href="<?= route('shop.category', ['cat_slug' => $categorySlug, 'filter' => $filterRequest, 'sort_by' => 'recommends', 'sort' => 'DESC']) ?>">Recomandari</a>
                                 </div>
                             </div>
-                            
-                            <?=$products->links()?>
-                            
+
+                            <?= $products->appends(\Arr::except(request()->input(), ['q']))->links() ?>
+
                             <div class="clearfix"></div>
                         </div>
-                        
+
                         @include('shop.list',['products'=>$products])
-                        
+
                         <div class="toolbar tb-bottom">
                             <div class="bootexpert-ordering">
                                 <div class="orderby-wrapper">
-                                    <label>Sortare dupa:</label> <a href="">Pret</a> <a href="">Noutati</a> <a href="">Discount</a> <a href="">Recomandari</a>
+                                    <label>Sortare dupa:</label> <a class="<?= 'price' == $sortbyRequest ? 'selected' : '' ?>" href="<?= route('shop.category', ['cat_slug' => $categorySlug, 'filter' => $filterRequest, 'sort_by' => 'price', 'sort' => 'ASC']) ?>">Pret</a> <a class="<?= 'id' == $sortbyRequest ? 'selected' : '' ?>" href="<?= route('shop.category', ['cat_slug' => $categorySlug, 'filter' => $filterRequest, 'sort_by' => 'id', 'sort' => 'DESC']) ?>">Noutati</a> <a class="<?= 'recommends' == $sortbyRequest ? 'selected' : '' ?>" href="<?= route('shop.category', ['cat_slug' => $categorySlug, 'filter' => $filterRequest, 'sort_by' => 'recommends', 'sort' => 'DESC']) ?>">Recomandari</a>
                                 </div>
                             </div>
-                            
-                            <?=$products->links()?>
-                            
+
+                            <?= $products->appends(\Arr::except(request()->input(), ['q']))->links() ?>
+
                             <div class="clearfix"></div>
                         </div>
                     </div>

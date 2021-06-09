@@ -90,7 +90,7 @@ class ProductCategoriesService {
      * @param array $filters
      * @return LengthAwarePaginator
      */
-    function getProducts(bool $recursive = true, array $filters = []): LengthAwarePaginator {
+    function getProducts(bool $recursive = true, array $filters = [], string $sortBy = null, string $sortOrder = null): LengthAwarePaginator {
         if (!$this->item)
             return (new LengthAwarePaginator([], 0, 1));
 
@@ -104,6 +104,10 @@ class ProductCategoriesService {
 
         if ($filters)
             $productObj->filterBy($filters);
+
+        if ($sortBy)
+            $productObj->sortBy($sortBy, $sortOrder);
+
 //dd(toSqlBinds($productObj));
         return $productObj->paginate(12);
     }
