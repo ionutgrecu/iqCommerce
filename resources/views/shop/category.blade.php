@@ -19,7 +19,7 @@
                     foreach ($category->filters as $filter) {
                         if ($filter->suggested_values) {
                             ?>
-                            <aside class="widget">
+                            <aside class="widget widget-filter">
                                 <h3 class="widget-title"><span><?= $filter->name ?></span></h3>
                                 <div class="widget_content">
                                     <ul>
@@ -28,7 +28,7 @@
                                             $filterRequestTmp = $filterRequest;
                                             $filterRequestTmp[$filter->id] = $filterValue['value'];
                                             ?>
-                                            <li><a href="<?= route('shop.category', ['cat_slug' => $categorySlug, 'filter' => $filterRequestTmp]) ?>"><?= $filterValue['value'] ?></a>  <span class="count">(<?= $filterValue['product_count'] ?>)</span></li>
+                                            <li><a class="<?=in_array($filterValue['value'],$filterRequest)?'selected':''?>" href="<?= route('shop.category', ['cat_slug' => $categorySlug, 'filter' => $filterRequestTmp]) ?>"><?= $filterValue['value'] ?></a>  <span class="count">(<?= $filterValue['product_count'] ?>)</span></li>
                                         <?php } ?>
                                     </ul>
                                 </div>
@@ -63,51 +63,23 @@
                                     <label>Sortare dupa:</label> <a href="">Pret</a> <a href="">Noutati</a> <a href="">Discount</a> <a href="">Recomandari</a>
                                 </div>
                             </div>
-                            <nav class="bootexpert-pagination">
-                                <?=$products->links()?>
-                                <ul class='page-numbers'>
-                                    <li><span class='page-numbers current'>1</span></li>
-                                    <li><a class='page-numbers' href="">2</a></li>
-                                    <li><a class='page-numbers' href="">3</a></li>
-                                    <li><a class="next page-numbers" href="">&rarr;</a></li>
-                                </ul>
-                            </nav>
+                            
+                            <?=$products->links()?>
+                            
                             <div class="clearfix"></div>
                         </div>
                         
                         @include('shop.list',['products'=>$products])
                         
                         <div class="toolbar tb-bottom">
-                            <div class="view-mode">
-                                <a href="#" class="grid  active" title="Grid">
-                                    <i class="fa fa-th-large"></i><span>Grid</span>
-                                </a>
-                                <a href="#" class="list " title="List">
-                                    <i class="fa fa-th-list"></i><span>List</span>
-                                </a>
-                            </div>
-                            <p class="bootexpert-result-count">Showing 1&ndash;9 of 20 results</p>
-                            <form class="bootexpert-ordering hidden-xs" method="get">
+                            <div class="bootexpert-ordering">
                                 <div class="orderby-wrapper">
-                                    <label>Sort By</label>
-                                    <select name="orderby" class="orderby">
-                                        <option value="menu_order" selected='selected'>Default sorting</option>
-                                        <option value="popularity">Sort by popularity</option>
-                                        <option value="rating">Sort by average rating</option>
-                                        <option value="date">Sort by newness</option>
-                                        <option value="price">Sort by price: low to high</option>
-                                        <option value="price-desc">Sort by price: high to low</option>
-                                    </select>
+                                    <label>Sortare dupa:</label> <a href="">Pret</a> <a href="">Noutati</a> <a href="">Discount</a> <a href="">Recomandari</a>
                                 </div>
-                            </form>
-                            <nav class="bootexpert-pagination">
-                                <ul class='page-numbers'>
-                                    <li><span class='page-numbers current'>1</span></li>
-                                    <li><a class='page-numbers' href="">2</a></li>
-                                    <li><a class='page-numbers' href="">3</a></li>
-                                    <li><a class="next page-numbers" href="">&rarr;</a></li>
-                                </ul>
-                            </nav>
+                            </div>
+                            
+                            <?=$products->links()?>
+                            
                             <div class="clearfix"></div>
                         </div>
                     </div>

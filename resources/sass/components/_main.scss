@@ -12271,6 +12271,13 @@ body.home .main-container .page-content {
     .widget {
         padding: 0;
 
+        &.widget-filter{
+            a.selected{
+                font-weight: bold;
+                text-decoration: underline;
+            }
+        }
+
         .widget-title {
             text-transform: uppercase;
             color: #444;
@@ -12600,7 +12607,7 @@ body.home .main-container .page-content {
                         font-size: 15px;
                         font-weight: normal;
                         position: relative;
-                        width: 20px;
+                        min-width: 20px;
                         height: 20px;
                         line-height: 23px;
                     }
