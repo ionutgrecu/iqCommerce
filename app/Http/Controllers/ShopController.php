@@ -6,13 +6,14 @@ use App\Services\BreadcrumbsService;
 use App\Services\ProductCategoriesService;
 use App\Services\ProductsService;
 use Exception;
+use Illuminate\Http\Request;
 use function abort;
 use function slugToId;
 use function view;
 
 class ShopController extends Controller {
 
-    function category($slug, ProductCategoriesService $service, BreadcrumbsService $breadcrumbService, \Illuminate\Http\Request $request) {
+    function category($slug, ProductCategoriesService $service, BreadcrumbsService $breadcrumbService, Request $request) {
         $catId = slugToId($slug);
         $this->params['categorySlug'] = $slug;
         $this->params['filterRequest'] = $request->input('filter') ?? [];

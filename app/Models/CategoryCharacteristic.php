@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use DB;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Query\JoinClause;
 use Str;
+use function dd;
 
 class CategoryCharacteristic extends Model {
 
@@ -37,11 +40,49 @@ class CategoryCharacteristic extends Model {
         });
     }
 
-    public function getSuggestedValuesAttribute() {
-        $result = [];
-
+    function getSuggestedValues(array $filters = []) {
         if (self::TYPE_TEXT == $this->type)
             return [];
+
+        $result = [];
+
+        $productCharacteristicsobj = ProductCharacteristics::where('category_characteristic_id', $this->id);
+
+        if (self::TYPE_BOOLEAN == $this->type) {
+            $valColumn = 'val_boolean';
+            $productCharacteristicsobj->select($valColumn, DB::raw('COUNT(id) AS product_count'))->whereNotNull($valColumn)->groupBy($valColumn);
+        } elseif (self::TYPE_NUMERIC == $this->type) {
+            $valColumn = 'val_numeric';
+            $productCharacteristicsobj->select($valColumn, DB::raw('COUNT(id) AS product_count'))->whereNotNull($valColumn)->groupBy($valColumn);
+        } elseif (self::TYPE_SHORT_TEXT == $this->type) {
+            $valColumn = 'val_short_text';
+            $productCharacteristicsobj->select($valColumn, DB::raw('COUNT(id) AS product_count'))->whereNotNull($valColumn)->where($valColumn, '!=', '')->groupBy($valColumn);
+        }
+
+        if ($filters){
+            $productCharacteristicsTable=(new ProductCharacteristics)->getTable();
+            foreach ($filters as $id => $value) {
+                $tableName = "characteristic_{$id}_" . \Str::random(3);
+                $productCharacteristicsobj->whereRaw("(SELECT COUNT(id) FROM $productCharacteristicsTable AS $tableName WHERE $tableName.category_characteristic_id={$this->id} AND $valColumn='$value')");
+            }
+        }
+
+//        dd(toSqlBinds($productCharacteristicsobj));
+        foreach ($productCharacteristicsobj->cursor() as $item) {
+            if (self::TYPE_BOOLEAN == $this->type)
+                $result[] = ['value' => $item->val_boolean ? 1 : 0, 'product_count' => $item->product_count];
+            else
+                $result[] = ['value' => $item->$valColumn, 'product_count' => $item->product_count];
+        }
+
+        return $result;
+    }
+
+    public function getSuggestedValuesAttribute() {
+        if (self::TYPE_TEXT == $this->type)
+            return [];
+
+        $result = [];
 
         $productCharacteristicsobj = ProductCharacteristics::where('category_characteristic_id', $this->id);
 
@@ -85,6 +126,23 @@ class CategoryCharacteristic extends Model {
         }
 
         return ProductCharacteristics::COLUMN_SHORT_TEXT;
+    }
+
+    function scopeFilterBy(Builder $q, array $filters = []) {
+        $tableProductsName = (new Product)->getTable();
+        $tableProductCharacteristicsName = (new ProductCharacteristics)->getTable();
+
+        foreach ($filters as $id => $value) {
+            $categoryCharacteristic = CategoryCharacteristic::find($id);
+            if (!$categoryCharacteristic || !$categoryCharacteristic->is_filter)
+                continue;
+
+            $tableName = "characteristic_{$id}_" . \Str::random(3);
+
+            $q->join("$tableProductCharacteristicsName AS $tableName", function (JoinClause $join) use ($tableName, $tableProductsName, $tableProductCharacteristicsName, $id) {
+                $join->on("{$this->getTable()}.id", "$tableName.category_characteristic_id")->whereRaw("(SELECT COUNT(id) FROM $tableProductCharacteristicsName)>0");
+            })->groupBy("{$this->getTable()}.id")->select("{$this->getTable()}.*");
+        }
     }
 
 }

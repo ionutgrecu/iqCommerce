@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\Api\CategoryRequest;
+use App\Models\CategoryCharacteristic;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Exception;
@@ -110,6 +111,22 @@ class ProductCategoriesService {
 
 //dd(toSqlBinds($productObj));
         return $productObj->paginate(12);
+    }
+
+    /** Get characteristics having is_filter=1 for previous loaded item via find() which have products
+     * 
+     * @param array $filters
+     */
+    function getFiltersHavingProducts(array $filters = []): Collection {
+        if (!$this->item)
+            return (new Collection);
+
+        $itemObj = CategoryCharacteristic::whereCategoryId($this->item->id)->whereIsFilter(1)->orderBy('order')->orderBy('name');
+        
+        if($filters)$itemObj->filterBy($filters);
+
+        dd(toSqlBinds($itemObj));
+        return $itemObj->get();
     }
 
     function find(int $id): ProductCategoriesService {

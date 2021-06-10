@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\JoinClause;
 use Str;
 use function asset;
 use function public_path;
@@ -75,7 +76,7 @@ class Product extends Model {
 
             $tableName = "characteristic_{$id}_" . \Str::random(3);
 
-            $q->join((new ProductCharacteristics)->getTable() . " AS $tableName", function ($join) use ($tableName, $id) {
+            $q->join((new ProductCharacteristics)->getTable() . " AS $tableName", function (JoinClause $join) use ($tableName, $id) {
                         $join->on("{$this->getTable()}.id", "$tableName.product_id")->where("$tableName.category_characteristic_id", $id);
                     })
                     ->where("$tableName.{$categoryCharacteristic->getValAttributeName()}", $value);
@@ -90,7 +91,7 @@ class Product extends Model {
                 break;
 
             default:
-                $q->orderBy($sortBy, $sortOrder);
+                $q->orderBy("{$this->getTable()}.$sortBy", $sortOrder);
         }
     }
 
