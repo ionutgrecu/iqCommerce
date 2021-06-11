@@ -61,9 +61,10 @@ class CategoryCharacteristic extends Model {
 
         if ($filters){
             $productCharacteristicsTable=(new ProductCharacteristics)->getTable();
+            
             foreach ($filters as $id => $value) {
                 $tableName = "characteristic_{$id}_" . \Str::random(3);
-                $productCharacteristicsobj->whereRaw("(SELECT COUNT(id) FROM $productCharacteristicsTable AS $tableName WHERE $tableName.category_characteristic_id={$this->id} AND $valColumn='$value')");
+                $productCharacteristicsobj->whereRaw("(SELECT COUNT(`id`) FROM `$productCharacteristicsTable` AS `$tableName` WHERE `$tableName`.`category_characteristic_id`=? AND `$tableName`.`product_id`=`$productCharacteristicsTable`.`product_id` AND `$valColumn`=?)>0",[$id,$value]);
             }
         }
 

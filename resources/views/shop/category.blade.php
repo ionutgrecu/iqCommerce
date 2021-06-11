@@ -17,14 +17,15 @@
 
                     <?php
                     foreach ($category->filters as $filter) {
-                        if ($filter->getSuggestedValues($filterRequest)) {
+                        $suggestedValues=$filter->getSuggestedValues($filterRequest);
+                        if ($suggestedValues) {
                             ?>
                             <aside class="widget widget-filter">
                                 <h3 class="widget-title"><span><?= $filter->name ?></span></h3>
                                 <div class="widget_content">
                                     <ul>
                                         <?php
-                                        foreach ($filter->suggested_values as $filterValue) {
+                                        foreach ($suggestedValues as $filterValue) {
                                             $filterRequestTmp = $filterRequest;
                                             $filterRequestTmp[$filter->id] = $filterValue['value'];
                                             ?>
