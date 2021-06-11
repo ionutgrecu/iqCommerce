@@ -89,7 +89,7 @@ class ProductsService {
         $this->item = Product::with('images')->find($id);
 
         if (!$this->item)
-            throw new \Exception('Item not found');
+            throw new \Exception('Product not found', 404);
 
         return $this;
     }

@@ -95,6 +95,9 @@ class Controller extends BaseController {
 
         $this->setPageTitle(config('app.name'));
         $this->setPageDescription(config('app.description'));
+        
+        \View::share('lang', $this->params['lang']);
+        \View::share('meta', $this->params['meta']);
     }
 
     protected function setCurrentPage(string $value) {

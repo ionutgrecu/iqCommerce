@@ -24,21 +24,44 @@ class ShopController extends Controller {
             $category = $service->find($catId)->getItem();
             $this->params['category'] = $category;
         } catch (Exception $ex) {
-            abort(404);
+            abort($ex->getCode(), $ex->getMessage());
         }
 
-        foreach ($category->parents as $parent)
-            $breadcrumbService->addBreadcrumb($parent->name, $parent->name, $parent->getUrl());
-        $breadcrumbService->addBreadcrumb($category->name, $category->name, $category->getUrl());
+        $this->categoryToBreadcrumb($category, $breadcrumbService);
 
         $this->params['products'] = $service->getProducts(filters: $this->params['filterRequest'], sortBy: $this->params['sortbyRequest'], sortOrder: $this->params['sortRequest']);
 
         return view('shop.category', $this->params);
     }
 
-    function product($catSlug, $prodSlud, ProductsService $service) {
+    function product($catSlug, $prodSlud, ProductCategoriesService $categoryService, ProductsService $service, BreadcrumbsService $breadcrumbService, Request $request) {
+        $catId = slugToId($catSlug);
         $prodId = slugToId($prodSlud);
-        return "product $prodId";
+
+        try {
+            $category = $categoryService->find($catId)->getItem();
+            $this->params['category'] = $category;
+        } catch (Exception $ex) {
+            abort($ex->getCode(), $ex->getMessage());
+        }
+
+        try {
+            $product = $service->find($prodId)->getItem();
+            $this->params['product'] = $product;
+        } catch (Exception $ex) {
+            abort($ex->getCode(), $ex->getMessage());
+        }
+
+        $this->categoryToBreadcrumb($category, $breadcrumbService);
+        $breadcrumbService->addBreadcrumb($product->name, $product->name, $product->getUrl());
+        
+        return view('shop.product', $this->params);
+    }
+
+    private function categoryToBreadcrumb(\App\Models\ProductCategory $category, BreadcrumbsService $breadcrumbService) {
+        foreach ($category->parents as $parent)
+            $breadcrumbService->addBreadcrumb($parent->name, $parent->name, $parent->getUrl());
+        $breadcrumbService->addBreadcrumb($category->name, $category->name, $category->getUrl());
     }
 
 }
