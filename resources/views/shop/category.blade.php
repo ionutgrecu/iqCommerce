@@ -17,7 +17,7 @@
 
                     <?php
                     foreach ($category->filters as $filter) {
-                        $suggestedValues=$filter->getSuggestedValues($filterRequest);
+                        $suggestedValues = $filter->getSuggestedValues($filterRequest);
                         if ($suggestedValues) {
                             ?>
                             <aside class="widget widget-filter">

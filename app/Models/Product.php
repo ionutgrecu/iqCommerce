@@ -68,18 +68,22 @@ class Product extends Model {
         return max($this->price * 0.98, $this->min_price);
     }
 
-    public function scopeFilterBy(Builder $q, array $filters) {
-        foreach ($filters as $id => $value) {
-            $categoryCharacteristic = CategoryCharacteristic::find($id);
-            if (!$categoryCharacteristic || !$categoryCharacteristic->is_filter)
-                continue;
+    public function scopeFilterBy(Builder $q, array $filters = []) {
+        if ($filters) {
+            $q->select($this->getTable() . '.*');
 
-            $tableName = "characteristic_{$id}_" . \Str::random(3);
+            foreach ($filters as $id => $value) {
+                $categoryCharacteristic = CategoryCharacteristic::find($id);
+                if (!$categoryCharacteristic || !$categoryCharacteristic->is_filter)
+                    continue;
 
-            $q->join((new ProductCharacteristics)->getTable() . " AS $tableName", function (JoinClause $join) use ($tableName, $id) {
-                        $join->on("{$this->getTable()}.id", "$tableName.product_id")->where("$tableName.category_characteristic_id", $id);
-                    })
-                    ->where("$tableName.{$categoryCharacteristic->getValAttributeName()}", $value);
+                $tableName = "characteristic_{$id}_" . \Str::random(3);
+
+                $q->join((new ProductCharacteristics)->getTable() . " AS $tableName", function (JoinClause $join) use ($tableName, $id) {
+                            $join->on("{$this->getTable()}.id", "$tableName.product_id")->where("$tableName.category_characteristic_id", $id);
+                        })
+                        ->where("$tableName.{$categoryCharacteristic->getValAttributeName()}", $value);
+            }
         }
     }
 

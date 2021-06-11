@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Query\JoinClause;
 use Str;
-use function dd;
 
 class CategoryCharacteristic extends Model {
 
@@ -59,12 +58,12 @@ class CategoryCharacteristic extends Model {
             $productCharacteristicsobj->select($valColumn, DB::raw('COUNT(id) AS product_count'))->whereNotNull($valColumn)->where($valColumn, '!=', '')->groupBy($valColumn);
         }
 
-        if ($filters){
-            $productCharacteristicsTable=(new ProductCharacteristics)->getTable();
-            
+        if ($filters) {
+            $productCharacteristicsTable = (new ProductCharacteristics)->getTable();
+
             foreach ($filters as $id => $value) {
                 $tableName = "characteristic_{$id}_" . \Str::random(3);
-                $productCharacteristicsobj->whereRaw("(SELECT COUNT(`id`) FROM `$productCharacteristicsTable` AS `$tableName` WHERE `$tableName`.`category_characteristic_id`=? AND `$tableName`.`product_id`=`$productCharacteristicsTable`.`product_id` AND `$valColumn`=?)>0",[$id,$value]);
+                $productCharacteristicsobj->whereRaw("(SELECT COUNT(`id`) FROM `$productCharacteristicsTable` AS `$tableName` WHERE `$tableName`.`category_characteristic_id`=? AND `$tableName`.`product_id`=`$productCharacteristicsTable`.`product_id` AND `$valColumn`=?)>0", [$id, $value]);
             }
         }
 

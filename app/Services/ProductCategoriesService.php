@@ -122,10 +122,11 @@ class ProductCategoriesService {
             return (new Collection);
 
         $itemObj = CategoryCharacteristic::whereCategoryId($this->item->id)->whereIsFilter(1)->orderBy('order')->orderBy('name');
-        
-        if($filters)$itemObj->filterBy($filters);
 
-        dd(toSqlBinds($itemObj));
+        if ($filters)
+            $itemObj->filterBy($filters);
+
+//        dd(toSqlBinds($itemObj));
         return $itemObj->get();
     }
 
@@ -133,7 +134,7 @@ class ProductCategoriesService {
         $this->item = ProductCategory::with('category')->find($id);
 
         if (!$this->item)
-            throw new \Exception('Item not found');
+            throw new \Exception('Category not found', 404);
 
         return $this;
     }
