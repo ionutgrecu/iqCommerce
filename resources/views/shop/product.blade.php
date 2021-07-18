@@ -13,18 +13,11 @@
                         <div class="col-xs-12 col-md-9">
                             <div class="single-product-image">
                                 <div class="images single-images gallery">
-                                    <a href="images/digital/product/13.jpg" class="bootexpert-main-image zoom" title="13" data-gal="prettyPhoto[gallery1]">
-                                        <img src="images/digital/product/13.jpg" class="attachment-shop_single" alt="13" title="13" />
+                                    <?php foreach($product->images as $item){?>
+                                    <a href="<?=$item->getUrl()?>" class="bootexpert-main-image zoom" data-gal="prettyPhoto[gallery1]">
+                                        <img src="<?=$item->getUrl()?>" class="attachment-shop_single" alt="<?=$product->name?>" />
                                     </a>
-                                    <a href="images/digital/product/21.jpg" class="zoom first" title="21" data-gal="prettyPhoto[gallery1]">
-                                        <img src="images/digital/product/21.jpg" class="attachment-shop_single" alt="21" />
-                                    </a>
-                                    <a href="images/digital/product/6.jpg" class="zoom" title="6" data-gal="prettyPhoto[gallery1]">
-                                        <img src="images/digital/product/6.jpg" class="attachment-shop_single" alt="6" />
-                                    </a>
-                                    <a href="images/digital/product/8.jpg" class="zoom last" title="8" data-gal="prettyPhoto[gallery1]">
-                                        <img src="images/digital/product/8.jpg" class="attachment-shop_single" alt="8" />
-                                    </a>
+                                    <?php }?>
                                 </div>
                                 <div class="thumbnails single-thumbnails columns-3">
                                     <div>
