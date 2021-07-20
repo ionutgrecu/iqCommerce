@@ -14,9 +14,7 @@
                             <div class="single-product-image">
                                 <div class="images single-images gallery">
                                     <?php foreach($product->images as $item){ ?>
-                                    <a href="<?= $item->getUrl() ?>" class="bootexpert-main-image zoom" data-gal="prettyPhoto[gallery1]">
                                         <img src="<?= $item->getUrl() ?>" class="attachment-shop_single" alt="<?= $product->name ?>" />
-                                    </a>
                                     <?php } ?>
                                 </div>
                             </div>
@@ -56,12 +54,11 @@
 
                         <div class="bootexpert-tabs wc-tabs-wrapper">
                             <ul class="tabs parveztabs">
-                                <li rel="tab-description" class="tab active"><a>Description</a></li>
-                                <li rel="tab-addi-info" class="tab"><a>Additional Information</a></li>
-                                <li rel="tab-reviews" class="tab"><a>Reviews (1)</a></li>
+                                <li rel="tab-description" class="tab active"><a>Descriere</a></li>
+                                <li rel="tab-addi-info" class="tab"><a>Informatii</a></li>
                             </ul>
                             <div class="panel active" id="tab-description">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla. Donec a neque libero. Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem, quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam erat mi, rutrum at sollicitudin rhoncus, ultricies posuere erat. Duis convallis, arcu nec aliquam consequat, purus felis vehicula felis, a dapibus enim lorem nec augue.</p>
+                                <?=$product->description?>
                             </div>
                             <div class="panel" id="tab-addi-info">
                                 <table class="shop_attributes">

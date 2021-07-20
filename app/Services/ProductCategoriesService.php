@@ -117,7 +117,7 @@ class ProductCategoriesService {
             $productObj->whereNotIn('id', $this->productExcludeId);
 
 //dd(toSqlBinds($productObj));
-        return $productObj->paginate(12);
+        return $productObj->paginate($limit);
     }
 
     /** Get characteristics having is_filter=1 for previous loaded item via find() which have products
@@ -184,11 +184,11 @@ class ProductCategoriesService {
             foreach ($id as $idItem)
                 if (is_integer($idItem))
                     $this->productExcludeId[] = $idItem;
-        } elseif (is_integer($id))
+        } elseif (is_numeric($id))
             $this->productExcludeId[] = $id;
         else
             throw new \Exception("Invalid exclude id");
-dd($this->productExcludeId);
+
         return $this;
     }
 
