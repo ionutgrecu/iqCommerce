@@ -19,91 +19,28 @@
                                     </a>
                                     <?php }?>
                                 </div>
-                                <div class="thumbnails single-thumbnails columns-3">
-                                    <div>
-                                        <img src="images/digital/product/13-2-200x200.jpg" alt="13" />
-                                    </div>
-                                    <div>
-                                        <img src="images/digital/product/21-200x200.jpg" alt="18" />
-                                    </div>
-                                    <div>
-                                        <img src="images/digital/product/6-200x200.jpg" alt="19" />
-                                    </div>
-                                    <div>
-                                        <img src="images/digital/product/8-200x200.jpg" alt="20" />
-                                    </div>
-                                </div>
                             </div>
                             <div class="summary entry-summary single-product-info">
-                                <h1 class="product_title entry-title">Feugiat justo lacinia</h1>
-                                <div class="bootexpert-product-rating">
+                                <h1 class="product_title entry-title"><?=$product->name?></h1>
+<!--                                <div class="bootexpert-product-rating">
                                     <div class="star-rating" title="Rated 4.00 out of 5">
                                         <span class="width80"><strong class="rating">4.00</strong> out of <span>5</span>	based on <span class="rating">1</span> customer rating</span>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="short-description">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellusmi, vulputate adipiscing cursus eu, suscipit id nulla.</p>
+                                    <?=$product->description?>
                                 </div>
                                 <div class="price-box">
                                     <p class="price">
-                                        <del><span class="amount">&pound;80.00</span></del>  
-                                        <ins><span class="amount">&pound;70.00</span></ins>
+                                        @include('components.product-price',['item'=>$product])
                                     </p>
-                                </div>
-                                <form class="cart" method="post" enctype='multipart/form-data'>
-                                    <div class="variations">
-                                        <div>
-                                            <div class="label"><label for="pa_size">Size</label></div>
-                                            <div class="value">
-                                                <select name="attribute_pa_size" class="" id="pa_size">
-                                                    <option value="">Choose an option</option>
-                                                    <option value="l" class="attached enabled">L</option>
-                                                    <option selected="selected" value="m" class="attached enabled">M</option>
-                                                    <option value="s" class="attached enabled">S</option>
-                                                    <option value="xl" class="attached enabled">XL</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>									
-                                    <div class="quantity">
-                                        <input type="number" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" />
-                                    </div>
-                                    <button type="submit" class="single_add_to_cart_button button alt">Add to cart</button>
-                                </form>
-                                <div class="yith-wcwl-add-to-wishlist">
-                                    <div>
-                                        <a href="" class="add_to_wishlist">Add to Wishlist</a>
-                                    </div>
-                                    <div class="clear"></div>
-
-                                </div>
-                                <div class="clear"></div>
-                                <a href="" class="compare button">Compare</a>
-                                <a class="sharefriend" href="mailto:yourfriend@domain.com">Email your friend</a>
-                                <div class="product_meta">
-                                    <select class="wcml_currency_switcher">
-                                        <option value="GBP" selected="selected">GBP</option>
-                                        <option value="EUR">EUR</option>
-                                    </select>
-                                    <span class="posted_in">Categories: 
-                                        <a href="">Accessories</a>, 
-                                        <a href="">Kids</a>, 
-                                        <a href="">Women</a>
-                                    </span>
-                                    <span class="tagged_as">Tags: 
-                                        <a href="">electronic</a>, 
-                                        <a href="">laptop</a>
-                                    </span>
-                                </div>
-                                <div class="share_buttons">
-                                    <div class="addthis_native_toolbox"></div>
                                 </div>
                             </div>
                             <!-- .summary -->
                         </div>
                         <div id="secondary" class="col-xs-12 col-md-3">
                             <div class="widget related_products_widget">
-                                <h3 class="widget-title"><span>Related Products</span></h3>
+                                <h3 class="widget-title"><span>Din aceeasi categorie</span></h3>
                                 <div class="related products">
                                     <div class="shop-products row grid-view">
                                         <div class="first last item-col col-xs-12 col-sm-12">

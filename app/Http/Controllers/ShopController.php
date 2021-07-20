@@ -52,9 +52,15 @@ class ShopController extends Controller {
             abort($ex->getCode(), $ex->getMessage());
         }
 
+        try {
+            $this->params['related'] = $categoryService->getProducts();
+        } catch (Exception $ex) {
+            \Log::error(__FILE__ . '@' . __LINE__ . ': ' . $ex->getMessage());
+        }
+
         $this->categoryToBreadcrumb($category, $breadcrumbService);
         $breadcrumbService->addBreadcrumb($product->name, $product->name, $product->getUrl());
-        
+
         return view('shop.product', $this->params);
     }
 

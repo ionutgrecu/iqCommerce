@@ -20,16 +20,7 @@
                                         </span>
                                     </div>
                                 </div>-->
-                <?php if ($item->isDiscountEligible()) { ?>
-                    <del><span class="amount"><?= $item->price ?> LEI</span></del>
-                    <div class="price-box">
-                        <span class="amount"><?= $item->proposePrice() ?> LEI</span>
-                    </div>
-                <?php } else { ?>
-                    <div class="price-box">
-                        <span class="amount"><?= $item->price ?> LEI</span>
-                    </div>
-                <?php } ?>
+                @include('components.product-price',['item'=>$item])
                 <div class="actions clearfix">
                     <div class="action-buttons">
 <!--                        <div class="">

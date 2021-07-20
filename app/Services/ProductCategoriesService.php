@@ -22,6 +22,7 @@ use function config;
 class ProductCategoriesService {
 
     private ProductCategory $item;
+    private array $productExcludeId = [];
 
     function deleteItem(int $id): bool {
         $item = ProductCategory::find($id);
@@ -109,6 +110,9 @@ class ProductCategoriesService {
         if ($sortBy)
             $productObj->sortBy($sortBy, $sortOrder);
 
+        if ($this->productExcludeId)
+            $productObj->whereNotIn('id', $this->productExcludeId);
+
 //dd(toSqlBinds($productObj));
         return $productObj->paginate(12);
     }
@@ -170,6 +174,17 @@ class ProductCategoriesService {
         }
 
         return $this->item;
+    }
+
+    function setProductExcludeId($id) {
+        if (is_array($id)) {
+            foreach ($id as $idItem)
+                if (is_integer($idItem))
+                    $this->productExcludeId[] = $idItem;
+        } elseif (is_integer($id))
+            $this->productExcludeId[] = $id;
+        else
+            throw new \Exception("Invalid exclude id");
     }
 
 }
