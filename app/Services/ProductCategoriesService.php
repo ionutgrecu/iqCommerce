@@ -92,7 +92,7 @@ class ProductCategoriesService {
      * @param array $filters
      * @return LengthAwarePaginator
      */
-    function getProducts(bool $recursive = true, array $filters = [], string $sortBy = null, string $sortOrder = null): LengthAwarePaginator {
+    function getProducts(bool $recursive = true, array $filters = [], string $sortBy = null, string $sortOrder = null, int $limit = 12): LengthAwarePaginator {
         if (!$this->item)
             return (new LengthAwarePaginator([], 0, 1));
 
@@ -109,6 +109,9 @@ class ProductCategoriesService {
 
         if ($sortBy)
             $productObj->sortBy($sortBy, $sortOrder);
+
+        if ($limit)
+            $productObj->limit($limit);
 
         if ($this->productExcludeId)
             $productObj->whereNotIn('id', $this->productExcludeId);
@@ -185,6 +188,8 @@ class ProductCategoriesService {
             $this->productExcludeId[] = $id;
         else
             throw new \Exception("Invalid exclude id");
+dd($this->productExcludeId);
+        return $this;
     }
 
 }
