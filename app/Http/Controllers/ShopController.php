@@ -53,7 +53,7 @@ class ShopController extends Controller {
         }
 
         try {
-            $this->params['related'] = $categoryService->getProducts();
+            $this->params['related'] = $categoryService->setProductExcludeId($prodId)->getProducts(limit: 4);
         } catch (Exception $ex) {
             \Log::error(__FILE__ . '@' . __LINE__ . ': ' . $ex->getMessage());
         }

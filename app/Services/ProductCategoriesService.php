@@ -92,7 +92,7 @@ class ProductCategoriesService {
      * @param array $filters
      * @return LengthAwarePaginator
      */
-    function getProducts(bool $recursive = true, array $filters = [], string $sortBy = null, string $sortOrder = null): LengthAwarePaginator {
+    function getProducts(bool $recursive = true, array $filters = [], string $sortBy = null, string $sortOrder = null, int $limit = 12): LengthAwarePaginator {
         if (!$this->item)
             return (new LengthAwarePaginator([], 0, 1));
 
@@ -110,11 +110,14 @@ class ProductCategoriesService {
         if ($sortBy)
             $productObj->sortBy($sortBy, $sortOrder);
 
+        if ($limit)
+            $productObj->limit($limit);
+
         if ($this->productExcludeId)
             $productObj->whereNotIn('id', $this->productExcludeId);
 
 //dd(toSqlBinds($productObj));
-        return $productObj->paginate(12);
+        return $productObj->paginate($limit);
     }
 
     /** Get characteristics having is_filter=1 for previous loaded item via find() which have products
@@ -181,10 +184,12 @@ class ProductCategoriesService {
             foreach ($id as $idItem)
                 if (is_integer($idItem))
                     $this->productExcludeId[] = $idItem;
-        } elseif (is_integer($id))
+        } elseif (is_numeric($id))
             $this->productExcludeId[] = $id;
         else
             throw new \Exception("Invalid exclude id");
+
+        return $this;
     }
 
 }

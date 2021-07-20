@@ -13,22 +13,20 @@
                         <div class="col-xs-12 col-md-9">
                             <div class="single-product-image">
                                 <div class="images single-images gallery">
-                                    <?php foreach($product->images as $item){?>
-                                    <a href="<?=$item->getUrl()?>" class="bootexpert-main-image zoom" data-gal="prettyPhoto[gallery1]">
-                                        <img src="<?=$item->getUrl()?>" class="attachment-shop_single" alt="<?=$product->name?>" />
-                                    </a>
-                                    <?php }?>
+                                    <?php foreach($product->images as $item){ ?>
+                                        <img src="<?= $item->getUrl() ?>" class="attachment-shop_single" alt="<?= $product->name ?>" />
+                                    <?php } ?>
                                 </div>
                             </div>
                             <div class="summary entry-summary single-product-info">
-                                <h1 class="product_title entry-title"><?=$product->name?></h1>
-<!--                                <div class="bootexpert-product-rating">
-                                    <div class="star-rating" title="Rated 4.00 out of 5">
-                                        <span class="width80"><strong class="rating">4.00</strong> out of <span>5</span>	based on <span class="rating">1</span> customer rating</span>
-                                    </div>
-                                </div>-->
+                                <h1 class="product_title entry-title"><?= $product->name ?></h1>
+                                <!--                                <div class="bootexpert-product-rating">
+                                                                    <div class="star-rating" title="Rated 4.00 out of 5">
+                                                                        <span class="width80"><strong class="rating">4.00</strong> out of <span>5</span>	based on <span class="rating">1</span> customer rating</span>
+                                                                    </div>
+                                                                </div>-->
                                 <div class="short-description">
-                                    <?=$product->description?>
+                                    <?= $product->description ?>
                                 </div>
                                 <div class="price-box">
                                     <p class="price">
@@ -38,127 +36,29 @@
                             </div>
                             <!-- .summary -->
                         </div>
+
+                        <?php if(!empty($related)) {?>
                         <div id="secondary" class="col-xs-12 col-md-3">
                             <div class="widget related_products_widget">
                                 <h3 class="widget-title"><span>Din aceeasi categorie</span></h3>
                                 <div class="related products">
                                     <div class="shop-products row grid-view">
-                                        <div class="first last item-col col-xs-12 col-sm-12">
-                                            <div class="product-wrapper">
-                                                <div class="list-col4">
-                                                    <div class="product-image">
-                                                        <a href="" title="Phasellus vel hendrerit">
-                                                            <img src="images/digital/product/14-200x200.jpg" class="primary_image" alt="10" />
-                                                            <img src="images/digital/product/10-600x600.jpg" class="secondary_image" alt="9" />
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="list-col8">
-                                                    <div class="gridview">
-                                                        <h2 class="product-name"><a href="">Phasellus vel hendrerit</a></h2>
-                                                        <div class="ratings">
-                                                            <div class="star-rating" title="Rated 5.00 out of 5">
-                                                                <span class="width100"><strong class="rating">5.00</strong> out of 5</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price-box">
-                                                            <span class="amount">&pound;55.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </div>
-                                        <div class="first last item-col col-xs-12 col-sm-12">
-                                            <div class="product-wrapper">
-                                                <div class="list-col4">
-                                                    <div class="product-image">
-                                                        <a href="" title="Aenean eu tristique">
-                                                            <img src="images/digital/product/10-600x600.jpg" class="primary_image" alt="10" />
-                                                            <img src="images/digital/product/8-600x600.jpg" class="secondary_image" alt="8" />
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="list-col8">
-                                                    <div class="gridview">
-                                                        <h2 class="product-name"><a href="">Aenean eu tristique</a></h2>
-                                                        <div class="ratings">
-                                                            <div class="star-rating">
-                                                                <span class="width86"><strong class="rating">4.33</strong> out of 5</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price-box">
-                                                            <span class="amount">&pound;80.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </div>
-                                        <div class="first last item-col col-xs-12 col-sm-12">
-                                            <div class="product-wrapper">
-                                                <div class="list-col4">
-                                                    <div class="product-image">
-                                                        <a href="" title="Buscipit at magna &rarr; Condimentum posuere">
-                                                            <img class="primary_image" src="images/digital/product/1-600x600.jpg" alt="1">
-                                                            <img class="secondary_image" src="images/digital/product/5-600x600.jpg" alt="5" />
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="list-col8">
-                                                    <div class="gridview">
-                                                        <h2 class="product-name"><a href="">Condimentum posuere</a></h2>
-                                                        <div class="ratings">
-                                                            <div class="star-rating">
-                                                                <span class="width100"><strong class="rating">5.00</strong> out of 5</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price-box">
-                                                            <span class="amount">&pound;115.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </div>
-                                        <div class="first last item-col col-xs-12 col-sm-12">
-                                            <div class="product-wrapper">
-                                                <div class="list-col4">
-                                                    <div class="product-image">
-                                                        <a href="" title="Elementum felis">
-                                                            <img src="images/digital/product/5-600x600.jpg" class="primary_image" alt="5" />
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="list-col8">
-                                                    <div class="gridview">
-                                                        <h2 class="product-name"><a href="">Condimentum posuere</a></h2>
-                                                        <div class="ratings">
-                                                            <div class="star-rating">
-                                                                <span class="width80"><strong class="rating">4.00</strong> out of 5</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price-box">
-                                                            <del><span class="amount">&pound;125.00</span></del>  
-                                                            <ins><span class="amount">&pound;120.00</span></ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </div>
+                                        <?php foreach($related as $key => $item){ ?>
+                                        @include('shop.list-item2',['key'=>$key,'item'=>$item])
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <?php } ?>
+
                         <div class="bootexpert-tabs wc-tabs-wrapper">
                             <ul class="tabs parveztabs">
-                                <li rel="tab-description" class="tab active"><a>Description</a></li>
-                                <li rel="tab-addi-info" class="tab"><a>Additional Information</a></li>
-                                <li rel="tab-reviews" class="tab"><a>Reviews (1)</a></li>
+                                <li rel="tab-description" class="tab active"><a>Descriere</a></li>
+                                <li rel="tab-addi-info" class="tab"><a>Informatii</a></li>
                             </ul>
                             <div class="panel active" id="tab-description">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla. Donec a neque libero. Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem, quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam erat mi, rutrum at sollicitudin rhoncus, ultricies posuere erat. Duis convallis, arcu nec aliquam consequat, purus felis vehicula felis, a dapibus enim lorem nec augue.</p>
+                                <?=$product->description?>
                             </div>
                             <div class="panel" id="tab-addi-info">
                                 <table class="shop_attributes">
