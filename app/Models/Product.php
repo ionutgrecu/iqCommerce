@@ -36,6 +36,10 @@ class Product extends Model {
         return $this->hasMany(ProductImages::class, 'product_id', 'id')->orderBy('order', 'ASC');
     }
 
+    public function characteristics() {
+        return $this->hasMany(ProductCharacteristics::class, 'product_id', 'id')->with('category_characteristic');
+    }
+
     public function getUrl(): string {
         return route('shop.product', ['cat_slug' => Str::slug($this->category->name . '-' . $this->category->id), 'prod_slug' => Str::slug($this->name . '-' . $this->id)]);
     }

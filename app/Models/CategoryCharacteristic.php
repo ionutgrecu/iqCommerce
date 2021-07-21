@@ -33,7 +33,7 @@ class CategoryCharacteristic extends Model {
         $categoryCharacteristicTable = (new CategoryCharacteristic)->getTable();
         $productCharacteristicsTable = (new ProductCharacteristics)->getTable();
 
-        $q->select("$categoryCharacteristicTable.*", "$productCharacteristicsTable.val_boolean", "$productCharacteristicsTable.val_numeric", "$productCharacteristicsTable.val_short_text", "$productCharacteristicsTable.val_text")->leftJoin($productCharacteristicsTable, function ($join) use ($categoryCharacteristicTable, $productCharacteristicsTable, $productId) {
+        $q->select("$categoryCharacteristicTable.*", $productCharacteristicsTable . "." . ProductCharacteristics::COLUMN_BOOLEAN, $productCharacteristicsTable . "." . ProductCharacteristics::COLUMN_NUMERIC, $productCharacteristicsTable . "." . ProductCharacteristics::COLUMN_SHORT_TEXT, $productCharacteristicsTable . "." . ProductCharacteristics::COLUMN_TEXT)->leftJoin($productCharacteristicsTable, function ($join) use ($categoryCharacteristicTable, $productCharacteristicsTable, $productId) {
             $join->on("$categoryCharacteristicTable.id", '=', "$productCharacteristicsTable.category_characteristic_id")
                     ->where("$productCharacteristicsTable.product_id", '=', $productId);
         });
@@ -48,13 +48,13 @@ class CategoryCharacteristic extends Model {
         $productCharacteristicsobj = ProductCharacteristics::where('category_characteristic_id', $this->id);
 
         if (self::TYPE_BOOLEAN == $this->type) {
-            $valColumn = 'val_boolean';
+            $valColumn = ProductCharacteristics::COLUMN_BOOLEAN;
             $productCharacteristicsobj->select($valColumn, DB::raw('COUNT(id) AS product_count'))->whereNotNull($valColumn)->groupBy($valColumn);
         } elseif (self::TYPE_NUMERIC == $this->type) {
-            $valColumn = 'val_numeric';
+            $valColumn = ProductCharacteristics::COLUMN_NUMERIC;
             $productCharacteristicsobj->select($valColumn, DB::raw('COUNT(id) AS product_count'))->whereNotNull($valColumn)->groupBy($valColumn);
         } elseif (self::TYPE_SHORT_TEXT == $this->type) {
-            $valColumn = 'val_short_text';
+            $valColumn = ProductCharacteristics::COLUMN_SHORT_TEXT;
             $productCharacteristicsobj->select($valColumn, DB::raw('COUNT(id) AS product_count'))->whereNotNull($valColumn)->where($valColumn, '!=', '')->groupBy($valColumn);
         }
 
@@ -70,7 +70,7 @@ class CategoryCharacteristic extends Model {
 //        dd(toSqlBinds($productCharacteristicsobj));
         foreach ($productCharacteristicsobj->cursor() as $item) {
             if (self::TYPE_BOOLEAN == $this->type)
-                $result[] = ['value' => $item->val_boolean ? 1 : 0, 'product_count' => $item->product_count];
+                $result[] = ['value' => $item->{ProductCharacteristics::COLUMN_BOOLEAN} ? 1 : 0, 'product_count' => $item->product_count];
             else
                 $result[] = ['value' => $item->$valColumn, 'product_count' => $item->product_count];
         }

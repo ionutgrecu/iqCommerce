@@ -86,7 +86,7 @@ class ProductsService {
     }
 
     function find(int $id): ProductsService {
-        $this->item = Product::with('images')->find($id);
+        $this->item = Product::with('images','characteristics')->find($id);
 
         if (!$this->item)
             throw new \Exception('Product not found', 404);

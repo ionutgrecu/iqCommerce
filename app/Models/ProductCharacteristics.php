@@ -22,4 +22,25 @@ class ProductCharacteristics extends Model {
         parent::fill($attributes);
     }
 
+    function category_characteristic() {
+        return $this->belongsTo(CategoryCharacteristic::class, 'category_characteristic_id', 'id');
+    }
+
+    function getValue() {
+        switch ($this->category_characteristic->type) {
+            case CategoryCharacteristic::TYPE_BOOLEAN:
+                return $this->{self::COLUMN_BOOLEAN};
+                break;
+            case CategoryCharacteristic::TYPE_NUMERIC:
+                return $this->{self::COLUMN_NUMERIC};
+                break;
+            case CategoryCharacteristic::TYPE_SHORT_TEXT:
+                return $this->{self::COLUMN_SHORT_TEXT};
+                break;
+            case CategoryCharacteristic::TYPE_TEXT:
+                return $this->{self::COLUMN_TEXT};
+                break;
+        }
+    }
+
 }
