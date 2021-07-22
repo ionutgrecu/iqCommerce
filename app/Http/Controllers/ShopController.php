@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddToCartRequest;
 use App\Models\ProductCategory;
-use App\Services\AccountService;
 use App\Services\BreadcrumbsService;
+use App\Services\CartService;
 use App\Services\ProductCategoriesService;
 use App\Services\ProductsService;
 use Exception;
 use Illuminate\Http\Request;
 use Log;
 use function abort;
-use function ddd;
 use function redirect;
 use function slugToId;
 use function view;
@@ -69,9 +69,16 @@ class ShopController extends Controller {
         return view('shop.product', $this->params);
     }
 
-    function productToCart($catSlug, $prodSlud, Request $request, AccountService $accountService) {
-        dd($accountService);
-        return redirect($request->url());
+    function productToCart($catSlug, $prodSlud, AddToCartRequest $request, ProductsService $productService, CartService $cartService) {
+        try {
+            $product = $productService->find($request->input('product_id'))->getItem();
+        } catch (Exception $ex) {
+            abort($ex->getCode(), $ex->getMessage());
+        }
+
+        $cartService->addToCart($product, $request->input('qty'));
+
+        return redirect($request->url())->with('message', "Produsul &quot;{$product->name}&quot; a fost adaugat in cos.");
     }
 
     private function categoryToBreadcrumb(ProductCategory $category, BreadcrumbsService $breadcrumbService) {

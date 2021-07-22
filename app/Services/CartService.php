@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Cart;
+use App\Models\CartItem;
+use App\Models\Product;
 use Auth;
 use Session;
 
@@ -14,22 +16,34 @@ class CartService {
     public function __construct(string $sessionId = null) {
         $this->sessionId = $sessionId ?? Session::getId();
 
-        $cart = Cart::where('session_id', $this->sessionId)->first();
+        $this->cart = Cart::where('session_id', $this->sessionId)->first();
 
-        if (!$cart && Auth::user())
-            $cart = Cart::where('user_id', Auth::user()->id)->first();
+        if (!$this->cart && Auth::user())
+            $this->cart = Cart::where('user_id', Auth::user()->id)->first();
 
-        if (!$cart) {
-            $cart = new Cart;
-            
-        }
+        if (!$this->cart)
+            $this->cart = new Cart;
         
-        $cart->fill([
+        $this->cart->fill([
                 'user_id' => Auth::user() ? Auth::user()->id : null,
                 'session_id' => $this->sessionId,
             ]);
 
-        $cart->saveIfDirty();
+        $this->cart->saveIfDirty();
     }
+    
+    function addToCart(Product $product, float $qty){
+        $cartItem= CartItem::firstOrNew([
+            'cart_id'=>$this->cart->id,
+            'product_id'=>$product->id,
+        ]);
+        
+        $cartItem->fill([
+            'product_name'=>$product->name,
+            'price'=>$product->price,
+            'qty'=>$cartItem->qty+$qty,
+        ]);
 
+        $cartItem->save();
+    }
 }

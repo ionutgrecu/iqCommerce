@@ -33,12 +33,16 @@
                                         @include('components.product-price',['item'=>$product])
                                     </p>
                                 </div>
+                                <?php if(session('message')){?>
+                                <div class="bg-success" style="clear:both;"><?=session('message')?></div>
+                                <?php }?>
                                 <form class="cart" method="post" enctype='multipart/form-data'>
                                     <?= csrf_field()?>
                                     <div class="quantity">
-                                        <input type="number" name="qty" value="1" title="Qty" class="input-text qty text" size="4" />
+                                        <input type="number" name="qty" value="1" title="Qty" class="input-text qty text" size="4" min="1" max="50" />
                                     </div>
-                                    <button type="submit" class="single_add_to_cart_button button alt">Add to cart</button>
+                                    <button type="submit" class="single_add_to_cart_button button alt">Cumpara</button>
+                                    <input type="hidden" name="product_id" value="<?=$product->id?>">
                                 </form>
                             </div>
                             <!-- .summary -->

@@ -43,8 +43,8 @@ class Model extends BaseModel {
      * @param  array|string|null  $attributes
      * @return bool
      */
-    public function saveIfDirty($attributes = null) {
-        $isDirty = $this->isDirty($attributes);dd($isDirty);
+    public function saveIfDirty() {
+        $isDirty = $this->isDirty();
         if ($isDirty)
             $this->save();
 

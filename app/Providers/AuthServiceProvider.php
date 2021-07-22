@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 use App\Services\AccountService;
+use App\Services\CartService;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use function app;
-use function auth;
 
 class AuthServiceProvider extends ServiceProvider {
 
@@ -46,9 +46,9 @@ class AuthServiceProvider extends ServiceProvider {
         app()->singleton(AccountService::class, function ($app) {
             return new AccountService();
         });
-       
-        app()->singleton(\App\Services\CartService::class,function($app){
-            return new \App\Services\CartService();
+
+        app()->singleton(CartService::class, function ($app) {
+            return new CartService();
         });
     }
 
