@@ -8,7 +8,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-5">
+            <div class="col-xs-12 col-md-4">
 <!--                <div class="header-search">
                     <div class="widget bootexpert widget_product_search">
                         <form method="get" id="searchform" action="#">
@@ -37,16 +37,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-2">
+            <div class="col-xs-12 col-md-3">
                 <div class="widget bootexpert widget_shopping_cart" id="shopping_cart">
-                    <h2 class="widgettitle">Cart</h2>
+                    <h2 class="widgettitle">Cosul de cumparaturi</h2>
                     <div class="widget_shopping_cart_content">
                         <div class="cart-toggler">
                             <a href="">
                                 <span class="mini-cart-link">
                                     <i class="fas fa-shopping-cart"></i>
-                                    <span class="cart-title">My cart: (
-                                        <span class="cart-quantity">2</span>)</span>
+                                    <span class="cart-title">Cosul de cumparaturi: (<span class="cart-quantity"><?=$cartService->countItems()?></span>)</span>
                                 </span>
                             </a>
                         </div>
@@ -54,45 +53,32 @@
                             <div class="mini_cart_inner">
                                 <div class="mini_cart_arrow"></div>
                                 <ul class="cart_list">
+                                    <?php foreach($cartService->getCart()->items as $item){?>
                                     <li>
-                                        <a href="" class="product-image">
-                                            <img alt="image1xxl (6)" class="attachment-shop_thumbnail" src="images/digital/product/13-200x200.jpg">
-                                            <span class="quantity">1</span>
+                                        <a href="<?=$item->product->getUrl()?>" class="product-image">
+                                            <img alt="<?=$item->product->name?>" class="attachment-shop_thumbnail" src="<?=$item->product->getImageUrl()?>">
+                                            <span class="quantity"><?=$item->qty?></span>
                                         </a>
                                         <div class="product-details">
-                                            <a title="Remove this item" class="remove" href="">
+                                            <a title="Sterge din cos" class="remove" href="<?=route('shop.remove-cart',['item_id'=>$item->id])?>">
                                                 <i class="fa fa-times-circle"></i>
                                             </a>
-                                            <a href="" class="product-name">Buscipit at magna → Vestibulum suscipit&nbsp;</a>
+                                            <a href="" class="product-name"><?=$item->product_name?>&nbsp;</a>
                                             <span class="quantity">
-                                                <span class="amount">&pound;65.00</span>
+                                                <span class="amount"><?=$item->price?> LEI</span>
                                             </span>
                                         </div>
                                     </li>
-                                    <li>
-                                        <a href="" class="product-image">
-                                            <img alt="image4xxl (2)" class="attachment-shop_thumbnail" src="images/digital/product/1-200x200.jpg">
-                                            <span class="quantity">1</span>
-                                        </a>
-                                        <div class="product-details">
-                                            <a title="Remove this item" class="remove">
-                                                <i class="fa fa-times-circle"></i>
-                                            </a>
-                                            <a href="" class="product-name">Pellentesque posuere&nbsp;</a>
-                                            <span class="quantity">
-                                                <span class="amount">&pound;45.00</span>
-                                            </span>
-                                        </div>
-                                    </li>
+                                    <?php }?>
                                 </ul>
                                 <!-- end product list -->
-                                <p class="total">Subtotal:
+                                <p class="total">Total:
                                     <span class="amount">
-                                        <span class="amount">&pound;110.00</span>
+                                        <span class="amount"><?=$cartService->getTotal()?> LEI</span>
                                     </span>
                                 </p>
                                 <p class="buttons">
-                                    <a class="button" href="">Checkout</a>
+                                    <a class="button" href="">Comanda</a>
                                 </p>
                             </div>
                         </div>

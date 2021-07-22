@@ -11,7 +11,7 @@ Route::patterns([
     'lang' => '^[a-z]{2}|[a-z]{2}\-[a-z]{2}$',
 ]);
 
-Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', [AdminController::class, 'index']);
     Route::any('/products', [ProductsController::class, 'index'])->name('admin.products');
 });
@@ -20,7 +20,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
 //    
 //});
 
-Route::group(['middleware' => 'web'], function() {
+Route::group(['middleware' => 'web'], function () {
 //    Route::get('/', function () {
 //        return view('welcome');
 //    });
@@ -28,9 +28,10 @@ Route::group(['middleware' => 'web'], function() {
     Route::get('/despre-proiect', [PagesController::class, 'about'])->name('home.about');
     Route::get('/contact', [PagesController::class, 'about'])->name('home.contact');
 
-    Route::group(['prefix' => 'shop','name'=>'shop.'], function() {
+    Route::group(['prefix' => 'shop', 'name' => 'shop.'], function () {
+        Route::get('/remove_cart/{item_id}' , [ShopController::class, 'removeFromCart'])->name('shop.remove-cart');
         Route::get('/{cat_slug}', [ShopController::class, 'category'])->name('shop.category');
         Route::get('/{cat_slug}/{prod_slug}', [ShopController::class, 'product'])->name('shop.product');
-        Route::post('/{cat_slug}/{prod_slug}', [ShopController::class, 'productToCart'])->name('shop.product-cart');
+        Route::post('/{cat_slug}/{prod_slug}', [ShopController::class, 'addToCart'])->name('shop.add-cart');
     });
 });

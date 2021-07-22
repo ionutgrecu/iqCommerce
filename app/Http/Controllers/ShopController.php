@@ -69,7 +69,7 @@ class ShopController extends Controller {
         return view('shop.product', $this->params);
     }
 
-    function productToCart($catSlug, $prodSlud, AddToCartRequest $request, ProductsService $productService, CartService $cartService) {
+    function addToCart($catSlug, $prodSlud, AddToCartRequest $request, ProductsService $productService, CartService $cartService) {
         try {
             $product = $productService->find($request->input('product_id'))->getItem();
         } catch (Exception $ex) {
@@ -79,6 +79,12 @@ class ShopController extends Controller {
         $cartService->addToCart($product, $request->input('qty'));
 
         return redirect($request->url())->with('message', "Produsul &quot;{$product->name}&quot; a fost adaugat in cos.");
+    }
+
+    function removeFromCart($cartItemId, CartService $cartService) {
+        $cartService->removeFromCart((int) $cartItemId);
+
+        return redirect()->back();
     }
 
     private function categoryToBreadcrumb(ProductCategory $category, BreadcrumbsService $breadcrumbService) {
