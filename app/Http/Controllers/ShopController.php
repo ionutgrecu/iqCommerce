@@ -86,6 +86,10 @@ class ShopController extends Controller {
 
         return redirect()->back();
     }
+    
+    function cartCheckout(CartService $cartService){
+        if(!auth()->user())return redirect()->route('user.login');
+    }
 
     private function categoryToBreadcrumb(ProductCategory $category, BreadcrumbsService $breadcrumbService) {
         foreach ($category->parents as $parent)

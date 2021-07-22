@@ -78,7 +78,7 @@
                                     </span>
                                 </p>
                                 <p class="buttons">
-                                    <a class="button" href="">Comanda</a>
+                                    <a class="button" href="<?=route('shop.cart-checkout')?>">Comanda</a>
                                 </p>
                             </div>
                         </div>

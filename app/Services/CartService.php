@@ -61,9 +61,9 @@ class CartService {
 
     function getTotal(): float {
         return $this->cart->items->reduce(function ($carry, $item) {
-            $carry += $item->qty * $item->price;
-            return $carry;
-        });
+                    $carry += $item->qty * $item->price;
+                    return $carry;
+                }) ?? 0;
     }
 
 }
