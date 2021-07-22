@@ -19,12 +19,12 @@ class Model extends BaseModel {
         return $enum;
     }
 
-    public function fill(array $attributes) {
+    public function fill(array $attributes) {\Log::info($attributes);
         foreach ($attributes as $key => $value)
             if ($value === 'null')
                 unset($attributes[$key]);
 
-        parent::fill($attributes);
+            parent::fill($attributes);
     }
 
     public function toArray() {
@@ -35,6 +35,20 @@ class Model extends BaseModel {
                 $array[$key] = $this->{$key};
 
         return $array;
+    }
+
+    /**
+     * Determine if the model or any of the given attribute(s) have been modified and save to db
+     *
+     * @param  array|string|null  $attributes
+     * @return bool
+     */
+    public function saveIfDirty($attributes = null) {
+        $isDirty = $this->isDirty($attributes);dd($isDirty);
+        if ($isDirty)
+            $this->save();
+
+        return $isDirty;
     }
 
 }

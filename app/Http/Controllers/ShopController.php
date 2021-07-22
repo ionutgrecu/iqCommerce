@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductCategory;
+use App\Services\AccountService;
 use App\Services\BreadcrumbsService;
 use App\Services\ProductCategoriesService;
 use App\Services\ProductsService;
 use Exception;
 use Illuminate\Http\Request;
+use Log;
 use function abort;
+use function ddd;
+use function redirect;
 use function slugToId;
 use function view;
 
@@ -55,7 +60,7 @@ class ShopController extends Controller {
         try {
             $this->params['related'] = $categoryService->setProductExcludeId($prodId)->getProducts(limit: 4);
         } catch (Exception $ex) {
-            \Log::error(__FILE__ . '@' . __LINE__ . ': ' . $ex->getMessage());
+            Log::error(__FILE__ . '@' . __LINE__ . ': ' . $ex->getMessage());
         }
 
         $this->categoryToBreadcrumb($category, $breadcrumbService);
@@ -64,7 +69,12 @@ class ShopController extends Controller {
         return view('shop.product', $this->params);
     }
 
-    private function categoryToBreadcrumb(\App\Models\ProductCategory $category, BreadcrumbsService $breadcrumbService) {
+    function productToCart($catSlug, $prodSlud, Request $request, AccountService $accountService) {
+        dd($accountService);
+        return redirect($request->url());
+    }
+
+    private function categoryToBreadcrumb(ProductCategory $category, BreadcrumbsService $breadcrumbService) {
         foreach ($category->parents as $parent)
             $breadcrumbService->addBreadcrumb($parent->name, $parent->name, $parent->getUrl());
         $breadcrumbService->addBreadcrumb($category->name, $category->name, $category->getUrl());

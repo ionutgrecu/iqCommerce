@@ -31,5 +31,6 @@ Route::group(['middleware' => 'web'], function() {
     Route::group(['prefix' => 'shop','name'=>'shop.'], function() {
         Route::get('/{cat_slug}', [ShopController::class, 'category'])->name('shop.category');
         Route::get('/{cat_slug}/{prod_slug}', [ShopController::class, 'product'])->name('shop.product');
+        Route::post('/{cat_slug}/{prod_slug}', [ShopController::class, 'productToCart'])->name('shop.product-cart');
     });
 });

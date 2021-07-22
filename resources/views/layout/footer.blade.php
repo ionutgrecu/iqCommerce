@@ -28,9 +28,18 @@
                         </h3>
                         <div class="menu-my-account-container">
                             <ul class="nav_menu">
+                                @auth
+                                <li>
+                                    <a href="<?= route('login') ?>"><?= auth()->user()->name?></a>
+                                </li>
+                                @endauth
+                                
+                                @guest
                                 <li>
                                     <a href="<?= route('login') ?>">Login</a>
                                 </li>
+                                @endguest
+                                
                                 <li>
                                     <a href="#">Cos cumparaturi</a>
                                 </li>

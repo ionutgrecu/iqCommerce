@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="col-xs-12 col-md-5">
-                <div class="header-search">
+<!--                <div class="header-search">
                     <div class="widget bootexpert widget_product_search">
                         <form method="get" id="searchform" action="#">
                             <div>
@@ -20,17 +20,17 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div>-->
             </div>
             <div class="col-xs-12 col-md-2">
                 <div class="widget bootexpert widget_shopping_cart">
-                    <h2 class="widgettitle">Contul meu</h2>
+                    <h2 class="widgettitle"><?= Auth::id()?auth()->user()->name:'Contul meu'?></h2>
                     <div class="widget_shopping_cart_content">
                         <div class="cart-toggler">
                             <a href="">
                                 <span class="mini-cart-link">
                                     <i class="fas fa-user"></i>
-                                    <span class="cart-title">Contul meu</span>
+                                    <span class="cart-title"><?= Auth::id()?auth()->user()->name:'Contul meu'?></span>
                                 </span>
                             </a>
                         </div>

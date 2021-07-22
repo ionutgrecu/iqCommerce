@@ -34,6 +34,7 @@
                                     </p>
                                 </div>
                                 <form class="cart" method="post" enctype='multipart/form-data'>
+                                    <?= csrf_field()?>
                                     <div class="quantity">
                                         <input type="number" name="qty" value="1" title="Qty" class="input-text qty text" size="4" />
                                     </div>
