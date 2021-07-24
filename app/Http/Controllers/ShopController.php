@@ -12,7 +12,9 @@ use Exception;
 use Illuminate\Http\Request;
 use Log;
 use function abort;
+use function auth;
 use function redirect;
+use function session;
 use function slugToId;
 use function view;
 
@@ -86,9 +88,14 @@ class ShopController extends Controller {
 
         return redirect()->back();
     }
-    
-    function cartCheckout(Request $request,CartService $cartService){
-        if(!auth()->user()){session()->put('after_login',$request->url());return redirect()->route('login');}
+
+    function cartCheckout(Request $request, CartService $cartService) {
+        if (!auth()->user()) {
+            session()->put('after_login', $request->url());
+            return redirect()->route('login');
+        }
+        
+        return view('shop.checkout');
     }
 
     private function categoryToBreadcrumb(ProductCategory $category, BreadcrumbsService $breadcrumbService) {

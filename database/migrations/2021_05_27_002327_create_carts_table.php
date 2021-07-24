@@ -16,8 +16,6 @@ class CreateCartsTable extends Migration {
             $table->id();
             $table->string('session_id')->index();
             $table->bigInteger('user_id')->unsigned()->nullable();
-            $table->enum('status', ['new', 'accepted', 'rejected', 'processed', 'delivered', 'reverted'])->default('new');
-            $table->enum('status_paid', ['paid', 'unpaid', 'pending', 'refunded'])->default('unpaid');
             $table->timestamps();
         });
 
