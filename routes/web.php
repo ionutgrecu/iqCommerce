@@ -36,9 +36,4 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/{cat_slug}/{prod_slug}', [ShopController::class, 'product'])->name('shop.product');
         Route::post('/{cat_slug}/{prod_slug}', [ShopController::class, 'addToCart'])->name('shop.add-cart');
     });
-
-    Route::group(['prefix' => 'user', 'name' => 'user.'], function () {
-        Route::get('/login', [UserController::class, 'login'])->name('user.login');
-        Route::get('register', [UserController::class, 'register'])->name('user.register');
-    });
 });

@@ -573,16 +573,6 @@
         //     //$(this).countdown('stop');
         // });
 
-        //Checkout Page Login
-        $('.showlogin').on('click', function () {
-            $('#checkoutlogin').toggleClass('checkout-login', 700, 'easeOutSine');
-        });
-
-        //Checkout Page Coupon
-        $('.showcoupon').on('click', function () {
-            $('#checkoutcoupon').toggleClass('checkoutcoupon', 600, 'easeOutSine');
-        });
-
         //Shop toolbar sorting
         $('.toolbar .orderby').chosen({
             disable_search: true,

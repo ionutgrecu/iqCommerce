@@ -8,7 +8,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-4">
+            <div class="col-xs-12 col-md-2">
 <!--                <div class="header-search">
                     <div class="widget bootexpert widget_product_search">
                         <form method="get" id="searchform" action="#">
@@ -24,7 +24,6 @@
             </div>
             <div class="col-xs-12 col-md-2">
                 <div class="widget bootexpert widget_shopping_cart">
-                    <h2 class="widgettitle"><?= Auth::id()?auth()->user()->name:'Contul meu'?></h2>
                     <div class="widget_shopping_cart_content">
                         <div class="cart-toggler">
                             <a href="">
@@ -37,6 +36,27 @@
                     </div>
                 </div>
             </div>
+            
+            <?php if(Auth::id()){?>
+                <div class="col-xs-12 col-md-2">
+                    <div class="widget bootexpert widget_shopping_cart">
+                        <div class="widget_shopping_cart_content">
+                            <div class="cart-toggler">
+                                <form method="post" action="<?=route('logout')?>">
+                                    <a href="#" onclick="$(this).closest('form').submit();">
+                                        <span class="mini-cart-link">
+                                            <i class="fas fa-sign-out-alt"></i>
+                                            <span class="cart-title">Iesire cont</span>
+                                        </span>
+                                    </a>
+                                    <?=csrf_field()?>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php }?>
+            
             <div class="col-xs-12 col-md-3">
                 <div class="widget bootexpert widget_shopping_cart" id="shopping_cart">
                     <h2 class="widgettitle">Cosul de cumparaturi</h2>
