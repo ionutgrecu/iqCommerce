@@ -31,7 +31,8 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::group(['prefix' => 'shop', 'name' => 'shop.'], function () {
         Route::get('/remove_cart/{item_id}', [ShopController::class, 'removeFromCart'])->name('shop.remove-cart');
-        Route::get('/cart_checkout', [ShopController::class, 'cartCheckout'])->name('shop.cart-checkout');
+        Route::get('cart_checkout', [ShopController::class, 'cartCheckout'])->middleware('auth')->name('shop.cart-checkout');
+        Route::post('cart_checkout', [ShopController::class, 'postCartCheckout'])->middleware('auth')->name('shop.cart-checkout');
         Route::get('/{cat_slug}', [ShopController::class, 'category'])->name('shop.category');
         Route::get('/{cat_slug}/{prod_slug}', [ShopController::class, 'product'])->name('shop.product');
         Route::post('/{cat_slug}/{prod_slug}', [ShopController::class, 'addToCart'])->name('shop.add-cart');

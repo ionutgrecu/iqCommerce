@@ -90,12 +90,23 @@ class ShopController extends Controller {
     }
 
     function cartCheckout(Request $request, CartService $cartService) {
-        if (!auth()->user()) {
-            session()->put('after_login', $request->url());
-            return redirect()->route('login');
+        return view('shop.checkout');
+    }
+    
+    function postCartCheckout(\App\Http\Requests\CartCheckoutRequest $request, CartService $cartService){
+        if($request->input('store_account')){
+            $user= \Auth::user();
+            $user->fill([
+                'name'=>$request->input('name'),
+                'phone'=>$request->input('phone'),
+                'delivery_address'=>$request->input('delivery_address'),
+            ]);
+            $user->save();
         }
         
-        return view('shop.checkout');
+        $cartService->order($request);
+        
+        return view('shop.checkout_done');
     }
 
     private function categoryToBreadcrumb(ProductCategory $category, BreadcrumbsService $breadcrumbService) {

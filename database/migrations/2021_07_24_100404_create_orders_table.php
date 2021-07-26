@@ -28,8 +28,7 @@ class CreateOrdersTable extends Migration {
             $table->string('name',255);
             $table->string('email',255);
             $table->string('phone',255);
-            $table->string('shipping_address');
-            $table->string('invoicing_address');
+            $table->string('delivery_address');
             $table->decimal('amount', 7, 2)->unsigned();
             
             $table->timestamps();

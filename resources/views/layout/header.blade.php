@@ -97,9 +97,11 @@
                                         <span class="amount"><?=$cartService->getTotal()?> LEI</span>
                                     </span>
                                 </p>
+                                <?php if($cartService->countItems()){?>
                                 <p class="buttons">
                                     <a class="button" href="<?=route('shop.cart-checkout')?>">Comanda</a>
                                 </p>
+                                <?php }?>
                             </div>
                         </div>
                     </div>
