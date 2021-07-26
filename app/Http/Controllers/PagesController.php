@@ -8,11 +8,11 @@ class PagesController extends Controller {
 
     function index() {
 //        dd($this->data);
-        return view('home', $this->params);
+        return view('home');
     }
 
     function about() {
-        return 'about';
+        return view('about');
     }
 
     function contact() {
