@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddToCartRequest;
+use App\Models\ProductCategory;
 use App\Services\BreadcrumbsService;
+use App\Services\CartService;
 use App\Services\ProductCategoriesService;
 use App\Services\ProductsService;
 use Exception;
 use Illuminate\Http\Request;
+use Log;
 use function abort;
+use function auth;
+use function redirect;
+use function session;
 use function slugToId;
 use function view;
 
@@ -55,7 +62,7 @@ class ShopController extends Controller {
         try {
             $this->params['related'] = $categoryService->setProductExcludeId($prodId)->getProducts(limit: 4);
         } catch (Exception $ex) {
-            \Log::error(__FILE__ . '@' . __LINE__ . ': ' . $ex->getMessage());
+            Log::error(__FILE__ . '@' . __LINE__ . ': ' . $ex->getMessage());
         }
 
         $this->categoryToBreadcrumb($category, $breadcrumbService);
@@ -64,7 +71,45 @@ class ShopController extends Controller {
         return view('shop.product', $this->params);
     }
 
-    private function categoryToBreadcrumb(\App\Models\ProductCategory $category, BreadcrumbsService $breadcrumbService) {
+    function addToCart($catSlug, $prodSlud, AddToCartRequest $request, ProductsService $productService, CartService $cartService) {
+        try {
+            $product = $productService->find($request->input('product_id'))->getItem();
+        } catch (Exception $ex) {
+            abort($ex->getCode(), $ex->getMessage());
+        }
+
+        $cartService->addToCart($product, $request->input('qty'));
+
+        return redirect($request->url())->with('message', "Produsul &quot;{$product->name}&quot; a fost adaugat in cos.");
+    }
+
+    function removeFromCart($cartItemId, CartService $cartService) {
+        $cartService->removeFromCart((int) $cartItemId);
+
+        return redirect()->back();
+    }
+
+    function cartCheckout(Request $request, CartService $cartService) {
+        return view('shop.checkout');
+    }
+    
+    function postCartCheckout(\App\Http\Requests\CartCheckoutRequest $request, CartService $cartService){
+        if($request->input('store_account')){
+            $user= \Auth::user();
+            $user->fill([
+                'name'=>$request->input('name'),
+                'phone'=>$request->input('phone'),
+                'delivery_address'=>$request->input('delivery_address'),
+            ]);
+            $user->save();
+        }
+        
+        $cartService->order($request);
+        
+        return view('shop.checkout_done');
+    }
+
+    private function categoryToBreadcrumb(ProductCategory $category, BreadcrumbsService $breadcrumbService) {
         foreach ($category->parents as $parent)
             $breadcrumbService->addBreadcrumb($parent->name, $parent->name, $parent->getUrl());
         $breadcrumbService->addBreadcrumb($category->name, $category->name, $category->getUrl());

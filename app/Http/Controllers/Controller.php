@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\BreadcrumbsService;
+use App\Services\CartService;
 use App\Services\CategoryCharacteristicsService;
 use App\Services\ProductCategoriesService;
 use App\Services\ProductCharacteristicsService;
@@ -14,13 +15,13 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Route;
 use View;
+use function ___;
 use function app;
 use function class_basename;
 use function config;
 use function redirect;
 use function request;
 use function route;
-use function view;
 
 class Controller extends BaseController {
 
@@ -30,9 +31,9 @@ class Controller extends BaseController {
 
     protected $lang;
     protected $localeArr;
-    protected $params=[];
-    protected $path='';
-    protected $action='';
+    protected $params = [];
+    protected $path = '';
+    protected $action = '';
 
     function __construct(
             ProductCategoriesService $categoryService,
@@ -40,7 +41,8 @@ class Controller extends BaseController {
             ProductVendorsService $productVendorsService,
             ProductsService $productsService,
             ProductCharacteristicsService $ProductCharacteristicsService,
-            BreadcrumbsService $breadcrumbService) {
+            BreadcrumbsService $breadcrumbService,
+            CartService $cartService) {
 
         $this->params['error'] = request()->session()->pull('error');
         $this->params['success'] = request()->session()->pull('success');
@@ -54,8 +56,9 @@ class Controller extends BaseController {
         View::share('productsService', $productsService);
         View::share('ProductCharacteristicsService', $ProductCharacteristicsService);
         View::share('breadcrumbService', $breadcrumbService);
+        View::share('cartService', $cartService);
 
-        if (Route::current()->parameters['wildcard']??null) {
+        if (Route::current()->parameters['wildcard'] ?? null) {
             $wildcard = Route::current()->parameters['wildcard'];
             $get = explode('/', $wildcard);
 
@@ -76,7 +79,7 @@ class Controller extends BaseController {
             }
             $this->path = implode('/', $pathArr);
         }
-        if (!($this->params[0]??null)) {
+        if (!($this->params[0] ?? null)) {
             list($controller, $action) = explode('@', Route::currentRouteAction());
             $controllerArr = explode('\\', $controller);
             $this->params['controller'] = array_pop($controllerArr);
@@ -95,7 +98,7 @@ class Controller extends BaseController {
 
         $this->setPageTitle(config('app.name'));
         $this->setPageDescription(config('app.description'));
-        
+
         \View::share('lang', $this->params['lang']);
         \View::share('meta', $this->params['meta']);
     }

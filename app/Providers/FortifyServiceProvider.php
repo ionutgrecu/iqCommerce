@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * https://dev.to/jasminetracey/laravel-8-with-bootstrap-livewire-and-fortify-5d33
+ */
+
 namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
@@ -12,7 +16,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Fortify;
+use Symfony\Component\HttpFoundation\Response;
+use function redirect;
 use function view;
 
 class FortifyServiceProvider extends ServiceProvider {
@@ -23,7 +30,13 @@ class FortifyServiceProvider extends ServiceProvider {
      * @return void
      */
     public function register() {
-        //
+        $this->app->instance(LoginResponse::class, new class implements LoginResponse {
+
+            public function toResponse($request): Response {
+                $afterLogin = \Request::session()->pull('after_login', RouteServiceProvider::HOME);
+                return redirect($afterLogin);
+            }
+        });
     }
 
     /**

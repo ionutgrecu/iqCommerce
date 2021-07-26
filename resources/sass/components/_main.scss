@@ -5189,7 +5189,7 @@ legend {
                     }
 
                     &.product-name {
-                        width: 550px;
+                        width: 50%;
 
                         a {
                             font-size: 14px;
@@ -5212,6 +5212,8 @@ legend {
                             }
                         }
                     }
+                    
+                    
 
                     &.product-price {
                         font-size: 14px;
@@ -5221,6 +5223,14 @@ legend {
                         font-size: 14px;
                         font-weight: bold;
                     }
+                }
+                
+                .product-name {
+                    text-align: left;
+                }
+                
+                .product-total{
+                    text-align: right;
                 }
 
                 .cart_item:hover {

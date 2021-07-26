@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider {
         app()->singleton(BreadcrumbsService::class, function ($app) {
             return new BreadcrumbsService();
         });
-
+        
         Paginator::defaultView('vendor.pagination.default');
     }
 
