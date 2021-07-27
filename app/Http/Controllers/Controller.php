@@ -15,7 +15,6 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Route;
 use View;
-use function ___;
 use function app;
 use function class_basename;
 use function config;

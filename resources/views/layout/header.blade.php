@@ -83,7 +83,7 @@
                                             <a title="Sterge din cos" class="remove" href="<?=route('shop.remove-cart',['item_id'=>$item->id])?>">
                                                 <i class="fa fa-times-circle"></i>
                                             </a>
-                                            <a href="" class="product-name"><?=$item->product_name?>&nbsp;</a>
+                                            <a href="<?=$item->product->getUrl()?>" class="product-name"><?=$item->product_name?>&nbsp;</a>
                                             <span class="quantity">
                                                 <span class="amount"><?=$item->price?> LEI</span>
                                             </span>

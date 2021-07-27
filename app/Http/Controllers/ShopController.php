@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddToCartRequest;
+use App\Http\Requests\CartCheckoutRequest;
 use App\Models\ProductCategory;
 use App\Services\BreadcrumbsService;
 use App\Services\CartService;
 use App\Services\ProductCategoriesService;
 use App\Services\ProductsService;
+use Auth;
 use Exception;
 use Illuminate\Http\Request;
 use Log;
 use function abort;
-use function auth;
 use function redirect;
-use function session;
 use function slugToId;
 use function view;
 
@@ -92,20 +92,20 @@ class ShopController extends Controller {
     function cartCheckout(Request $request, CartService $cartService) {
         return view('shop.checkout');
     }
-    
-    function postCartCheckout(\App\Http\Requests\CartCheckoutRequest $request, CartService $cartService){
-        if($request->input('store_account')){
-            $user= \Auth::user();
+
+    function postCartCheckout(CartCheckoutRequest $request, CartService $cartService) {
+        if ($request->input('store_account')) {
+            $user = Auth::user();
             $user->fill([
-                'name'=>$request->input('name'),
-                'phone'=>$request->input('phone'),
-                'delivery_address'=>$request->input('delivery_address'),
+                'name' => $request->input('name'),
+                'phone' => $request->input('phone'),
+                'delivery_address' => $request->input('delivery_address'),
             ]);
             $user->save();
         }
-        
+
         $cartService->order($request);
-        
+
         return view('shop.checkout_done');
     }
 

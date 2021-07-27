@@ -27,7 +27,6 @@ Route::group(['middleware' => 'web'], function () {
 //    });
     Route::get('/', [PagesController::class, 'index'])->name('home');
     Route::get('despre-proiect', [PagesController::class, 'about'])->name('home.about');
-    Route::get('contact', [PagesController::class, 'contact'])->name('home.contact');
 
     Route::group(['prefix' => 'shop', 'name' => 'shop.'], function () {
         Route::get('remove_cart/{item_id}', [ShopController::class, 'removeFromCart'])->name('shop.remove-cart');

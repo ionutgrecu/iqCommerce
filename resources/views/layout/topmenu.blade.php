@@ -38,13 +38,6 @@
                             </span>
                         </a>
                     </li>
-                    <li class="default_dropdown drop_to_right children-menu">
-                        <a href="<?= route('home.contact') ?>" class="item_link ">
-                            <span class="link_content">
-                                <span class="link_text">Contact</span>
-                            </span>
-                        </a>
-                    </li>
                 </ul>
             </nav>
             <!-- /class="menu_inner" -->
@@ -76,9 +69,6 @@
                 </li>
                 <li>
                     <a href="<?= route('home.about') ?>">Despre proiect</a>
-                </li>
-                <li>
-                    <a href="<?= route('home.contact') ?>">Contact</a>
                 </li>
             </ul>
         </nav>

@@ -20,7 +20,7 @@
                     <div class="gridview">
                         <div class="gridview-inner">
                             <h2 class="product-name">
-                                <a href=""><?= $item->name ?></a>
+                                <a href="<?= $item->getUrl() ?>"><?= $item->name ?></a>
                             </h2>
                             <div class="price-box">
                                 <del>

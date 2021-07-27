@@ -34,7 +34,6 @@ class CartService {
 
     function addToCart(Product $product, float $qty) {
         $cartItem = CartItem::firstOrNew([
-                    'status' => 'new',
                     'cart_id' => $this->cart->id,
                     'product_id' => $product->id,
         ]);
@@ -46,6 +45,7 @@ class CartService {
         ]);
 
         $cartItem->save();
+        $this->cart->refresh();
     }
 
     function removeFromCart(int $cartItemId) {
