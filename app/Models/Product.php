@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cache;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\JoinClause;
 use Str;
 use function asset;
+use function config;
 use function public_path;
 use function route;
 
@@ -69,7 +71,11 @@ class Product extends Model {
         if (!$this->price_min > 0 || $this->price_min >= $this->price)
             return $this->price;
 
-        return max($this->price * 0.98, $this->min_price);
+        $cacheKey = __FUNCTION__ . $this->id;
+        return Cache::remember($cacheKey, config('cache.discount'), function () {
+                    $discount = 1 - ((100 - rand(($this->price_min / $this->price) * 100, 99)) / 100);
+                    return max($this->price * $discount, $this->min_price);
+                });
     }
 
     public function scopeFilterBy(Builder $q, array $filters = []) {
