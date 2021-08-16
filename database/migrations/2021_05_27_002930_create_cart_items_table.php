@@ -30,7 +30,7 @@ class CreateCartItemsTable extends Migration {
         });
 
         DB::statement("ALTER TABLE `{$table}` ADD CONSTRAINT `FK_{$table}_{$tableCart}` FOREIGN KEY (`cart_id`) REFERENCES `{$tableCart}` (`id`) ON UPDATE CASCADE ON DELETE CASCADE");
-        DB::statement("ALTER TABLE `{$table}` ADD CONSTRAINT `FK_{$table}_{$tableProducts}` FOREIGN KEY (`product_id`) REFERENCES `{$tableProducts}` (`id`) ON UPDATE CASCADE ON DELETE SET NULL");
+        DB::statement("ALTER TABLE `{$table}` ADD CONSTRAINT `FK_{$table}_{$tableProducts}` FOREIGN KEY (`product_id`) REFERENCES `{$tableProducts}` (`id`) ON UPDATE CASCADE ON DELETE CASCADE");
     }
 
     /**

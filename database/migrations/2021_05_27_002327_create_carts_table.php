@@ -21,7 +21,8 @@ class CreateCartsTable extends Migration {
             $table->timestamps();
         });
 
-        DB::statement("ALTER TABLE `carts` ADD CONSTRAINT `FK_carts_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE ON DELETE CASCADE");
+        DB::statement("ALTER TABLE `carts` ADD CONSTRAINT `FK_carts_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE ON DELETE SET NULL");
+        DB::statement("ALTER TABLE `carts` ADD CONSTRAINT `FK_carts_sessions` FOREIGN KEY (`session_id`) REFERENCES `sessions` (`id`) ON UPDATE CASCADE ON DELETE SET NULL");
     }
 
     /**
